@@ -1,11 +1,9 @@
 <?php
-$type = 2;
+$type = 1;
 
-/*ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 session_start();
 //unset($_SESSION);
-
-//This is a test line
 
 require_once 'google-api-php-client/src/Google/Client.php';
 require_once 'google-api-php-client/src/Google/Service/Calendar.php';
@@ -45,23 +43,31 @@ if (isset($_SESSION['token'])){
 //EXECUTION
 try{
     $service = new Google_Service_Calendar($client);
-    $calendarList = $service->calendarList->listCalendarList();
-    echo "<pre>";
-    print_r($calendarList);
-    echo "</pre>";
+    $calendarListEntry = $service->calendarList->get('senior.project705@gmail.com');
+
+    echo 'Calendar Summary: '.$calendarListEntry->getSummary().'<br/>';
     
+    $events = $service->events->listEvents('senior.project705@gmail.com');
+
+    $count =1;
     while(true) {
-      foreach ($calendarList->getItems() as $calendarListEntry) {
-        echo $calendarListEntry->getSummary();
+      foreach ($events->getItems() as $event) {
+        echo "<strong>Event {$count}</strong>:<br/>";
+        echo 'Event Name: '.$event->getSummary().'<br/>';
+        echo 'Event Description: '.$event->getDescription().'<br/>';
+        echo 'Event Kind: '.$event->getKind().'<br/><br/>';
+        $count++;
       }
-      $pageToken = $calendarList->getNextPageToken();
+      $pageToken = $events->getNextPageToken();
       if ($pageToken) {
         $optParams = array('pageToken' => $pageToken);
-        $calendarList = $service->calendarList->listCalendarList($optParams);
+        //$events = $service->events->listEvents('senior.project705@gmail.com', $optParams);
+        
       } else {
         break;
       }
     }
+    
 }catch(Exception $e){
     echo $e->getMessage();
 }
@@ -137,7 +143,5 @@ try{
 }
 //END OTHER
 }
-?>
-}*/
-echo "ScheduleIt"
+//echo "ScheduleIt"
 ?>
