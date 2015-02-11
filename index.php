@@ -94,7 +94,7 @@ if(isset($_REQUEST['event1desc'])&&isset($_REQUEST['eventId'])){
 //END SERVICE SET UP
 
 }else{
-
+/*
 
 //OTHER SET UP
 require_once 'google-api-php-client/autoload.php';
@@ -161,7 +161,7 @@ try{
 }catch(Exception $e){
     echo $e->getMessage();
 }
-//END OTHER
+//END OTHER*/
 }
 
 function fmt_gdate( $gdate ) {
