@@ -43,11 +43,11 @@ if (isset($_SESSION['token'])){
 //EXECUTION
 try{
     $service = new Google_Service_Calendar($client);
-    $calendarListEntry = $service->calendarList->get('senior.project705@gmail.com');
+    $calendarListEntry = $service->calendarList->get('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
 
     echo 'Calendar Summary: '.htmlspecialchars($calendarListEntry->getSummary()).'<br/><hr/>';
     
-    $events = $service->events->listEvents('senior.project705@gmail.com');
+    $events = $service->events->listEvents('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
 
     $count =1;
     while(true) {
@@ -83,9 +83,9 @@ if(isset($_REQUEST['event1desc'])&&isset($_REQUEST['eventId'])){
         echo '<p>Choose An Event!</p>';
     }else{
         $service = new Google_Service_Calendar($client);
-        $event = $service->events->get('senior.project705@gmail.com', $id);
+        $event = $service->events->get('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com', $id);
         $event->setDescription($desc);
-        $updatedEvent = $service->events->update('senior.project705@gmail.com',$id, $event);
+        $updatedEvent = $service->events->update('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com',$id, $event);
         header('Location: .');
     }
 }
@@ -183,7 +183,7 @@ function fmt_gdate( $gdate ) {
 <body>
     <?php
         $service = new Google_Service_Calendar($client);        
-        $events = $service->events->listEvents('senior.project705@gmail.com');
+        $events = $service->events->listEvents('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
     ?>  
 
     <form action="." method="POST" name="UpdateEventForm">
