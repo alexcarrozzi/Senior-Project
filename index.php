@@ -2,8 +2,13 @@
 $type = 2;
 
 ini_set('display_errors', 1);
+=======
+/*ini_set('display_errors', 1);
+>>>>>>> 372b5b0d0a70e4e8d50c1242abc5c65e77655c6f
 session_start();
 //unset($_SESSION);
+
+//This is a test line
 
 require_once 'google-api-php-client/src/Google/Client.php';
 require_once 'google-api-php-client/src/Google/Service/Calendar.php';
@@ -132,7 +137,12 @@ try{
     }
 }catch(Exception $e){
     echo $e->getMessage();
+<<<<<<< HEAD
 }
 //END OTHER
 }
+?>
+=======
+}*/
+echo "ScheduleIt"
 ?>
