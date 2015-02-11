@@ -45,7 +45,7 @@ try{
     $service = new Google_Service_Calendar($client);
     $calendarListEntry = $service->calendarList->get('senior.project705@gmail.com');
 
-    echo 'Calendar Summary: '.$calendarListEntry->getSummary().'<br/>';
+    echo 'Calendar Summary: '.$calendarListEntry->getSummary().'<br/><hr/>';
     
     $events = $service->events->listEvents('senior.project705@gmail.com');
 
@@ -55,7 +55,7 @@ try{
         echo "<strong>Event {$count}</strong>:<br/>";
         echo 'Event Name: '.$event->getSummary().'<br/>';
         echo 'Event Description: '.$event->getDescription().'<br/>';
-        echo 'Event Kind: '.$event->getKind().'<br/><br/>';
+        echo 'Event Time: '.fmt_gdate($event->getStart()).' &ndash; '.fmt_gdate($event->getEnd()).'<br/><hr/>';
         $count++;
       }
       $pageToken = $events->getNextPageToken();
@@ -71,6 +71,8 @@ try{
 }catch(Exception $e){
     echo $e->getMessage();
 }
+
+
 //END SERVICE SET UP
 
 }else{
@@ -143,5 +145,14 @@ try{
 }
 //END OTHER
 }
+
+function fmt_gdate( $gdate ) {
+  if ($val = $gdate->getDateTime()) {
+    return (new DateTime($val))->format( 'd/m/Y H:i' );
+  } else if ($val = $gdate->getDate()) {
+    return (new DateTime($val))->format( 'd/m/Y' ) . ' (all day)';
+  }
+}
+
 //echo "ScheduleIt"
 ?>
