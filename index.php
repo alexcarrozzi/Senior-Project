@@ -45,7 +45,7 @@ try{
     $service = new Google_Service_Calendar($client);
     $calendarListEntry = $service->calendarList->get('senior.project705@gmail.com');
 
-    echo 'Calendar Summary: '.$calendarListEntry->getSummary().'<br/><hr/>';
+    echo 'Calendar Summary: '.htmlspecialchars($calendarListEntry->getSummary()).'<br/><hr/>';
     
     $events = $service->events->listEvents('senior.project705@gmail.com');
 
@@ -53,11 +53,11 @@ try{
     while(true) {
       foreach ($events->getItems() as $event) {
         echo "<strong>Event {$count}</strong>:<br/>";
-        echo 'Event Name: '.$event->getSummary().'<br/>';
-        echo 'Event Updated Time: '.$event->getUpdated().'<br/>';
-        echo 'Event Description: '.$event->getDescription().'<br/>';
-        echo 'Event ID: '.$event->getId().'<br/>';
-        echo 'Event Time: '.fmt_gdate($event->getStart()).' &ndash; '.fmt_gdate($event->getEnd()).'<br/><hr/>';
+        echo 'Event Name: '.htmlspecialchars($event->getSummary()).'<br/>';
+        echo 'Event Updated Time: '.htmlspecialchars($event->getUpdated()).'<br/>';
+        echo 'Event Description: '.htmlspecialchars($event->getDescription()).'<br/>';
+        echo 'Event ID: '.htmlspecialchars($event->getId()).'<br/>';
+        echo 'Event Time: '.htmlspecialchars(fmt_gdate($event->getStart())).' &ndash; '.htmlspecialchars(fmt_gdate($event->getEnd())).'<br/><hr/>';
         $count++;
       }
       $pageToken = $events->getNextPageToken();
