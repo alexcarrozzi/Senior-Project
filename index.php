@@ -3,6 +3,8 @@ ini_set('display_errors', 1);
 session_start();
 //unset($_SESSION);
 
+//This is a test line
+
 require_once 'google-api-php-client/src/Google/Client.php';
 require_once 'google-api-php-client/src/Google/Service/Calendar.php';
 
