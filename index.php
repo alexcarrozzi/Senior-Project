@@ -54,7 +54,9 @@ try{
       foreach ($events->getItems() as $event) {
         echo "<strong>Event {$count}</strong>:<br/>";
         echo 'Event Name: '.$event->getSummary().'<br/>';
+        echo 'Event ID: '.$event->getUpdated().'<br/>';
         echo 'Event Description: '.$event->getDescription().'<br/>';
+        echo 'Event ID: '.$event->getId().'<br/>';
         echo 'Event Time: '.fmt_gdate($event->getStart()).' &ndash; '.fmt_gdate($event->getEnd()).'<br/><hr/>';
         $count++;
       }
@@ -70,6 +72,22 @@ try{
     
 }catch(Exception $e){
     echo $e->getMessage();
+}
+
+if(isset($_REQUEST['event1desc'])&&isset($_REQUEST['eventId'])){
+    $desc = $_REQUEST['event1desc'];
+    $id = $_REQUEST['eventId'];
+    if($desc == ''){
+        echo '<p>Enter a Description!</p>';
+    }elseif($id==''){
+        echo '<p>Choose An Event!</p>';
+    }else{
+        $service = new Google_Service_Calendar($client);
+        $event = $service->events->get('senior.project705@gmail.com', $id);
+        $event->setDescription($desc);
+        $updatedEvent = $service->events->update('senior.project705@gmail.com',$id, $event);
+        header('Location: .');
+    }
 }
 
 
@@ -155,6 +173,28 @@ function fmt_gdate( $gdate ) {
     return ($date->format( 'd/m/Y' )). ' (all day)';
   }
 }
-
-//echo "ScheduleIt"
 ?>
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>ScheduleIt Home</title>
+</head>
+<body>
+    <?php
+        $service = new Google_Service_Calendar($client);        
+        $events = $service->events->listEvents('senior.project705@gmail.com');
+    ?>  
+
+    <form action="." method="POST" name="UpdateEventForm">
+        <?php foreach($events->getItems() as $event):?>
+        Update Event &ndash; <?= $event->getId(); ?>
+        <input type="radio" name="eventId" value="<?=$event->getId();?>"/><br/>
+        <?php endforeach; ?>
+        
+        New Description for Event
+        <input type="input" name="event1desc"/>
+        <input type="submit" value="Update Event"/>
+    </form>
+</body>
+</html>
