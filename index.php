@@ -148,9 +148,11 @@ try{
 
 function fmt_gdate( $gdate ) {
   if ($val = $gdate->getDateTime()) {
-    return (new DateTime($val))->format( 'd/m/Y H:i' );
+    $date = new DateTime($val);
+    return ($date->format( 'd/m/Y H:i' ));
   } else if ($val = $gdate->getDate()) {
-    return (new DateTime($val))->format( 'd/m/Y' ) . ' (all day)';
+    $date = new DateTime($val);
+    return ($date->format( 'd/m/Y' )). ' (all day)';
   }
 }
 
