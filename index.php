@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 1);
+/*ini_set('display_errors', 1);
 session_start();
 //unset($_SESSION);
 
@@ -86,5 +86,6 @@ try{
     
 }catch(Exception $e){
     echo $e->getMessage();
-}
+}*/
+echo "ScheduleIt"
 ?>
