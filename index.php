@@ -54,7 +54,7 @@ try{
       foreach ($events->getItems() as $event) {
         echo "<strong>Event {$count}</strong>:<br/>";
         echo 'Event Name: '.$event->getSummary().'<br/>';
-        echo 'Event ID: '.$event->getUpdated().'<br/>';
+        echo 'Event Updated Time: '.$event->getUpdated().'<br/>';
         echo 'Event Description: '.$event->getDescription().'<br/>';
         echo 'Event ID: '.$event->getId().'<br/>';
         echo 'Event Time: '.fmt_gdate($event->getStart()).' &ndash; '.fmt_gdate($event->getEnd()).'<br/><hr/>';
