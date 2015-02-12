@@ -18,9 +18,10 @@ if(isset($_REQUEST['fullname'])){
     }elseif($email==''){
         echo '<p>Enter your email</p>';
     }else{
-        $target_segment = $manager->getSegmentById($timeslot_id)['segment_time'];
-        $delete_event = $manager->getSegmentById($timeslot_id)['delete_event'];
-        print_r($manager->insert_segment('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com',$delete_event,$target_segment,"Name: $name\nEmail:$email"));
+        $info = $manager->getSegmentById($timeslot_id);
+        $target_segment = $info['segment'];
+        $delete_event = $info['delete_event'];
+        $manager->insert_segment('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com',$delete_event,$target_segment,$name,$email);
         header('Location: .');
     }
 }
@@ -33,7 +34,7 @@ if(isset($_REQUEST['fullname'])){
     <title>ScheduleIt Home</title>
 </head>
 <body>
-    <?php unset($_SESSION); ?>
+    <?php unset($_SESSION['segments']); ?>
     <form method="POST" action=".">
     <?php $i=0; ?>
     <?php foreach ($events->getItems() as $event):?>
@@ -68,9 +69,5 @@ if(isset($_REQUEST['fullname'])){
     <input type="text" name="email" />
     <input type="submit" value="Sign Up!" />
   </form>
-  
-  <pre>
-    <?php print_r($_SESSION) ?>
-  </pre>
 </body>
 </html>

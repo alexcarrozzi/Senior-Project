@@ -18,7 +18,7 @@
         //                        )
         
         //Ask about inserting student as attendee and email as attendeeEmail
-        public function insert_segment($calendar_id, $block_id, $target_segment, $desc){
+        public function insert_segment($calendar_id, $block_id, $target_segment, $name, $email){
             $block_event = $this->_service->events->get($calendar_id, $block_id);
             $block = array(fmt_gdate($block_event->getStart()),fmt_gdate($block_event->getEnd()));
         
@@ -54,13 +54,13 @@
           
             //Insert Actual Event
             $event = new Google_Service_Calendar_Event();
-            $event->setSummary('Advising Meeting');
+            $event->setSummary($name);
             $event->setLocation('My Office');
             $start = new Google_Service_Calendar_EventDateTime();
             $start->setDateTime(date(\DateTime::ATOM, $reserved_event[0]));
             $event->setStart($start);
             $end = new Google_Service_Calendar_EventDateTime();
-            $event->setDescription($desc);
+            $event->setDescription("Name: $name\nEmail:$email");
             $end->setDateTime(date(\DateTime::ATOM, $reserved_event[1]));
             $event->setEnd($end);
             //$attendee1 = new Google_Service_Calendar_EventAttendee();
@@ -82,9 +82,12 @@
         //eg: '1:2' would be the third segment of the second block
         public function getSegmentById($id){
             $split = explode(':',$id);
-            $segment = $_SESSION['segments'][$split[0]][$split[1]];
+            $i = $split[0];
+            $j = $split[1];
+
+            $segment = $_SESSION['segments'][$i][$j];
             $delete_event = $split[2];
-            return array("segment_time" => $segment,"delete_event" => $delete_event);
+            return array("segment" => $segment,"delete_event" => $delete_event);
         }
     }
 ?>
