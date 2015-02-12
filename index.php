@@ -5,6 +5,10 @@ ini_set('display_errors', 1);
 session_start();
 //unset($_SESSION);
 
+//My Libraries
+require_once 'utilities/segment_list.php';
+
+//Google Libraries
 require_once 'google-api-php-client/src/Google/Client.php';
 require_once 'google-api-php-client/src/Google/Service/Calendar.php';
 
@@ -14,7 +18,6 @@ const KEY_FILE = 'ScheduleIt-2b0035283339.p12';
 
 if($type==1){
 //SERVICE SET UP
-
 $client = new Google_Client();
 $client->setClientId(CLIENT_ID);
 $client->setApplicationName("ScheduleIt");
@@ -49,16 +52,24 @@ try{
     
     $events = $service->events->listEvents('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
 
-    $count =1;
+    $count =1;  
     while(true) {
       foreach ($events->getItems() as $event) {
+        $my_segments = new segment_list(fmt_gdate($event->getStart()),fmt_gdate($event->getEnd()));  
         echo "<strong>Event {$count}</strong>:<br/>";
         echo 'Event Name: '.htmlspecialchars($event->getSummary()).'<br/>';
         echo 'Event Updated Time: '.htmlspecialchars($event->getUpdated()).'<br/>';
         echo 'Event Description: '.htmlspecialchars($event->getDescription()).'<br/>';
         echo 'Event ID: '.htmlspecialchars($event->getId()).'<br/>';
-        echo 'Event Time: '.htmlspecialchars(fmt_gdate($event->getStart())).' &ndash; '.htmlspecialchars(fmt_gdate($event->getEnd())).'<br/><hr/>';
+        echo 'Block Time: '.htmlspecialchars(date('D F n\, Y',fmt_gdate($event->getStart()))).' '.htmlspecialchars(date('g:i',fmt_gdate($event->getStart()))).' &ndash; '.htmlspecialchars(date('g:i',fmt_gdate($event->getEnd()))).'<br/>';
+        $segs = $my_segments->getList();
+        $i=0;
+            foreach($segs as $segment){
+                $i++;
+                echo "Slot $i: ".date('D F n\, Y',$segment[0]).' <strong>'.date('g:i',$segment[0]).' &ndash; '.date('g:i',$segment[1]).'</strong><br/>';
+            }
         $count++;
+        echo '<hr/>';
       }
       $pageToken = $events->getNextPageToken();
       if ($pageToken) {
@@ -165,10 +176,10 @@ try{
 //END OTHER*/
 }
 
-function fmt_gdate( $gdate ) {
+function fmt_gdate($gdate) {
   if ($val = $gdate->getDateTime()) {
     $date = new DateTime($val);
-    return ($date->format( 'D\, F n Y g:i' ));
+    return ($date->format('U')); //'D\, F n Y g:i' 
   } else if ($val = $gdate->getDate()) {
     $date = new DateTime($val);
     return ($date->format( 'd/m/Y' )). ' (all day)';
