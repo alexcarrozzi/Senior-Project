@@ -63,7 +63,7 @@ try{
       $pageToken = $events->getNextPageToken();
       if ($pageToken) {
         $optParams = array('pageToken' => $pageToken);
-        //$events = $service->events->listEvents('senior.project705@gmail.com', $optParams);
+        //$events = $service->events->listEvents('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com', $optParams);
         
       } else {
         break;
@@ -74,17 +74,18 @@ try{
     echo $e->getMessage();
 }
 
-if(isset($_REQUEST['event1desc'])&&isset($_REQUEST['eventId'])){
-    $desc = $_REQUEST['event1desc'];
+if(isset($_REQUEST['fullname'])){
+    $name = $_REQUEST['fullname'];
+    $email = $_REQUEST['email'];
     $id = $_REQUEST['eventId'];
-    if($desc == ''){
-        echo '<p>Enter a Description!</p>';
-    }elseif($id==''){
-        echo '<p>Choose An Event!</p>';
+    if($name == ''){
+        echo '<p>Enter your full name</p>';
+    }elseif($email==''){
+        echo '<p>Enter your email</p>';
     }else{
         $service = new Google_Service_Calendar($client);
         $event = $service->events->get('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com', $id);
-        $event->setDescription($desc);
+        $event->setDescription("Student: {$name}\nEmail: {$email}");
         $updatedEvent = $service->events->update('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com',$id, $event);
         header('Location: .');
     }
@@ -167,7 +168,7 @@ try{
 function fmt_gdate( $gdate ) {
   if ($val = $gdate->getDateTime()) {
     $date = new DateTime($val);
-    return ($date->format( 'd/m/Y H:i' ));
+    return ($date->format( 'D\, F n Y g:i' ));
   } else if ($val = $gdate->getDate()) {
     $date = new DateTime($val);
     return ($date->format( 'd/m/Y' )). ' (all day)';
@@ -191,9 +192,10 @@ function fmt_gdate( $gdate ) {
         Update Event &ndash; <?= $event->getId(); ?>
         <input type="radio" name="eventId" value="<?=$event->getId();?>"/><br/>
         <?php endforeach; ?>
-        
-        New Description for Event
-        <input type="input" name="event1desc"/>
+        <br/>
+        <strong>Signup for a time</strong><br/>
+        Name: <input type="input" name="fullname"/><br/>
+        Email: <input type="input" name="email"/><br/>
         <input type="submit" value="Update Event"/>
     </form>
 </body>
