@@ -1,4 +1,6 @@
 <?php
+    define('OPEN_MESSAGE','Open Time');
+
     class Google_Event_Manager{
         //Google API Service
         private $_service;
@@ -29,7 +31,7 @@
             
             //Insert Open Events
             $event = new Google_Service_Calendar_Event();
-            $event->setSummary('Advising Meeting');
+            $event->setSummary(OPEN_MESSAGE);
             $event->setLocation('My Office');
             $start = new Google_Service_Calendar_EventDateTime();
             $start->setDateTime(date(\DateTime::ATOM, $open_event1[0]));
@@ -41,7 +43,7 @@
             $createdEvent1 = $this->_service->events->insert($calendar_id, $event);
             
             $event = new Google_Service_Calendar_Event();
-            $event->setSummary('Advising Meeting');
+            $event->setSummary(OPEN_MESSAGE);
             $event->setLocation('My Office');
             $start = new Google_Service_Calendar_EventDateTime();
             $start->setDateTime(date(\DateTime::ATOM, $open_event2[0]));
