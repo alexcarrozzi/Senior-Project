@@ -2,7 +2,7 @@
     //Constant for 30 minute segments
     define('DEFAULT_TIME',1800);
     
-    class segment_list{
+    class Block{
         
         //The main list of segments
         private $_list = array();
@@ -15,12 +15,11 @@
             $this->_start = $start_time;
             $this->_end = $end_time;
             $this->_seg_duration = $seg_duration;
-            
-            $this->_list = $this->segment_block(array($start_time,$end_time));
         }
         
         public function getList(){
-            return $this->_list;
+            $ret_list = $this->evenly_segment_block(array($this->_start,$this->_end));
+            return $ret_list;
         }
         
         public function setStartTime($start){
@@ -43,8 +42,9 @@
             $this->_seg_duration = $seg;
         }
         
+        //Evenly segments <empty> block for display
         //A block is an array('start_time', 'end_time')
-        private function segment_block($block){
+        private function evenly_segment_block($block){
             $segments = array();
             $unix_block = array($block[0],$block[1]);
             

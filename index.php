@@ -1,113 +1,30 @@
 <?php
-ini_set('display_errors', 1);
 session_start();
-//unset($_SESSION);
 
 //My Libraries
-require_once 'utilities/segment_list.php';
+require_once 'utilities/common.php';
+require_once 'utilities/block.php';
+require_once 'utilities/google_event_manager.php';
+require_once 'utilities/google_api_init.php';
 
-//Google Libraries
-require_once 'google-api-php-client/src/Google/Client.php';
-require_once 'google-api-php-client/src/Google/Service/Calendar.php';
-
-const CLIENT_ID = '191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk.apps.googleusercontent.com';
-const SERVICE_ACCOUNT_NAME = '191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk@developer.gserviceaccount.com';
-const KEY_FILE = 'ScheduleIt-2b0035283339.p12';
-
-//SERVICE SET UP
-$client = new Google_Client();
-$client->setClientId(CLIENT_ID);
-$client->setApplicationName("ScheduleIt");
-$client->setAccessType('offline');
-$client->setRedirectUri('http://localhost/Senior-Project/');
-$client->setScopes('https://www.googleapis.com/auth/calendar');
-
-if (isset($_SESSION['token'])) {
- $client->setAccessToken($_SESSION['token']);
-}
-
-$key = file_get_contents(KEY_FILE);
-
-if (isset($_SESSION['token'])){
-    $client->setAccessToken($_SESSION['token']);
-    //echo $_SESSION['token']; 
-} else {
-    $client->setAssertionCredentials(new Google_Auth_AssertionCredentials(
-        SERVICE_ACCOUNT_NAME,
-        array('https://www.googleapis.com/auth/calendar'),
-        $key,
-        'notasecret',
-        'http://oauth.net/grant_type/jwt/1.0/bearer')
-    );  
-}
-//EXECUTION
-try{
-    $service = new Google_Service_Calendar($client);
-    $calendarListEntry = $service->calendarList->get('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
-
-    echo 'Calendar Summary: '.htmlspecialchars($calendarListEntry->getSummary()).'<br/><hr/>';
-    
-    $events = $service->events->listEvents('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
-
-    $count =1;  
-    while(true) {
-      foreach ($events->getItems() as $event) {
-        $my_segments = new segment_list(fmt_gdate($event->getStart()),fmt_gdate($event->getEnd()));  
-        echo "<strong>Event {$count}</strong>:<br/>";
-        echo 'Event Name: '.htmlspecialchars($event->getSummary()).'<br/>';
-        echo 'Event Updated Time: '.htmlspecialchars($event->getUpdated()).'<br/>';
-        echo 'Event Description: '.htmlspecialchars($event->getDescription()).'<br/>';
-        echo 'Event ID: '.htmlspecialchars($event->getId()).'<br/>';
-        echo 'Block Time: '.htmlspecialchars(date('D F n\, Y',fmt_gdate($event->getStart()))).' '.htmlspecialchars(date('g:i',fmt_gdate($event->getStart()))).' &ndash; '.htmlspecialchars(date('g:i',fmt_gdate($event->getEnd()))).'<br/>';
-        $segs = $my_segments->getList();
-        $i=0;
-            foreach($segs as $segment){
-                $i++;
-                echo "Slot $i: ".date('D F n\, Y',$segment[0]).' <strong>'.date('g:i',$segment[0]).' &ndash; '.date('g:i',$segment[1]).'</strong><br/>';
-            }
-        $count++;
-        echo '<hr/>';
-      }
-      $pageToken = $events->getNextPageToken();
-      if ($pageToken) {
-        $optParams = array('pageToken' => $pageToken);
-        //$events = $service->events->listEvents('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com', $optParams);
-        
-      } else {
-        break;
-      }
-    }
-    
-}catch(Exception $e){
-    echo $e->getMessage();
-}
-
+//Handle Form Submissions
 if(isset($_REQUEST['fullname'])){
     $name = $_REQUEST['fullname'];
     $email = $_REQUEST['email'];
-    $id = $_REQUEST['eventId'];
+    $timeslot_id = $_REQUEST['timeslot_id'];
+    
     if($name == ''){
         echo '<p>Enter your full name</p>';
     }elseif($email==''){
         echo '<p>Enter your email</p>';
     }else{
-        $service = new Google_Service_Calendar($client);
-        $event = $service->events->get('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com', $id);
-        $event->setDescription("Student: {$name}\nEmail: {$email}");
-        $updatedEvent = $service->events->update('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com',$id, $event);
+        $target_segment = $manager->getSegmentById($timeslot_id)['segment_time'];
+        $delete_event = $manager->getSegmentById($timeslot_id)['delete_event'];
+        print_r($manager->insert_segment('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com',$delete_event,$target_segment,"Name: $name\nEmail:$email"));
         header('Location: .');
     }
 }
 
-function fmt_gdate($gdate) {
-  if ($val = $gdate->getDateTime()) {
-    $date = new DateTime($val);
-    return ($date->format('U')); //'D\, F n Y g:i' 
-  } else if ($val = $gdate->getDate()) {
-    $date = new DateTime($val);
-    return ($date->format( 'd/m/Y' )). ' (all day)';
-  }
-}
 ?>
 
 <!DOCTYPE HTML>
@@ -116,21 +33,44 @@ function fmt_gdate($gdate) {
     <title>ScheduleIt Home</title>
 </head>
 <body>
-    <?php
-        $service = new Google_Service_Calendar($client);        
-        $events = $service->events->listEvents('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
-    ?>  
-
-    <form action="." method="POST" name="UpdateEventForm">
-        <?php foreach($events->getItems() as $event):?>
-        Update Event &ndash; <?= $event->getId(); ?>
-        <input type="radio" name="eventId" value="<?=$event->getId();?>"/><br/>
-        <?php endforeach; ?>
-        <br/>
-        <strong>Signup for a time</strong><br/>
-        Name: <input type="input" name="fullname"/><br/>
-        Email: <input type="input" name="email"/><br/>
-        <input type="submit" value="Update Event"/>
-    </form>
+    <?php unset($_SESSION); ?>
+    <form method="POST" action=".">
+    <?php $i=0; ?>
+    <?php foreach ($events->getItems() as $event):?>
+        <?php if($event->getDescription() == 'open'):
+                $block = new Block(fmt_gdate($event->getStart()),fmt_gdate($event->getEnd()));
+        ?>
+                <br/>
+                <strong>Event            <?=$i+1?></strong>:                             <br/>
+                Event Name:              <?=htmlspecialchars($event->getSummary())?>     <br/>
+                Event Updated Time:      <?=htmlspecialchars($event->getUpdated())?>     <br/>
+                Event Description:       <?=htmlspecialchars($event->getDescription())?> <br/>
+                Event ID:                <?=htmlspecialchars($event->getId())?>          <br/>
+                Block Time:              <?=htmlspecialchars(date('D F n\, Y',fmt_gdate($event->getStart()))).' '.
+                                            htmlspecialchars(date('g:i',fmt_gdate($event->getStart()))).' &ndash; '.
+                                            htmlspecialchars(date('g:i',fmt_gdate($event->getEnd())))?>
+                                                                                         <br/><br/>
+                    <?php
+                    $segs = $block->getList();
+                    $j=0;
+                    ?>
+                    <?php foreach($segs as $segment):?>
+                        <?php $event_id = $event->getId(); ?>
+                        <input type="radio" name="timeslot_id" value="<?="$i:$j:$event_id"?>"/>
+                        Slot <?=($j+1).': '.date('D F n\, Y',$segment[0]).' <strong>'.date('g:i',$segment[0]).' &ndash; '.date('g:i',$segment[1])?></strong>
+                        <?php $_SESSION['segments'][$i][$j] = $segment;?>
+                        <br/>
+                    <?php $j++; endforeach; ?>
+                <hr/>
+        <?php endif; ?>
+  <?php $i++; endforeach; ?>
+    <input type="text" name="fullname" />
+    <input type="text" name="email" />
+    <input type="submit" value="Sign Up!" />
+  </form>
+  
+  <pre>
+    <?php print_r($_SESSION) ?>
+  </pre>
 </body>
 </html>
