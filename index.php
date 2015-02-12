@@ -65,8 +65,8 @@ if(isset($_REQUEST['fullname'])){
                 <hr/>
         <?php endif; ?>
   <?php $i++; endforeach; ?>
-    <input type="text" name="fullname" />
-    <input type="text" name="email" />
+    Name: <input type="text" name="fullname" /><br/>
+    Email: <input type="text" name="email" /><br/>
     <input type="submit" value="Sign Up!" />
   </form>
 </body>
