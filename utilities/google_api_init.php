@@ -34,8 +34,8 @@ if (isset($_SESSION['token'])){
         'http://oauth.net/grant_type/jwt/1.0/bearer')
     );  
 }
-//EXECUTION
 
+//EXECUTION
 $service = new Google_Service_Calendar($client);
 $calendarListEntry = $service->calendarList->get('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
 $events = $service->events->listEvents('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');

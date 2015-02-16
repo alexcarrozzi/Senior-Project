@@ -14,8 +14,10 @@ if(isset($_REQUEST['fullname'])){
     $timeslot_id = $_REQUEST['timeslot_id'];
     
     if($name == ''){
+        //TODO: Handle Errors
         echo '<p>Enter your full name</p>';
     }elseif($email==''){
+        //TODO: Handle Errors
         echo '<p>Enter your email</p>';
     }else{
         $info = $manager->getSegmentById($timeslot_id);

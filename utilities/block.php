@@ -18,8 +18,7 @@
         }
         
         public function getList(){
-            $ret_list = $this->evenly_segment_block(array($this->_start,$this->_end));
-            return $ret_list;
+            return $this->evenly_segment_block(array($this->_start,$this->_end));
         }
         
         public function setStartTime($start){
@@ -46,6 +45,8 @@
         //A block is an array('start_time', 'end_time')
         private function evenly_segment_block($block){
             $segments = array();
+            
+            //Why???
             $unix_block = array($block[0],$block[1]);
             
             $i=0;

@@ -12,12 +12,23 @@
         //Block is an array(start_time, end_time)
         //Segment is an array(start_time, end_time)
             //A segment is a minimum length block
-        //Destroy block, create 3 new (open,reserved,open)
+        //Destroy block, create 3 new blocks (open,reserved,open)
             //Unless block length == segment length
         //Divides into block array(  array($block[0],$target_segment[0]),
         //                           array($target_segment[0],$target_segment[1]),
         //                           array($target_segment[1],$block[1])
         //                        )
+        
+        //TODO:
+        //Test Cases:
+            //First segment sign up
+                //Doesn't delete open time
+            //Last segment sign up
+                //Adds new open time slot after
+            //block length = segment length (only a 30 minute slot available)
+                //Doesn't delete open time
+                //AND
+                //Adds new open time slot after
         
         //Ask about inserting student as attendee and email as attendeeEmail
         public function insert_segment($calendar_id, $block_id, $target_segment, $name, $email){
