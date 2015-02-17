@@ -60,7 +60,7 @@ if(isset($_REQUEST['fullname'])){
                     <?php foreach($segs as $segment):?>
                         <?php $event_id = $event->getId(); ?>
                         <input type="radio" name="timeslot_id" value="<?="$i:$j:$event_id"?>"/>
-                        Slot <?=($j+1).': '.date('D F n\, Y',$segment[0]).' <strong>'.date('g:i',$segment[0]).' &ndash; '.date('g:i',$segment[1])?></strong>
+                        Slot <?=($j+1).': '.date('D F j\, Y',$segment[0]).' <strong>'.date('g:i',$segment[0]).' &ndash; '.date('g:i',$segment[1])?></strong>
                         <?php $_SESSION['segments'][$i][$j] = $segment;?>
                         <br/>
                     <?php $j++; endforeach; ?>
