@@ -49,7 +49,7 @@ if(isset($_REQUEST['fullname'])){
                 Event Updated Time:      <?=htmlspecialchars($event->getUpdated())?>     <br/>
                 Event Description:       <?=htmlspecialchars($event->getDescription())?> <br/>
                 Event ID:                <?=htmlspecialchars($event->getId())?>          <br/>
-                Block Time:              <?=htmlspecialchars(date('D F n\, Y',fmt_gdate($event->getStart()))).' '.
+                Block Time:              <?=htmlspecialchars(date('D F j\, Y',fmt_gdate($event->getStart()))).' '.
                                             htmlspecialchars(date('g:i',fmt_gdate($event->getStart()))).' &ndash; '.
                                             htmlspecialchars(date('g:i',fmt_gdate($event->getEnd())))?>
                                                                                          <br/><br/>
