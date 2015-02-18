@@ -50,7 +50,7 @@
             $end = new Google_Service_Calendar_EventDateTime();
             $end->setDateTime(date(\DateTime::ATOM, $open_event1[1]));
             $event->setEnd($end);
-            $event->setDescription('open');
+            $event->setDescription('');
             $createdEvent1 = $this->_service->events->insert($calendar_id, $event);
             
             $event = new Google_Service_Calendar_Event();
@@ -62,7 +62,7 @@
             $end = new Google_Service_Calendar_EventDateTime();
             $end->setDateTime(date(\DateTime::ATOM, $open_event2[1]));
             $event->setEnd($end);
-            $event->setDescription('open');
+            $event->setDescription('');
             $createdEvent3 = $this->_service->events->insert($calendar_id, $event);
           
             //Insert Actual Event
