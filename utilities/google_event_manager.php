@@ -86,7 +86,12 @@
             $createdEvent2 = $this->_service->events->insert($calendar_id, $event);
             
             //Delete old Google event and add these 3
-            $this->_service->events->delete($calendar_id, $block_id);
+            try{
+                $this->_service->events->delete($calendar_id, $block_id);
+             //Nail down this exception type
+            }catch(Exception $e){
+                Logger::write("Google Event Already Deleted - Google_Event_Manager::insert_segment()");
+            }
             
             return array($createdEvent1,$createdEvent2,$createdEvent3);
         }
