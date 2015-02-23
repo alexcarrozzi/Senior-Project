@@ -5,6 +5,7 @@
     class Block{
         
         //The main list of segments
+	//Not used currently
         private $_list = array();
         
         private $_start;
@@ -40,9 +41,13 @@
         public function setSegmentDuration($seg){
             $this->_seg_duration = $seg;
         }
-        
+	
         //Evenly segments <empty> block for display
         //A block is an array('start_time', 'end_time')
+	//TODO:
+	//Handle Case: Block doesn't evenly divide by _seg_duration
+		//eg: Block(11:00AM  - 12:15PM)
+		//	Segment: 30 minutes
         private function evenly_segment_block($block){
             $segments = array();
             

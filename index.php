@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+//This is a comment
+
 //My Libraries
 require_once 'utilities/common.php';
 require_once 'utilities/block.php';
