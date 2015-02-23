@@ -42,7 +42,7 @@ if(isset($_REQUEST['fullname'])){
     <form method="POST" action=".">
     <?php $i=0; ?>
     <?php foreach ($events->getItems() as $event):?>
-        <?php if($event->getDescription() == 'open'):
+        <?php if($event->getDescription() == ''):
                 $block = new Block(fmt_gdate($event->getStart()),fmt_gdate($event->getEnd()));
         ?>
                 <br/>
