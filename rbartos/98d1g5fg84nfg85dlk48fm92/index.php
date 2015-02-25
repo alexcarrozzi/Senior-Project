@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	unset($_SESSION);
 	require_once '../../utilities/common.php';
 	
 	require_once '../../google-api-php-client/autoload.php';
@@ -40,15 +39,3 @@
 	}
 	echo 'Hello, world.';
 ?>
-
-	<div class="box">
-	   <div class="request">
-	<?php
-	if (isset($authUrl)) {
-	  echo "<a class='login' href='" . $authUrl . "'>Connect Me!</a>";
-	} else {
-	  echo "<a class='logout' href='?logout'>Logout</a>";
-	}
-	?>
-		</div>
-	</div>
