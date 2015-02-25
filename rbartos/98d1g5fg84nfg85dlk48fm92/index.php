@@ -14,8 +14,6 @@
 	$client->setRedirectUri($scriptUri);
 	$client->setDeveloperKey('AIzaSyDzsF1TFKgiX1YVx7oBdmorGrkwIiFah88'); // API key
 
-	// $service implements the client interface, has to be set before auth call
-	$service = new Google_AnalyticsService($client);
 
 	if (isset($_GET['logout'])) { // logout: destroy token
 		unset($_SESSION['token']);
