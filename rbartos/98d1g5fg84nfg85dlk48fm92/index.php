@@ -3,6 +3,8 @@
 	require_once '../../utilities/common.php';
 	
 	require_once '../../google-api-php-client/autoload.php';
+	
+	$authUrl = '';
 
 	$client = new Google_Client();
 	$client->setAccessType('online'); // default: offline
@@ -12,6 +14,7 @@
 	$client->setRedirectUri('http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
 	$client->setDeveloperKey('AIzaSyDzsF1TFKgiX1YVx7oBdmorGrkwIiFah88'); // API key
 	$client->setScopes('https://www.googleapis.com/auth/userinfo.profile'); // API key
+
 
 
 	if (isset($_GET['logout'])) { // logout: destroy token
@@ -36,3 +39,15 @@
 	}
 	echo 'Hello, world.';
 ?>
+
+	<div class="box">
+	   <div class="request">
+	<?php
+	if (isset($authUrl)) {
+	  echo "<a class='login' href='" . $authUrl . "'>Connect Me!</a>";
+	} else {
+	  echo "<a class='logout' href='?logout'>Logout</a>";
+	}
+	?>
+	</div>
+	</div>
