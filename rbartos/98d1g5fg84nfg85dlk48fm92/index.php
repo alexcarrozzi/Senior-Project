@@ -20,7 +20,7 @@
 	}
 
 	if (isset($_GET['code'])) { // we received the positive auth callback, get the token and store it in session
-		$client->authenticate();
+		$client->authenticate($_GET['code']));
 		$_SESSION['token'] = $client->getAccessToken();
 	}
 
