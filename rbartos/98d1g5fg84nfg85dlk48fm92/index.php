@@ -34,8 +34,8 @@
 
 	if (!$client->getAccessToken()) { // auth call to google
 		$authUrl = $client->createAuthUrl();
-		header("Location: ".$authUrl);
-		die;
+		//header("Location: ".$authUrl);
+		//die;
 	}
 	echo 'Hello, world.';
 ?>
