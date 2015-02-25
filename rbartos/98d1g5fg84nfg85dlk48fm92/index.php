@@ -2,7 +2,7 @@
 	session_start();
 	require_once '../../utilities/common.php';
 	
-	require_once dirname(__FILE__).'../../google-api-php-client/src/Google/Auth/OAuth2.php';
+	require_once dirname(__FILE__).'../../google-api-php-client/autoload.php';
 
 	$scriptUri = "http://".$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
 
