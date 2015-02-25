@@ -4,14 +4,12 @@
 	
 	require_once '../../google-api-php-client/autoload.php';
 
-	$scriptUri = 'http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm/';
-
 	$client = new Google_Client();
 	$client->setAccessType('online'); // default: offline
 	$client->setApplicationName('ScheduleIt');
 	$client->setClientId('191668664245-k6apjlo3hojik7rphq9aet58hiu4pc26.apps.googleusercontent.com');
 	$client->setClientSecret('t86-1-Msaw9C7wuPKZ-dvLYK');
-	$client->setRedirectUri($scriptUri);
+	$client->setRedirectUri('http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
 	$client->setDeveloperKey('AIzaSyDzsF1TFKgiX1YVx7oBdmorGrkwIiFah88'); // API key
 	$client->setScopes('https://www.googleapis.com/auth/userinfo.profile'); // API key
 
