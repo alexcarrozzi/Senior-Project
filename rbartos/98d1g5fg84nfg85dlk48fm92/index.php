@@ -13,6 +13,7 @@
 	$client->setClientSecret('t86-1-Msaw9C7wuPKZ-dvLYK');
 	$client->setRedirectUri($scriptUri);
 	$client->setDeveloperKey('AIzaSyDzsF1TFKgiX1YVx7oBdmorGrkwIiFah88'); // API key
+	$client->setScopes('https://www.googleapis.com/auth/userinfo.profile'); // API key
 
 
 	if (isset($_GET['logout'])) { // logout: destroy token
