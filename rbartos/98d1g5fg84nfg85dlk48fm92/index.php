@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	unset($_SESSION);
 	require_once '../../utilities/common.php';
 	
 	require_once '../../google-api-php-client/autoload.php';
