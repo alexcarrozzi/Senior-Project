@@ -16,7 +16,6 @@
 	$client->setScopes('https://www.googleapis.com/auth/userinfo.profile'); 
 
 
-
 	if (isset($_GET['logout'])) { // logout: destroy token
 		unset($_SESSION['token']);
 		die('Logged out.');
@@ -34,8 +33,8 @@
 
 	if (!$client->getAccessToken()) { // auth call to google
 		$authUrl = $client->createAuthUrl();
-		//header("Location: ".$authUrl);
-		//die;
+		header("Location: ".$authUrl);
+		die;
 	}
 	echo 'Hello, world.';
 ?>
