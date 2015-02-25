@@ -4,7 +4,7 @@
 	
 	require_once '../../google-api-php-client/autoload.php';
 
-	$scriptUri = "http://".$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
+	$scriptUri = 'http://scheduleit.cs.unh.edu/';
 
 	$client = new Google_Client();
 	$client->setAccessType('online'); // default: offline
