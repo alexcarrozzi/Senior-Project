@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-//This is a comment
-
 //My Libraries
 require_once 'utilities/common.php';
 require_once 'utilities/block.php';
@@ -31,15 +29,17 @@ if(isset($_REQUEST['fullname'])){
 }
 
 ?>
-
 <!DOCTYPE HTML>
 <html>
 <head>
     <title>ScheduleIt Home</title>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
 </head>
 <body>
     <?php unset($_SESSION['segments']); ?>
-    <form method="POST" action=".">
+    <form name="SignUpStudent">
     <?php $i=0; ?>
     <?php foreach ($events->getItems() as $event):?>
         <?php if($event->getDescription() == ''):
@@ -69,9 +69,9 @@ if(isset($_REQUEST['fullname'])){
                 <hr/>
         <?php endif; ?>
   <?php $i++; endforeach; ?>
-    Name: <input type="text" name="fullname" /><br/>
-    Email: <input type="text" name="email" /><br/>
-    <input type="submit" value="Sign Up!" />
+    Name: <input id="SignUpName" type="text" name="fullname" /><br/>
+    Email: <input id="SignUpEmail" type="text" name="email" /><br/>
+    <input id="SignUpSubmit" type="submit" value="Sign Up!" />
   </form>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-    define('DEFAULT_LOG','../logs/phpweblog'.date('d\-m\-Y').'.log');
+    define('DEFAULT_LOG',$_SERVER['DOCUMENT_ROOT'].'/Senior-Project/logs/phpweblog'.date('d\-m\-Y').'.log');
     
     //Log Codes:
     //101 - Standard logging
@@ -8,12 +8,6 @@
     
     
     class Logger{
-    
-        private $_file;
-        
-        public function __construct($log){
-            $_file = $log;
-        }
         
         public static function write($msg, $code = DEFAULT_CODE, $file = DEFAULT_LOG){
             $fh = fopen($file,'x+');

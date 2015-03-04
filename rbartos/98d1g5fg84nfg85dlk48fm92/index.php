@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once '../../utilities/common.php';
-	
+    
 	require_once '../../google-api-php-client/autoload.php';
 	$client = new Google_Client();
 	$client->setAccessType('online'); // default: offline
@@ -11,14 +11,14 @@
 	$client->setRedirectUri('http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
 	$client->setDeveloperKey('AIzaSyDzsF1TFKgiX1YVx7oBdmorGrkwIiFah88'); // API key
 	$client->setScopes('https://www.googleapis.com/auth/userinfo.profile'); 
-	
+
 	if (isset($_GET['logout'])) { // logout: destroy token
 		unset($_SESSION['token']);
 		die('Logged out.');
 	}
 	
 	if (isset($_GET['code'])) { // we received the positive auth callback, get the token and store it in session
-		$client->authenticate($_GET['code']));
+		$client->authenticate($_GET['code']);
 		$_SESSION['token'] = $client->getAccessToken();
 	}
 	

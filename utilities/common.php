@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors', 1);
-include_once('logger.php');
+require_once('logger.php');
 
 function fmt_gdate($gdate) {
   if ($val = $gdate->getDateTime()) {

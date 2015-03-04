@@ -1,12 +1,14 @@
 <?php
     define('OPEN_MESSAGE','Open Time');
+    require_once 'email.php';
 
     class Google_Event_Manager{
         //Google API Service
-        private $_service;
+        private $_service, $_email;
         
         public function __construct($service){
             $this->_service = $service;
+            $this->_email = new Email('professor.jones567@gmail.com');
         }
         
         //Block is an array(start_time, end_time)
@@ -51,7 +53,12 @@
             $end->setDateTime(date(\DateTime::ATOM, $open_event1[1]));
             $event->setEnd($end);
             $event->setDescription('');
-            $createdEvent1 = $this->_service->events->insert($calendar_id, $event);
+            
+            try{
+                $createdEvent1 = $this->_service->events->insert($calendar_id, $event);
+            }catch(Exception $e){
+                Logger::write("Error Inserting Google Event - Google_Event_Manager::insert_segment()");                
+            }
             
             $event = new Google_Service_Calendar_Event();
             $event->setSummary(OPEN_MESSAGE);
@@ -63,7 +70,12 @@
             $end->setDateTime(date(\DateTime::ATOM, $open_event2[1]));
             $event->setEnd($end);
             $event->setDescription('');
-            $createdEvent3 = $this->_service->events->insert($calendar_id, $event);
+            
+            try{
+                $createdEvent3 = $this->_service->events->insert($calendar_id, $event);
+            }catch(Exception $e){
+                Logger::write("Error Inserting Google Event - Google_Event_Manager::insert_segment()");                
+            }
           
             //Insert Actual Event
             $event = new Google_Service_Calendar_Event();
@@ -83,7 +95,11 @@
                                // ...
             //                  );
             //$event->attendees = $attendees;
-            $createdEvent2 = $this->_service->events->insert($calendar_id, $event);
+            try{
+                $createdEvent2 = $this->_service->events->insert($calendar_id, $event);
+            }catch(Exception $e){
+                Logger::write("Error Inserting Google Event - Google_Event_Manager::insert_segment()");                
+            }
             
             //Delete old Google event and add these 3
             try{
@@ -91,6 +107,18 @@
              //Nail down this exception type
             }catch(Exception $e){
                 Logger::write("Google Event Already Deleted - Google_Event_Manager::insert_segment()");
+            }
+            
+            //Construct Email information
+            $student_email = $email."@wildcats.unh.edu";
+            $subject = "ScheduleIt Appointment Confirmation";
+            $message = "This is a test email from ScheduleIt";
+            
+            try{
+                $this->_email->send($student_email,$subject,$message);
+                Logger::write("STATUS: Email successfully sent to: $student_email with message: $message");
+            }catch(Exception $e){
+                Logger::write("Email::send failed - ".$e->getMessage());
             }
             
             return array($createdEvent1,$createdEvent2,$createdEvent3);
