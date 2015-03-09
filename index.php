@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once './utilities/signup.php'
 ?>
 <!DOCTYPE HTML>
