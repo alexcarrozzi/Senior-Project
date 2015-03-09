@@ -88,13 +88,11 @@
             $event->setDescription("Name: $name\nEmail:$email");
             $end->setDateTime(date(\DateTime::ATOM, $reserved_event[1]));
             $event->setEnd($end);
-            //$attendee1 = new Google_Service_Calendar_EventAttendee();
-            //$attendee1->setEmail('attendeeEmail');
-            // ...
-           // $attendees = array($attendee1,
-                               // ...
-            //                  );
-            //$event->attendees = $attendees;
+            $attendee1 = new Google_Service_Calendar_EventAttendee();
+            $attendee1->setEmail($email.'@wildcats.unh.edu');
+            //new attendee for instructor
+            $attendees = array($attendee1);//add instructor attendee
+            $event->attendees = $attendees;
             try{
                 $createdEvent2 = $this->_service->events->insert($calendar_id, $event);
             }catch(Exception $e){

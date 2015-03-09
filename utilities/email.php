@@ -1,4 +1,7 @@
 <?php
+    ini_set("SMTP","ssl://smtp.gmail.com");
+    ini_set("smtp_port","465");
+
     class Email{
         private $_from;
         
@@ -14,8 +17,8 @@
                 throw new Exception("'Message' field cannot be empty!");
             }
             $mailto = $to;
-            $body = $msg;
-            $headers = "From: $this->_from \r\n".
+            $body = wordwrap($msg,70);
+            $headers = "From: ".$this->_from." \r\n".
                         "CC: [Advisor Email]";
             
             return mail($mailto,$subject,$body,$headers);

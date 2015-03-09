@@ -10,9 +10,9 @@
     class Logger{
         
         public static function write($msg, $code = DEFAULT_CODE, $file = DEFAULT_LOG){
-            $fh = fopen($file,'x+');
+            $fh = fopen($file,'a');
             
-            fwrite($fh,date(\DateTime::ATOM)." -- Code: {$code}:".$msg);
+            fwrite($fh,date(\DateTime::ATOM)." -- Code: {$code}:".$msg."\r\n");
             
             fclose($fh);
         }

@@ -54,12 +54,12 @@
             //Why???
             $unix_block = array($block[0],$block[1]);
             
-            $i=0;
+            $i=1;
             $beginning = $unix_block[0];
             $end = $beginning;
             while($end < $unix_block[1]){
                 $end+=$this->_seg_duration;
-                $segments[$i++] = array($beginning,$end);
+                $segments["seg".$i++] = array("start"=>$beginning,"end"=>$end);
                 $beginning = $end;
             }
       
