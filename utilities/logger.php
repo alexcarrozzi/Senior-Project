@@ -10,7 +10,12 @@
     class Logger{
         
         public static function write($msg, $code = DEFAULT_CODE, $file = DEFAULT_LOG){
-            $fh = fopen($file,'a');
+            try{
+                $fh = fopen($file,'a');
+            }catch(Exception $e){
+                echo "Fatal error in logger";
+                exit;
+            }
             
             fwrite($fh,date(\DateTime::ATOM)." -- Code: {$code}:".$msg."\r\n");
             
