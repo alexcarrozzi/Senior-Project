@@ -29,7 +29,7 @@
            // $manager->insert_segment('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com',$delete_event,$target_segment,$name,$email);
            
             //Construct Email information
-            $student_email = "{$name}@wildcats.unh.edu";
+            $student_email = "{$email}@wildcats.unh.edu";
             //$student_email = $email."@wildcats.unh.edu";
             $subject = "ScheduleIt Appointment Confirmation";
             $message = "This is a test email from ScheduleIt";
