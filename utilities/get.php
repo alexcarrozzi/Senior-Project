@@ -4,8 +4,8 @@
         
         
     require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/common.php";
-    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/block.php";
-    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
+    //require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/block.php";
+    //require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
     
     $type=$_REQUEST['type'];
     $eventId=isset($_REQUEST['id'])?$_REQUEST['id']:'';
