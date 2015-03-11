@@ -32,7 +32,7 @@
                     'host' => 'ssl://smtp.gmail.com',
                     'port' => '465',
                     'auth' => true,
-                    'username' => 'senior.project705@gmail.com',
+                    'username' => 'senior.project705',
                     'password' => 'wildcats007'
                 ));
 
