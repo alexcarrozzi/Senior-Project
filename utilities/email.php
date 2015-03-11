@@ -1,6 +1,6 @@
 <?php
     // Pear Mail Library
-    require_once "Mail.php";
+    require_once "/usr/share/pear/Mail.php";
 
     class Email{
         private $_from;
@@ -16,10 +16,6 @@
             if(strlen($msg)==0){
                 throw new Exception("'Message' field cannot be empty!");
             }
-            $body = wordwrap($msg,70);
-            $headers = "From: ".$this->_from."\r\n".
-                        "CC: [Advisor Email]";
-            
             $from = '<senior.project705@gmail.com>';
             $to = "<$argto>";
             $subject = $argsubject;
@@ -49,9 +45,6 @@
                 echo('<p>Message successfully sent!</p>');
                 return true;
             }      
-            
-          
-            //return mail($mailto,$subject,$body,$headers);
         }
     }
     
