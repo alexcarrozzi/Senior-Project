@@ -1,6 +1,6 @@
 <?php
     // Pear Mail Library
-    require_once "/usr/share/pear/Mail.php";
+    require_once "/usr/share/pear/Mail/mail.php";
 
     class Email{
         private $_from;
