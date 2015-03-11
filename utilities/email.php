@@ -19,7 +19,7 @@
             $from = '<senior.project705@gmail.com>';
             $to = "<$argto>";
             $subject = $argsubject;
-            $body = "$body";
+            $body = "$msg";
             
             $headers = array(
             'From' => $from,
@@ -31,9 +31,9 @@
               $smtp = Mail::factory('smtp', array(
                     'host' => 'ssl://smtp.gmail.com',
                     'port' => '465',
-                    'auth' => false/*,
+                    'auth' => true,
                     'username' => 'senior.project705@gmail.com',
-                    'password' => 'wildcats007'*/
+                    'password' => 'wildcats007'
                 ));
 
             $mail = $smtp->send($to, $headers, $body);
