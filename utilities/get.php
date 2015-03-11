@@ -1,7 +1,11 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'].'/Senior-Project/utilities/common.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/Senior-Project/utilities/block.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/Senior-Project/utilities/google_api_init.php';
+    $prod = 0;
+    $sp = $prod==0?"Senior-Project/":"";    
+        
+        
+    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/common.php";
+    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/utilities/block.php";
+    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
     
     $type=$_REQUEST['type'];
     $eventId=isset($_REQUEST['id'])?$_REQUEST['id']:'';
