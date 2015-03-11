@@ -1,7 +1,6 @@
 <?php
     session_start();
-    require_once 'email.php';
-
+    //require_once 'email.php';
 
     //My Libraries
     require_once 'common.php';
