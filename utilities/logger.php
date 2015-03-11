@@ -1,5 +1,5 @@
 <?php
-    define('DEFAULT_LOG',$_SERVER['DOCUMENT_ROOT'].'/logs/phpweblog'.date('d\-m\-Y').'.log');
+    define('DEFAULT_LOG','../logs/phpweblog'.date('d\-m\-Y').'.log');
     
     //Log Codes:
     //101 - Standard logging
