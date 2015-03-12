@@ -10,7 +10,7 @@ require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_event_manager.php
 const CLIENT_ID = '191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk.apps.googleusercontent.com';
 const SERVICE_ACCOUNT_NAME = '191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk@developer.gserviceaccount.com';
 define('CALID','55uc08fhn2j6fq9bcj3v9c44ps@group.calendar.google.com');
-$KEY_FILE = $_SERVER['DOCUMENT_ROOT'].'/Senior-Project/ScheduleIt-2b0035283339.p12';
+$KEY_FILE = $_SERVER['DOCUMENT_ROOT']."/{$sp}ScheduleIt-2b0035283339.p12";
 
 
 //SERVICE SET UP
