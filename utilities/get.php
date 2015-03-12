@@ -25,7 +25,7 @@
                               "end"        => $myEvent->getEnd()['dateTime'],
                               "calendarId" => $myEvent->getOrganizer()['email']
                               );
-        //print_r($myEvent);
+        print_r($myEvent);
     }elseif($type=='segments'){
         $myEvent = $service->events->get($calId,$eventId);//make sure the calendarId isnt hard coded
         if($myEvent->getDescription() == ''){
