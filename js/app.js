@@ -13,7 +13,7 @@
             
             for(var i=0;i<this_ref.events.length;i++){
                 var tempsegs = [];
-                $http.get('./utilities/get.php?type=segments&id='+this_ref.events[i].id+'&calendar='+this_ref.calendarId).success(function(data){
+                $http.get('./utilities/get.php?type=segments&id='+encodeURIComponent(this_ref.events[i]).id+'&calendar='+encodeURIComponent(this_ref.calendarId)).success(function(data){
                     this_ref.segments[data.segments.id] = data.segments.list;
                 });
                 //alert(JSON.stringify(this_ref.segments));
