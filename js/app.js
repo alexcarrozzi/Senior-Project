@@ -13,10 +13,12 @@
             
             for(var i=0;i<this_ref.events.length;i++){
                 var tempsegs = [];
-                $http.get('./utilities/get.php?type=segments&id='+encodeURIComponent(this_ref.events[i]).id+'&calendar='+encodeURIComponent(this_ref.calendarId)).success(function(data){
-                    this_ref.segments[data.segments.id] = data.segments.list;
+
+                $http.get('./utilities/get.php?type=segments&id='+encodeURIComponent(this_ref.events[i].id)+'&calendar='+encodeURIComponent(this_ref.calendarId)).success(function(data){
+                    this_ref.segments[i]['start'] = data.segments[i].start;
+                    this_ref.segments[i]['end'] = data.segments[i].end;
                 });
-                //alert(JSON.stringify(this_ref.segments));
+                alert(JSON.stringify(this_ref.segments));
             }
         });
     } ]);

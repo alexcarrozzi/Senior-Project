@@ -1,6 +1,9 @@
 <?php
+    $prod = 0;
+    $sp = $prod==0?"Senior-Project/":"";  
+    
     // Pear Mail Library
-    require_once "/usr/share/pear/Mail.php";
+    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}packages/pear/Mail.php";
 
     class Email{
         private $_from;

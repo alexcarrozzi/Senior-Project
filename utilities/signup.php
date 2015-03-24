@@ -4,9 +4,9 @@
 
     //My Libraries
     require_once 'common.php';
-    //require_once 'block.php';
-    //require_once 'google_api_init.php';
-    //require_once 'google_event_manager.php';
+    require_once 'block.php';
+    require_once 'google_api_init.php';
+    require_once 'google_event_manager.php';
     
     $ret_msg = 'Fail';
 

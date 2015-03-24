@@ -59,7 +59,7 @@
             $end = $beginning;
             while($end < $unix_block[1]){
                 $end+=$this->_seg_duration;
-                $segments["seg".$i++] = array("start"=>$beginning,"end"=>$end);
+                $segments[$i++] = array("start"=>$beginning,"end"=>$end);
                 $beginning = $end;
             }
       
