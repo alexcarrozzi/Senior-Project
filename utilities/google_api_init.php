@@ -1,11 +1,9 @@
 <?php
-$prod = 1;
-$sp = $prod==1?"Senior-Project/":"";   
 
 //Google Libraries
-require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}google-api-php-client/src/Google/Client.php";
-require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}google-api-php-client/src/Google/Service/Calendar.php";
-require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_event_manager.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/google-api-php-client/src/Google/Client.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/google-api-php-client/src/Google/Service/Calendar.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/utilities/google_event_manager.php";
 
 const CLIENT_ID = '191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk.apps.googleusercontent.com';
 const SERVICE_ACCOUNT_NAME = '191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk@developer.gserviceaccount.com';

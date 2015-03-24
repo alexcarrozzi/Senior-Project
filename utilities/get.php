@@ -1,11 +1,9 @@
-<?php
-    $prod = 1;
-    $sp = $prod==1?"Senior-Project/":"";    
+<?php 
         
         
-    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/common.php";
-    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/block.php";
-    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
+    require_once $_SERVER['DOCUMENT_ROOT']."/utilities/common.php";
+    require_once $_SERVER['DOCUMENT_ROOT']."/utilities/block.php";
+    require_once $_SERVER['DOCUMENT_ROOT']."/utilities/google_api_init.php";
     
     $type=$_REQUEST['type'];
     $eventId=isset($_REQUEST['id'])?$_REQUEST['id']:'';
