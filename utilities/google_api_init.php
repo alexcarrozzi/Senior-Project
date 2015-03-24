@@ -1,6 +1,6 @@
 <?php
-$prod = 0;
-$sp = $prod==0?"Senior-Project/":"";   
+$prod = 1;
+$sp = $prod==1?"Senior-Project/":"";   
 
 //Google Libraries
 require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}google-api-php-client/src/Google/Client.php";
