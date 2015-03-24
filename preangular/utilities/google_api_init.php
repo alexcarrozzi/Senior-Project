@@ -37,8 +37,8 @@ if (isset($_SESSION['token'])){
 
 //EXECUTION
 $service = new Google_Service_Calendar($client);
-$calendarListEntry = $service->calendarList->get('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
-$events = $service->events->listEvents('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com');
+$calendarListEntry = $service->calendarList->get('55uc08fhn2j6fq9bcj3v9c44ps@group.calendar.google.com');
+$events = $service->events->listEvents('55uc08fhn2j6fq9bcj3v9c44ps@group.calendar.google.com');
 echo 'Calendar Summary: '.htmlspecialchars($calendarListEntry->getSummary()).'<br/><hr/>';
 
 //Event Manager Set Up
