@@ -23,7 +23,7 @@ if(isset($_REQUEST['fullname'])){
         $info = $manager->getSegmentById($timeslot_id);
         $target_segment = $info['segment'];
         $delete_event = $info['delete_event'];
-        $manager->insert_segment('9oggohktmvu3ckuug6mlmmth28@group.calendar.google.com',$delete_event,$target_segment,$name,$email);
+        $manager->insert_segment('55uc08fhn2j6fq9bcj3v9c44ps@group.calendar.google.com',$delete_event,$target_segment,$name,$email);
         header('Location: .');
     }
 }
