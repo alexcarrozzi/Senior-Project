@@ -14,12 +14,12 @@
     <form name="SignUpStudent">
    
         <div ng-controller="ScheduleController as schedule">
-            <div ng-repeat="event in schedule.events">
-                Event Id: {{event.id}}
+            <div ng-repeat="event in schedule.segments">
+                 Event ID: <strong>{{event.id}}</strong>
+                <div ng-repeat="segment in event.segments">
+                    Timeframe: {{segment.start}} &ndash; {{segment.end}}
+                </div>
                 <br/><br/>
-            </div>
-            <div ng-repeat="segment in schedule.segments">
-                Timeframe: {{segment.start}} &ndash; {{segment.end}}
             </div>
         </div>
    

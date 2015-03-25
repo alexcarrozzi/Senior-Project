@@ -1,6 +1,6 @@
 <?php
     define('OPEN_MESSAGE','Open Time');
-    require_once 'email.php';
+    //require_once 'email.php';
 
     class Google_Event_Manager{
         //Google API Service
@@ -8,7 +8,7 @@
         
         public function __construct($service){
             $this->_service = $service;
-            $this->_email = new Email('professor.jones567@gmail.com');
+            //$this->_email = new Email('professor.jones567@gmail.com');
         }
         
         //Block is an array(start_time, end_time)
