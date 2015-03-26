@@ -1,4 +1,5 @@
-<?php
+<?php     
+    require_once './utilities/load_calendar.php';
     require_once './utilities/signup.php'
 ?>
 <!DOCTYPE HTML>
@@ -12,7 +13,7 @@
 <body>
     <?php unset($_SESSION['segments']); ?>
     <form name="SignUpStudent">
-   
+        <input id="cal" type="hidden" value="<?=$g_calid?>"/>
         <div ng-controller="ScheduleController as schedule">
             <div ng-repeat="event in schedule.segments">
                  Event ID: <strong>{{event.id}}</strong>

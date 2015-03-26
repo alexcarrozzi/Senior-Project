@@ -5,9 +5,9 @@
         var this_ref = this;
         this_ref.events = [];
         this_ref.segments = [];
-        this_ref.calendarId = '';
+        this_ref.calendarId = $('#cal').val();
         
-        $http.get('./utilities/get.php?type=events').success(function(data){
+        $http.get('./utilities/get.php?type=events&calendar='+encodeURIComponent(this_ref.calendarId)).success(function(data){
             this_ref.events = data.events;
             this_ref.calendarId = data.calId; 
             $(this_ref.events).each(function(i){
@@ -51,7 +51,7 @@ $(document).ready(function(){
 
 
 
-//
+//Various Functions
 
 function ObjectDump(obj, name) {
   this.result = "[ " + name + " ]\n";

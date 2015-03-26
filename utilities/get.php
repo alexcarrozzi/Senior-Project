@@ -1,21 +1,23 @@
 <?php 
-     $prod = 1;
-     $sp = $prod==0?"Senior-Project/":"";     
+     $prod = 0;
+     $sp = $prod==0?"Senior-Project/":""; 
         
     require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/common.php";
     require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/block.php";
-    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
     
     $type=$_REQUEST['type'];
     $eventId=isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $calId=isset($_REQUEST['calendar'])?$_REQUEST['calendar']:'';
+    
+    $GLOBALS['g_calid'] = $calId;
+    require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
     
     $list = [];
     $return_array = [];
     
     if($type=='events'){
         $myEvents =  array("events"=>$events->getItems(),
-                           "calId"=>CALID);
+                           "calId"=>$calId);
          $return_array = $myEvents;
     }elseif($type=="event"){
         $myEvent = $service->events->get($calId,$eventId);//make sure the calendarId isnt hard coded
