@@ -17,7 +17,6 @@
                     this_event.segments = data.segments;
                     this_event.id = data.id;
                     this_ref.segments.push(this_event);
-                    console.log(this_ref.segments);
                 });
             });
         });
@@ -25,8 +24,6 @@
 })();
 
 $(document).ready(function(){
-    
-
     $("form[name='SignUpStudent']").submit(function(f){
         f.preventDefault();
         $.ajax({
@@ -34,8 +31,8 @@ $(document).ready(function(){
             url:'utilities/signup.php',
             data:{
                 fullname: $("#SignUpName").val(),
-                email: $("#SignUpEmail").val()//,
-                //timeslot_id : $("#timeslot_id").val()
+                email: $("#SignUpEmail").val(),
+                timeslot_id : $("#timeslot_id").val()
             },
             success: function(data){
                 console.log("SUCCESS:"+data);

@@ -11,14 +11,14 @@
     <script src="js/app.js"></script>
 </head>
 <body>
-    <?php unset($_SESSION['segments']); ?>
     <form name="SignUpStudent">
         <input id="cal" type="hidden" value="<?=$g_calid?>"/>
         <div ng-controller="ScheduleController as schedule">
             <div ng-repeat="event in schedule.segments">
                  Event ID: <strong>{{event.id}}</strong>
-                <div ng-repeat="segment in event.segments">
-                    Timeframe: {{segment.start}} &ndash; {{segment.end}}
+                <div ng-repeat="segment in event.segments | orderBy : '-start'" >
+                    <input type="radio" name="timeslot_id" ng-attr-value="{{segment.start}}" />
+                    {{segment.start*1000 | date : 'MMMM d h:mm a'}} &ndash; {{segment.end*1000 | date : 'h:mm a'}}
                 </div>
                 <br/><br/>
             </div>
