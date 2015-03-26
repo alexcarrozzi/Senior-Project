@@ -1,5 +1,7 @@
-<?php
-    define('DEFAULT_LOG',$_SERVER['DOCUMENT_ROOT'].'/logs/phpweblog-'.date('d\-m\-Y').'.log');
+<?php     
+     $prod = 0;
+     $sp = $prod==0?"Senior-Project/":"";    
+    define('DEFAULT_LOG',$_SERVER['DOCUMENT_ROOT']."/{$sp}logs/phpweblog-".date('d\-m\-Y').'.log');
     
     //Log Codes:
     //101 - Standard logging

@@ -113,7 +113,7 @@
             $message = "This is a test email from ScheduleIt";
             
             try{
-                $this->_email->send($student_email,$subject,$message);
+                //$this->_email->send($student_email,$subject,$message);
                 Logger::write("STATUS: Email successfully sent to: $student_email with message: $message");
             }catch(Exception $e){
                 Logger::write("Email::send failed - ".$e->getMessage());
@@ -126,11 +126,8 @@
         //eg: '1:2' would be the third segment of the second block
         public function getSegmentById($id){
             $split = explode(':',$id);
-            $i = $split[0];
-            $j = $split[1];
-
-            $segment = $_SESSION['segments'][$i][$j];
-            $delete_event = $split[2];
+            $segment = $split[0];
+            $delete_event = $split[1];
             return array("segment" => $segment,"delete_event" => $delete_event);
         }
     }

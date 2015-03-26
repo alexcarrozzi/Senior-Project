@@ -32,7 +32,8 @@ $(document).ready(function(){
             data:{
                 fullname: $("#SignUpName").val(),
                 email: $("#SignUpEmail").val(),
-                timeslot_id : $("#timeslot_id").val()
+                timeslot_id : $("#timeslot_id").val(),
+                cal_id : $('#cal').val()
             },
             success: function(data){
                 console.log("SUCCESS:"+data);
