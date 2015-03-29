@@ -16,17 +16,19 @@
     $return_array = [];
     
     if($type=='events'){
-        $myEvents =  array("events"=>$events->getItems(),
-                           "calId"=>$calId);
+        $temp_events = $events->getItems();
+        $myEvents =  array("events"     =>$temp_events,
+                           "calId"      =>$calId
+                           );
          $return_array = $myEvents;
     }elseif($type=="event"){
         $myEvent = $service->events->get($calId,$eventId);//make sure the calendarId isnt hard coded
         $return_array = array("id"         => $myEvent->getId(),
                               "start"      => $myEvent->getStart()['dateTime'],
                               "end"        => $myEvent->getEnd()['dateTime'],
-                              "calendarId" => $myEvent->getOrganizer()['email']
+                              "calendarId" => $myEvent->getOrganizer()['email'],
+                              "desc"       => $myEvent->getDescription()
                               );
-        print_r($myEvent);
     }elseif($type=='segments'){
         $myEvent = $service->events->get($calId,$eventId);//make sure the calendarId isnt hard coded
         if($myEvent->getDescription() == ''){

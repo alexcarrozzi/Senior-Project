@@ -13,11 +13,13 @@
             $(this_ref.events).each(function(i){
                 var this_event = [];
                 var my_id = this_ref.events[i].id;
-                $http.get('./utilities/get.php?type=segments&id='+encodeURIComponent(my_id)+'&calendar='+encodeURIComponent(this_ref.calendarId)).success(function(data){
-                    this_event.segments = data.segments;
-                    this_event.id = data.id;
-                    this_ref.segments.push(this_event);
-                });
+                if(this_ref.events[i].description == null){
+                    $http.get('./utilities/get.php?type=segments&id='+encodeURIComponent(my_id)+'&calendar='+encodeURIComponent(this_ref.calendarId)).success(function(data){
+                        this_event.segments = data.segments;
+                        this_event.id = data.id;
+                        this_ref.segments.push(this_event);
+                    });
+                }
             });
         });
     } ]);

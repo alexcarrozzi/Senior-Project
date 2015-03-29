@@ -27,18 +27,22 @@ $client->setDeveloperKey('AIzaSyDzsF1TFKgiX1YVx7oBdmorGrkwIiFah88'); // API key
 $client->setScopes('https://www.googleapis.com/auth/userinfo.profile'); 
 $client->setScopes(array('https://www.googleapis.com/auth/plus.me'));
 $plus = new Google_Service_Plus($client);
+    echo "something";
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
 }
 if (isset($_GET['code'])) {
+    echo "something";
   $client->authenticate();
   $_SESSION['access_token'] = $client->getAccessToken();
   header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
 }
 if (isset($_SESSION['access_token'])) {
   $client->setAccessToken($_SESSION['access_token']);
+    echo "something";
 }
 if ($client->getAccessToken()) {
+    echo "something";
   $me = $plus->people->get('me');
   // These fields are currently filtered through the PHP sanitize filters.
   // See http://www.php.net/manual/en/filter.filters.sanitize.php
@@ -70,8 +74,8 @@ if ($client->getAccessToken()) {
 <header><h1>Google+ Sample App</h1></header>
 <div class="box">
 
-<?php if(isset($personMarkup)): ?>
-<div class="me"><?php print $personMarkup ?></div>
+<?php// if(isset($personMarkup)): ?>
+<div class="me"><?php// print $personMarkup ?></div>
 <?php
 $me = $plus->people->get('me');
 print "ID: {$me['id']}\n";
@@ -80,11 +84,11 @@ print "Image Url: {$me['image']['url']}\n";
 print "Url: {$me['url']}\n";
 
 ?>
-<?php endif ?>
+<?php //endif ?>
 
-<?php if(isset($activityMarkup)): ?>
+<?php //if(isset($activityMarkup)): ?>
 <div class="activities">Your Activities: <?php print $activityMarkup ?></div>
-<?php endif ?>
+<?php// endif ?>
 
 <?php
   if(isset($authUrl)) {

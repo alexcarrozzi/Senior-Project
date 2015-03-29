@@ -126,7 +126,7 @@
         //eg: '1:2' would be the third segment of the second block
         public function getSegmentById($id){
             $split = explode(':',$id);
-            $segment = $split[0];
+            $segment = array($split[0],(int)$split[0]+1800);
             $delete_event = $split[1];
             return array("segment" => $segment,"delete_event" => $delete_event);
         }

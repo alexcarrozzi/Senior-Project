@@ -9,6 +9,8 @@
     
     $ret_msg = 'Fail';
 
+    //I dont know how.. can you?
+    
     //Handle Form Submissions
     if(isset($_REQUEST['fullname'])){
         $name = $_REQUEST['fullname'];
