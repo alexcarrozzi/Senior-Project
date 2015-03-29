@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> ScheduleIT</title>
+  
+<!---- START BOOTSTRAP CDNS ------------>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<!----- END BOOTSTRAP CDNS -------------> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+</head>
+
+<body>
+	<div class="container">
+	
+	
+	<h1 class="text-center">SCHEDULE IT</h1>
+	
+	<div class="row">
+		
+		<div class="col-md-12">
+			<span class="pull-left">
+				<span class="glyphicon glyphicon-arrow-left">Previous</span>
+			</span>
+			<span class="pull-right">
+				<span>Next</span>
+				<span class="glyphicon glyphicon-arrow-right"> </span>
+			</span>
+		</div>
+	</div>
+	</br></br>
+<div class="table-responsive">
+	<table class="table table-bordered">
+    	<thead>
+      		<tr>
+		        <th style="text-align:center;">Monday</th>
+		        <th style="text-align:center;">Tuesday</th>
+		        <th style="text-align:center;">Wednesday</th>
+		        <th style="text-align:center;">Thursday</th>
+		        <th style="text-align:center;">Friday</th>
+      		</tr>
+    	</thead>
+    	<tbody>
+    		<tr class="danger">
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+    		</tr>
+    		<tr class="info">
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		
+	    		
+    		</tr>
+    		<tr class="info">
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		
+	    		
+    		</tr>
+    		<tr class="info">
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		
+	    		
+    		</tr>
+    		<tr class="info">
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		
+	    		
+    		</tr>
+    		<tr class="info">
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		
+	    		
+    		</tr>
+    		<tr class="info">
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td style="padding:10px;text-align:center;">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		
+	    		
+    		</tr>
+
+    		<tr class="danger">
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td style="padding:30px;text-align:center;">Closed</td>
+    		</tr>
+    	</tbody>
+    
+    </table>
+</div>
+
+</body>
+<footer>Click on a day to see what times are available</footer>
+
+</div>
+
+</html>
