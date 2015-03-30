@@ -40,8 +40,12 @@
         }else{
               $info = $manager->getSegmentById($timeslot_id);
               $target_segment = $info['segment'];
+              echo "SIGNUP TARGET SEGMENT POST GET PRE INSERT: ". $target_segment[0]." - ".$target_segment[1]."\n";
               $delete_event = $info['delete_event'];
-              $manager->insert_segment($g_calid,$delete_event,$target_segment,$name,$email);
+              $new_events = $manager->insert_segment($g_calid,$delete_event,$target_segment,$name,$email);
+              echo "First: ".$new_events[0]->getStart()['dateTime'];
+              echo "\nSecond: ".$new_events[1]->getStart()['dateTime'];
+              echo "\nThird: ".$new_events[2]->getStart()['dateTime'];
            
             //Construct Email information
             $student_email = "{$email}@wildcats.unh.edu";

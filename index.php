@@ -28,7 +28,7 @@
             <div ng-repeat="event in schedule.segments">
                  Event ID: <strong>{{event.id}}</strong>
                 <div ng-repeat="segment in event.segments | orderBy : '-start'" >
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+                    <input type="radio" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
                     {{segment.start*1000 | date : 'MMMM d h:mm a'}} &ndash; {{segment.end*1000 | date : 'h:mm a'}}
                 </div>
                 <br/><br/>

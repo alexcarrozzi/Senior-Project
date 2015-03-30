@@ -43,7 +43,7 @@ $(document).ready(function(){
             data:{
                 fullname: $("#SignUpName").val(),
                 email: $("#SignUpEmail").val(),
-                timeslot_id : $("#timeslot_id").val(),
+                timeslot_id : $("input:radio[name=timeslot_id]:checked").val(),
                 cal_id : $('#cal').val()
             },
             success: function(data){
