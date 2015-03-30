@@ -10,53 +10,59 @@
     (function(){
     var app = angular.module('ScheduleIt', []);
     
-    app.controller('ScheduleController', ['$http', function($http){
-        var this_ref = this;
-        this_ref.events = [];
-        this_ref.segments = [];
-        this_ref.calendarId = $('#cal').val();
+    app.controller('ScheduleController', ['$scope','$http', function($scope,$http){
+        $scope.events = [];
+        $scope.segments = [];
+        $scope.calendarId = $('#cal').val();
         
-        $http.get('./utilities/get.php?type=events&calendar='+encodeURIComponent(this_ref.calendarId)).success(function(data){
-            this_ref.events = data.events;
-            this_ref.calendarId = data.calId; 
-            $(this_ref.events).each(function(i){
-                var this_event = [];
-                var my_id = this_ref.events[i].id;
-                if(this_ref.events[i].description == null){
-                    $http.get('./utilities/get.php?type=segments&id='+encodeURIComponent(my_id)+'&calendar='+encodeURIComponent(this_ref.calendarId)).success(function(data){
-                        this_event.segments = data.segments;
-                        this_event.id = data.id;
-                        this_ref.segments.push(this_event);
-                    });
+        getTimes();
+        
+        function getTimes(){
+            $scope.segments = [];
+            $http.get('./utilities/get.php?type=events&calendar='+encodeURIComponent($scope.calendarId)).success(function(data){
+                $scope.events = data.events;
+                $scope.calendarId = data.calId; 
+                $($scope.events).each(function(i){
+                    var this_event = [];
+                    var my_id = $scope.events[i].id;
+                    if($scope.events[i].description == null){
+                        $http.get('./utilities/get.php?type=segments&id='+encodeURIComponent(my_id)+'&calendar='+encodeURIComponent($scope.calendarId)).success(function(data){
+                            this_event.segments = data.segments;
+                            this_event.id = data.id;
+                            $scope.segments.push(this_event);
+                        });
+                    }
+                });
+            });
+        }
+        
+        $("form[name='SignUpStudent']").submit(function(f){
+            f.preventDefault();
+            $.ajax({
+                type:"POST",
+                url:'utilities/signup.php',
+                data:{
+                    fullname: $("#SignUpName").val(),
+                    email: $("#SignUpEmail").val(),
+                    timeslot_id : $("input:radio[name=timeslot_id]:checked").val(),
+                    cal_id : $('#cal').val()
+                },
+                success: function(data){
+                    console.log("SUCCESS:"+data);
+                    getTimes();
+                    //$("#SignUpSubmit").attr('disabled','disabled');
+                },
+                fail: function(data){
+                    console.log("FAIL:"+data);
                 }
             });
         });
+        
+        
     } ]);
+    
+    $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 })();
-
-$(document).ready(function(){
-    $("form[name='SignUpStudent']").submit(function(f){
-        f.preventDefault();
-        $.ajax({
-            type:"POST",
-            url:'utilities/signup.php',
-            data:{
-                fullname: $("#SignUpName").val(),
-                email: $("#SignUpEmail").val(),
-                timeslot_id : $("input:radio[name=timeslot_id]:checked").val(),
-                cal_id : $('#cal').val()
-            },
-            success: function(data){
-                console.log("SUCCESS:"+data);
-                //$("#SignUpSubmit").attr('disabled','disabled');
-            },
-            fail: function(data){
-                console.log("FAIL:"+data);
-            }
-        });
-    });
-});
-
 
 
 

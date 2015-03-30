@@ -50,11 +50,6 @@
         public function insert_segment($calendar_id, $block_id, $target_segment, $name, $email){
             $block_event = $this->_service->events->get($calendar_id, $block_id);
             $block = array(fmt_gdate($block_event->getStart()),fmt_gdate($block_event->getEnd()));
-            
-            
-              echo "SIGNUP TARGET SEGMENT DURING INSERT: ". $block[0]." - ".$target_segment[0]."\n";
-              echo "SIGNUP TARGET SEGMENT DURING INSERT: ". $target_segment[0]." - ".$target_segment[1]."\n";
-              echo "SIGNUP TARGET SEGMENT DURING INSERT: ". $target_segment[1]." - ".$block[1]."\n";
         
             //Divide segments
             $open_event1 = array($block[0],$target_segment[0]);
@@ -144,7 +139,6 @@
         //$id is a colon delimeted string that seperates block index, segment index, and target block to delete
         //eg: '1:2' would be the third segment of the second block
         public function getSegmentById($id){
-            echo "Getting segment for id: ".$id."\n";
             $split = explode(':',$id);
             $segment = array($split[0], $split[0]+1800);
             $delete_event = $split[1];

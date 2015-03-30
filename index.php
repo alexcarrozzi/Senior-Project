@@ -18,14 +18,15 @@
 <head>
     <title>ScheduleIt Home</title>
     <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/blockui-master/jquery.blockUI.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/app.js"></script>
 </head>
 <body>
     <form name="SignUpStudent">
         <input id="cal" type="hidden" value="<?=$g_calid?>"/>
-        <div ng-controller="ScheduleController as schedule">
-            <div ng-repeat="event in schedule.segments">
+        <div id="appController" ng-controller="ScheduleController as schedule">
+            <div ng-repeat="event in segments">
                  Event ID: <strong>{{event.id}}</strong>
                 <div ng-repeat="segment in event.segments | orderBy : '-start'" >
                     <input type="radio" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />

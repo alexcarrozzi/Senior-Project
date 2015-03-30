@@ -11,13 +11,13 @@
     
     $prod = 0;
      $sp = $prod==0?"Senior-Project/":"";
-    //require_once 'email.php';
+     //require_once 'email.php';
 
     //My Libraries
     require_once 'common.php';
     require_once 'block.php';
     
-    $ret_msg = 'Fail';
+    $ret_msg = array("status"=>"Fail");
 
     //I dont know how.. can you?
     
@@ -40,12 +40,14 @@
         }else{
               $info = $manager->getSegmentById($timeslot_id);
               $target_segment = $info['segment'];
-              echo "SIGNUP TARGET SEGMENT POST GET PRE INSERT: ". $target_segment[0]." - ".$target_segment[1]."\n";
               $delete_event = $info['delete_event'];
               $new_events = $manager->insert_segment($g_calid,$delete_event,$target_segment,$name,$email);
-              echo "First: ".$new_events[0]->getStart()['dateTime'];
-              echo "\nSecond: ".$new_events[1]->getStart()['dateTime'];
-              echo "\nThird: ".$new_events[2]->getStart()['dateTime'];
+              
+              //Set a random string cookie to deter spammers
+              //This cookie should be deleted upon cancellation
+              if(isset($new_events)){
+                setcookie('ofn3793filnf49842kc3ji972inr');
+              }
            
             //Construct Email information
             $student_email = "{$email}@wildcats.unh.edu";
@@ -54,7 +56,7 @@
             
             try{
                 $_email = new Email('professor.jones567@gmail.com');
-                $ret_msg = $_email->send($student_email,$subject,$message);
+                $ret_msg['status'] = $_email->send($student_email,$subject,$message);
                 Logger::write("STATUS: Email successfully sent to: $student_email with message: $message");
             }catch(Exception $e){
                 Logger::write("Email::send failed - ".$e->getMessage());
