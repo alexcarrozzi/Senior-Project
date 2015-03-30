@@ -1,4 +1,17 @@
 <?php
+/*  
+ * All code in the following file was originally designed and implemented 
+ * by Alex Connor Carrozzi for a Senior Project for the 2014-2015 academic year
+ * The University of New Hampshire Computer Science Department owns and
+ * is responsible for all functionality contained in the web application
+ * ScheduleIt
+ *
+ * block.php
+ * A class used to define a Block object that is comparable to a single
+ * Google Calendar Event. This class defines getters and setters for
+ * Event properties and contains a function to segment a single event
+ * into 'n' length segments which represent a single advising meeting
+ */
     //Constant for 30 minute segments
     define('DEFAULT_TIME',1800);
     
@@ -51,13 +64,10 @@
         private function evenly_segment_block($block){
             $segments = array();
             
-            //Why???
-            $unix_block = array($block[0],$block[1]);
-            
             $i=1;
-            $beginning = $unix_block[0];
+            $beginning = $block[0];
             $end = $beginning;
-            while($end < $unix_block[1]){
+            while($end < $block[1]){
                 $end+=$this->_seg_duration;
                 $segments[$i++] = array("start"=>$beginning,"end"=>$end);
                 $beginning = $end;

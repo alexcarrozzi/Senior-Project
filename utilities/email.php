@@ -1,4 +1,18 @@
 <?php    
+/*  
+ * All code in the following file was originally designed and implemented 
+ * by Alex Connor Carrozzi for a Senior Project for the 2014-2015 academic year
+ * The University of New Hampshire Computer Science Department owns and
+ * is responsible for all functionality contained in the web application
+ * ScheduleIt
+ *
+ * email.php
+ * A class used to define and emailing object that is used to send confirmation
+ * and cancellation emails to students and advisors regarding the status of 
+ * their meetings. This class module is dependant on the Pear mailing
+ * installation. 
+ */
+    
     // Pear Mail Library
     require_once $_SERVER['DOCUMENT_ROOT']."/packages/pear/Mail.php";
 

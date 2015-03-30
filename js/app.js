@@ -1,4 +1,13 @@
-(function(){
+/*  
+ * All code in the following file was originally designed and implemented 
+ * by Alex Connor Carrozzi for a Senior Project for the 2014-2015 academic year
+ * The University of New Hampshire Computer Science Department owns and
+ * is responsible for all functionality contained in the web application
+ * ScheduleIt
+ *
+ * 
+ */
+    (function(){
     var app = angular.module('ScheduleIt', []);
     
     app.controller('ScheduleController', ['$http', function($http){

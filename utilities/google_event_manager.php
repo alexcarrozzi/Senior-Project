@@ -1,4 +1,19 @@
 <?php
+/*  
+ * All code in the following file was originally designed and implemented 
+ * by Alex Connor Carrozzi for a Senior Project for the 2014-2015 academic year
+ * The University of New Hampshire Computer Science Department owns and
+ * is responsible for all functionality contained in the web application
+ * ScheduleIt
+ *
+ * google_event_manager.php
+ * This class is used to define a service object that interfaces with the
+ * Google calendar itself. This is responsible for managing time blocking,
+ * insertions, deletions, and updates to Google Calendar Events. Additionally,
+ * This file will utilize email.php to send confirmation emails after the sign-up
+ * process has completed.
+ */
+    
     define('OPEN_MESSAGE','Open Time');
     //require_once 'email.php';
 

@@ -1,4 +1,19 @@
 <?php
+/*  
+ * All code in the following file was originally designed and implemented 
+ * by Alex Connor Carrozzi for a Senior Project for the 2014-2015 academic year
+ * The University of New Hampshire Computer Science Department owns and
+ * is responsible for all functionality contained in the web application
+ * ScheduleIt
+ *
+ * google_api_init.php
+ * This file is responsible for initializing ScheduleIt's connection with
+ * Google's Calendar API. A service account has been set up to act as and
+ * intermediary to make and manage API calls between the user and Google.
+ * It is imperative that advisors share their advising calendars with this
+ * account in order for the application to function. 
+ */
+    
     
      $prod = 0;
      $sp = $prod==0?"Senior-Project/":"";     
@@ -43,10 +58,9 @@ if (isset($_SESSION['token'])){
 //EXECUTION
 $service = new Google_Service_Calendar($client);
 $calendarListEntry = $service->calendarList->get($g_calid);
-$events = $service->events->listEvents($g_calid);  //This cannot be hardcoded
+$events = $service->events->listEvents($g_calid); 
 
 //Event Manager Set Up
 $manager = new Google_Event_Manager($service);
-
 
 ?>
