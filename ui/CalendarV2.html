@@ -15,6 +15,8 @@
 
 <!----- END BOOTSTRAP CDNS -------------> 
 
+<link href="additional.css" rel="stylesheet" type="text/css" media="all" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
   
   
@@ -30,155 +32,159 @@
 		
 		<div class="col-md-12">
 			<span class="pull-left">
-				<span class="glyphicon glyphicon-arrow-left">Previous</span>
+				<span class="glyphicon glyphicon-arrow-left">&nbsp; Previous</span>
 			</span>
+			
 			<span class="pull-right">
-				<span>Next</span>
+				<span>Next &nbsp; &nbsp;</span>
 				<span class="glyphicon glyphicon-arrow-right"> </span>
 			</span>
 		</div>
 	</div>
-	</br></br>
+	</br>
+	
+	<p class="text-center"><strong>Instructor: Radim Bartos</strong></p>
+	
 <div class="table-responsive">
 	<table class="table table-bordered">
     	<thead>
       		<tr>
-		        <th style="text-align:center;">Monday</th>
-		        <th style="text-align:center;">Tuesday</th>
-		        <th style="text-align:center;">Wednesday</th>
-		        <th style="text-align:center;">Thursday</th>
-		        <th style="text-align:center;">Friday</th>
+		        <th>Monday</th>
+		        <th>Tuesday</th>
+		        <th>Wednesday</th>
+		        <th>Thursday</th>
+		        <th>Friday</th>
       		</tr>
     	</thead>
     	<tbody>
     		<tr class="danger">
-	    		<td style="padding:30px;text-align:center;">Closed</td>
-	    		<td style="padding:30px;text-align:center;">Closed</td>
-	    		<td style="padding:30px;text-align:center;">Closed</td>
-	    		<td style="padding:30px;text-align:center;">Closed</td>
-	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td class="closed">Closed</td>
+	    		<td class="closed">Closed</td>
+	    		<td class="closed">Closed</td>
+	    		<td class="closed">Closed</td>
+	    		<td class="closed">Closed</td>
     		</tr>
     		<tr class="info">
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		
-	    		
-    		</tr>
-    		<tr class="info">
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
 	    		
 	    		
     		</tr>
     		<tr class="info">
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		
-	    		
-    		</tr>
-    		<tr class="info">
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
 	    		
 	    		
     		</tr>
     		<tr class="info">
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
 	    		
 	    		
     		</tr>
     		<tr class="info">
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
-	    		<td style="padding:10px;text-align:center;">Appointments Available
-	    			<input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		
+	    		
+    		</tr>
+    		<tr class="info">
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		
+	    		
+    		</tr>
+    		<tr class="info">
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
+	    		</td>
+	    		<td class="open">Appointments Available
+	    			<input type="radio" name="Time1" value="">
 	    		</td>
 	    		
 	    		
     		</tr>
 
     		<tr class="danger">
-	    		<td style="padding:30px;text-align:center;">Closed</td>
-	    		<td style="padding:30px;text-align:center;">Closed</td>
-	    		<td style="padding:30px;text-align:center;">Closed</td>
-	    		<td style="padding:30px;text-align:center;">Closed</td>
-	    		<td style="padding:30px;text-align:center;">Closed</td>
+	    		<td class="closed">Closed</td>
+	    		<td class="closed">Closed</td>
+	    		<td class="closed">Closed</td>
+	    		<td class="closed">Closed</td>
+	    		<td class="closed">Closed</td>
     		</tr>
     	</tbody>
     
@@ -186,7 +192,7 @@
 </div>
 
 </body>
-<footer>Click on a day to see what times are available</footer>
+<footer class="text-center">Click on a day to see what times are available</footer>
 
 </div>
 
