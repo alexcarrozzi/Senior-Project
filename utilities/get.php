@@ -95,7 +95,6 @@
                               
             $return_array = $temp;
         }
-        Logger::write(json_encode($return_array));
         
     }else{
         $return_array = array("Error"=>'Invalid type');
