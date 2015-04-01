@@ -16,3 +16,6 @@
 2015-04-01T15:21:58-04:00 -- Code: 101:STATUS: Email successfully sent to: ack444@wildcats.unh.edu with message: This is a test email from ScheduleIt
 2015-04-01T15:22:17-04:00 -- Code: 101:STATUS: Email successfully sent to: ack444@wildcats.unh.edu with message: This is a test email from ScheduleIt
 2015-04-01T15:23:49-04:00 -- Code: 101:STATUS: Email successfully sent to: ack444@wildcats.unh.edu with message: This is a test email from ScheduleIt
+2015-04-01T16:22:18-04:00 -- Code: 101:Error Inserting Google Event - Google_Event_Manager::insert_segment()
+2015-04-01T16:22:19-04:00 -- Code: 101:STATUS: Email successfully sent to: ack444@wildcats.unh.edu with message: This is a test email from ScheduleIt
+2015-04-01T16:24:08-04:00 -- Code: 101:STATUS: Email successfully sent to: ack444@wildcats.unh.edu with message: This is a test email from ScheduleIt

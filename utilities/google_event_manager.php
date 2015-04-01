@@ -56,6 +56,10 @@
             $reserved_event = array($target_segment[0],$target_segment[1]);
             $open_event2 = array($target_segment[1],$block[1]);
             
+            $createdEvent1 = '';
+            $createdEvent2 = '';
+            $createdEvent3 = '';
+            
             //Insert Open Events
             $event = new Google_Service_Calendar_Event();
             $event->setSummary(OPEN_MESSAGE);
@@ -133,7 +137,7 @@
                 Logger::write("Email::send failed - ".$e->getMessage());
             }
             
-            return array($createdEvent1,$createdEvent2,$createdEvent3);
+            return $reserved_event;
         }
         
         //$id is a colon delimeted string that seperates block index, segment index, and target block to delete
