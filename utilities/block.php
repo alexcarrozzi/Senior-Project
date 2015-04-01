@@ -64,12 +64,11 @@
         private function evenly_segment_block($block){
             $segments = array();
             
-            $i=1;
             $beginning = $block[0];
             $end = $beginning;
             while($end < $block[1]){
                 $end+=$this->_seg_duration;
-                $segments[$i++] = array("start"=>$beginning,"end"=>$end);
+                $segments[] = (int)$beginning;//array("start"=>$beginning,"end"=>$end);
                 $beginning = $end;
             }
       

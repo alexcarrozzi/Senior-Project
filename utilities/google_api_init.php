@@ -21,6 +21,7 @@
 require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}google-api-php-client/src/Google/Client.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}google-api-php-client/src/Google/Service/Calendar.php";
 require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_event_manager.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/logger.php";
 
 const CLIENT_ID = '191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk.apps.googleusercontent.com';
 const SERVICE_ACCOUNT_NAME = '191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk@developer.gserviceaccount.com';
@@ -57,8 +58,6 @@ if (isset($_SESSION['token'])){
 
 //EXECUTION
 $service = new Google_Service_Calendar($client);
-$calendarListEntry = $service->calendarList->get($g_calid);
-$events = $service->events->listEvents($g_calid); 
 
 //Event Manager Set Up
 $manager = new Google_Event_Manager($service);

@@ -18,6 +18,7 @@
     $type=$_REQUEST['type'];
     $eventId=isset($_REQUEST['id'])?$_REQUEST['id']:'';
     $calId=isset($_REQUEST['calendar'])?$_REQUEST['calendar']:'';
+    $my_date=isset($_REQUEST['date'])?$_REQUEST['date']:'';
     
     $GLOBALS['g_calid'] = $calId;
     require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
@@ -26,12 +27,29 @@
     $return_array = [];
     
     if($type=='events'){
+        
+        $events = $service->events->listEvents($g_calid);
+        
+        
+        
         $temp_events = $events->getItems();
-        $myEvents =  array("events"     =>$temp_events,
-                           "calId"      =>$calId
-                           );
-         $return_array = $myEvents;
+       
+        $i=-1;
+        foreach($temp_events as $event){
+            $newEv[++$i]['start'] = $event->getStart()['dateTime'];
+            $newEv[$i]['id'] =  $event->getId();
+        }
+        $myEvents =  array("events"=>$newEv);
+        
+        usort($myEvents, "custom_sort_by_start");
+        
+        $return_array = array("events"=>$myEvents[0]);
     }elseif($type=="event"){
+        
+        $events = $service->events->listEvents($g_calid);
+        
+        
+        
         $myEvent = $service->events->get($calId,$eventId);//make sure the calendarId isnt hard coded
         $return_array = array("id"         => $myEvent->getId(),
                               "start"      => $myEvent->getStart()['dateTime'],
@@ -39,7 +57,13 @@
                               "calendarId" => $myEvent->getOrganizer()['email'],
                               "desc"       => $myEvent->getDescription()
                               );
+                 
     }elseif($type=='segments'){
+        
+        $events = $service->events->listEvents($g_calid);
+        
+        
+        
         $myEvent = $service->events->get($calId,$eventId);//make sure the calendarId isnt hard coded
         if($myEvent->getDescription() == ''){
             $block = new Block(fmt_gdate($myEvent->getStart()),fmt_gdate($myEvent->getEnd()));
@@ -48,11 +72,40 @@
         $return_array = array("id"         => $myEvent->getId(),
                               "segments"   => $list
                               );
+    }elseif($type=='newSegments'){
+        $return_array = array();
+        $params = array(
+        'singleEvents' => 'true',
+        'timeMin' => date(DATE_ISO8601,strtotime($my_date.' midnight')),
+        'timeMax' => date(DATE_ISO8601,strtotime($my_date.' midnight + 86399 seconds')),
+        'orderBy' => 'startTime');
+        //Execute
+        $events = $service->events->listEvents($g_calid,$params);
+
+        //only gets last event of the day
+        foreach($events as $myEvent){
+            if($myEvent->getDescription() == ''){
+                $block = new Block(fmt_gdate($myEvent->getStart()),fmt_gdate($myEvent->getEnd()));
+                $list = $block->getList();
+            }  
+            $temp = array("id" => $myEvent->getId(),
+                          "date" => $myEvent->getStart()['dateTime'],
+                          "segments"   => $list
+                          );
+                              
+            $return_array = $temp;
+        }
+        Logger::write(json_encode($return_array));
+        
     }else{
         $return_array = array("Error"=>'Invalid type');
     }
 
     echo json_encode($return_array);
-
+    
+    //Think about getting events by day only
+    function custom_sort_by_start($a, $b) {
+        return ($a['start'] < $b['start']);
+    }
 
 ?>
