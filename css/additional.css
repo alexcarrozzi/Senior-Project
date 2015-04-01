@@ -1,13 +1,16 @@
-.closed{
-	padding:30px !important;
+.open{
+	padding:10px !important;
 	text-align:center;
+    background-color:#f5f5f5;
 }
 
 th{
 	text-align:center;
 }
 
-.open{
+.closed{
 	padding:10px !important;
 	text-align:center;
+    background-color:#494949;
+    color:#FFFFFF;
 }

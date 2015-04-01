@@ -9,9 +9,9 @@
  * 
  */
     
-     $prod = 0;
+     $prod = 1;
      $sp = $prod==0?"Senior-Project/":"";
-     require_once 'email.php';
+     require_once $prod==1?'email.php':'common.php';
 
     //My Libraries
     require_once 'common.php';

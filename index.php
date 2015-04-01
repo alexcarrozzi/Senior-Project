@@ -70,50 +70,50 @@
         <div id="selectable" style="display:inline-block">
             <div style="text-align:center;">Week of: {{controlDate | date : 'M/d'}} &ndash; {{endDate | date : 'M/d'}}</div>
             <div ng-repeat="all in monday">
-                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
                     <div ng-repeat="start in data.segments">
-                        <div ng-attr-id="{{start}}:{{data.id}}">
-                            {{start*1000 | date : 'h:mm a'}}
+                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                            {{data.desc || start*1000 | date : 'h:mm a' }}
                         </div>
                     </div>
                 </div>
             </div>
             <hr/>
             <div ng-repeat="all in tuesday">
-                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
                     <div ng-repeat="start in data.segments">
-                        <div ng-attr-id="{{start}}:{{data.id}}">
-                            {{start*1000 | date : 'h:mm a'}}
+                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                            {{data.desc || start*1000 | date : 'h:mm a' }}
                         </div>
                     </div>
                 </div>
             </div>
             <hr/>
             <div ng-repeat="all in wednesday">
-                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
                     <div ng-repeat="start in data.segments">
-                        <div ng-attr-id="{{start}}:{{data.id}}">
-                            {{start*1000 | date : 'h:mm a'}}
+                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                            {{data.desc || start*1000 | date : 'h:mm a' }}
                         </div>
                     </div>
                 </div>
             </div>
             <hr/>
             <div ng-repeat="all in thursday">
-                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
                     <div ng-repeat="start in data.segments">
-                        <div ng-attr-id="{{start}}:{{data.id}}">
-                            {{start*1000 | date : 'h:mm a'}}
+                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                            {{data.desc || start*1000 | date : 'h:mm a' }}
                         </div>
                     </div>
                 </div>
             </div>
             <hr/>
             <div ng-repeat="all in friday">
-                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
                     <div ng-repeat="start in data.segments">
-                        <div ng-attr-id="{{start}}:{{data.id}}">
-                            {{start*1000 | date : 'h:mm a'}}
+                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                            {{data.desc || start*1000 | date : 'h:mm a' }}
                         </div>
                     </div>
                 </div>

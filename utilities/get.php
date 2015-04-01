@@ -9,7 +9,7 @@
  * 
  */
     
-     $prod = 0;
+     $prod = 1;
      $sp = $prod==0?"Senior-Project/":""; 
         
     require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/common.php";
@@ -73,7 +73,7 @@
                               "segments"   => $list
                               );
     }elseif($type=='newSegments'){
-        $return_array = array();
+        $return_array = [];
         $params = array(
         'singleEvents' => 'true',
         'timeMin' => date(DATE_ISO8601,strtotime($my_date.' midnight')),
@@ -82,19 +82,20 @@
         //Execute
         $events = $service->events->listEvents($g_calid,$params);
 
+        
         //only gets last event of the day
         foreach($events as $myEvent){
-            if($myEvent->getDescription() == ''){
+            //if(strlen($myEvent->getDescription())==0){
                 $block = new Block(fmt_gdate($myEvent->getStart()),fmt_gdate($myEvent->getEnd()));
                 $list = $block->getList();
-            }  
-            $temp = array("id"=>$myEvent->getId(),
-                          "date" => $myEvent->getStart()['dateTime'],
-                          "segments" => $list,
-                          "desc" => $myEvent->getDescription()
-                          );
+                $temp = array("id"=>$myEvent->getId(),
+                              "date" => $myEvent->getStart()['dateTime'],
+                              "segments" => $list,
+                              "desc" => $myEvent->getDescription()
+                              );
                               
-            $return_array[]  = $temp;
+                $return_array[]  = $temp;
+            //}  
         }
         
     }else{
