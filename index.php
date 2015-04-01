@@ -61,7 +61,7 @@
 			</a>
 			<a href="" id="next" class="pull-right weekButton">
 				<span>Next</span>
-				<span class="glyphicon glyphicon-arrow-right weekButton"></span>
+				<span class="glyphicon glyphicon-arrow-right"></span>
 			</a>
 		</div>
 	</div>
@@ -69,40 +69,63 @@
     <div id="calController" ng-controller="ScheduleController as schedule">
         <div id="selectable" style="display:inline-block">
             <div style="text-align:center;">Week of: {{controlDate | date : 'M/d'}} &ndash; {{endDate | date : 'M/d'}}</div>
-            <div ng-repeat="day in days.monday" />
-                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    {{start*1000 | date : 'h:mm a'}}
+            <div ng-repeat="all in monday">
+                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                    <div ng-repeat="start in data.segments">
+                        <div ng-attr-id="{{start}}:{{data.id}}">
+                            {{start*1000 | date : 'h:mm a'}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr/>
-            <div ng-repeat="day in days.tuesday" />
-                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    {{start*1000 | date : 'h:mm a'}}
+            <div ng-repeat="all in tuesday">
+                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                    <div ng-repeat="start in data.segments">
+                        <div ng-attr-id="{{start}}:{{data.id}}">
+                            {{start*1000 | date : 'h:mm a'}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr/>
-            <div ng-repeat="day in days.wednesday" />
-                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    {{start*1000 | date : 'h:mm a'}}
+            <div ng-repeat="all in wednesday">
+                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                    <div ng-repeat="start in data.segments">
+                        <div ng-attr-id="{{start}}:{{data.id}}">
+                            {{start*1000 | date : 'h:mm a'}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr/>
-            <div ng-repeat="day in days.thursday" />
-                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    {{start*1000 | date : 'h:mm a'}}
+            <div ng-repeat="all in thursday">
+                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                    <div ng-repeat="start in data.segments">
+                        <div ng-attr-id="{{start}}:{{data.id}}">
+                            {{start*1000 | date : 'h:mm a'}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr/>
-            <div ng-repeat="day in days.friday" />
-                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    {{start*1000 | date : 'h:mm a'}}
+            <div ng-repeat="all in friday">
+                <div ng-repeat="(key,data) in all" style="display:block" style="text-align:center;">
+                    <div ng-repeat="start in data.segments">
+                        <div ng-attr-id="{{start}}:{{data.id}}">
+                            {{start*1000 | date : 'h:mm a'}}
+                        </div>
+                    </div>
                 </div>
             </div>
+            <hr/>
         </div>
             <br/>
+                <!-- Style this to be very errory -->
+                <div id="errorMsg"></div>
             Name: <input id="SignUpName" type="text" name="fullname" /><br/>
             Email: <input id="SignUpEmail" type="text" name="email" /><br/>
-            <input id="SignUpSubmit" type="submit" value="Sign Up!" />
+            <button id="signupButton"/>Sign Up!</button>
             <input id="cal" type="hidden" value="<?=$g_calid?>"/>
             <hr/>
     </div>

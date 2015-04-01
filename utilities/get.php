@@ -88,18 +88,20 @@
                 $block = new Block(fmt_gdate($myEvent->getStart()),fmt_gdate($myEvent->getEnd()));
                 $list = $block->getList();
             }  
-            $temp = array("id" => $myEvent->getId(),
+            $temp = array("id"=>$myEvent->getId(),
                           "date" => $myEvent->getStart()['dateTime'],
-                          "segments"   => $list
+                          "segments" => $list,
+                          "desc" => $myEvent->getDescription()
                           );
                               
-            $return_array = $temp;
+            $return_array[]  = $temp;
         }
         
     }else{
         $return_array = array("Error"=>'Invalid type');
     }
 
+    header("Content-Type: application/json");
     echo json_encode($return_array);
     
     //Think about getting events by day only

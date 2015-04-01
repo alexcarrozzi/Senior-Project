@@ -17,7 +17,8 @@
     require_once 'common.php';
     require_once 'block.php';
     
-    $ret_msg = array("status"=>"Fail");
+    $ret_msg['status'] = 'success';
+    $ret_msg['msg'] = '';
 
     //I dont know how.. can you?
     
@@ -28,15 +29,18 @@
         $timeslot_id = $_REQUEST['timeslot_id'];
         $cal_id = $_REQUEST['cal_id'];
         
+        
         $GLOBALS['g_calid'] = $cal_id;
         require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
             
         if($name == ''){
             //TODO: Handle Errors
-            echo '<p>Enter your full name</p>';
+            $ret_msg['status'] = 'error';
+            $ret_msg['msg'] = 'Enter your full name';
         }elseif($email==''){
             //TODO: Handle Errors
-            echo '<p>Enter your email</p>';
+            $ret_msg['status'] = 'error';
+            $ret_msg['msg'] = 'Enter your UNH ID';
         }else{
               $info = $manager->getSegmentById($timeslot_id);
               $target_segment = $info['segment'];
@@ -56,12 +60,15 @@
             
             try{
                 $_email = new Email('professor.jones567@gmail.com');
-                $ret_msg['status'] = $_email->send($student_email,$subject,$message);
+                if(!$_email->send($student_email,$subject,$message)){
+                    $ret_msg['msg'] = 'error';
+                }
                 Logger::write("STATUS: Email successfully sent to: $student_email with message: $message");
             }catch(Exception $e){
                 Logger::write("Email::send failed - ".$e->getMessage());
             }
         }
+        header("Content-Type: application/json");
         echo json_encode($ret_msg);
     }
 

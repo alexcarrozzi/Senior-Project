@@ -33,14 +33,14 @@
            console.log("data.name"+$scope.data.name);
         });*/
         
-        
-        $scope.firstLoad = true;
         $scope.calendarId = $('#cal').val();
         $scope.controlDate = Date.now().last().monday();
         $scope.endDate = Date.now().last().monday();
         $scope.endDate.setDate($scope.controlDate.getDate()+4);
-        init();
-        getTimes($scope.controlDate);
+        init().then(function(msg){
+            getTimes($scope.controlDate);
+            console.log(msg);
+        });
         
         //Construct a week calendar based on current day
         //Make a function to retrieve different weeks
@@ -48,78 +48,38 @@
         //setInterval( getTimes, 10000 );
          
         $(document).on('click','#refresh',function(){
-            //only update day changed
-            getTimes($scope.controlDate);
+            init().then(function(msg){
+                getTimes($scope.controlDate);
+                console.log(msg);
+            });
         });
-        function getTimes(today){
-            //$scope.oldSegments = $scope.segments;
-            //$scope.segments = []; 
-            //////GET BY DAY/////////            
+        
+        function getTimes(today){          
             getDay(1,today).success(function(data1){
-                $scope.days.monday.push(data1);
+                $scope.monday.push(data1);
+                console.log($scope.monday);
             }); 
             
             getDay(2,today).success(function(data2){
-                $scope.days.tuesday.push(data2);
+                $scope.tuesday.push(data2);
+                console.log($scope.tuesday);
             });   
             
             getDay(3,today).success(function(data3){
-                $scope.days.wednesday.push(data3);  
+                $scope.wednesday.push(data3);   
+                console.log($scope.wednesday);
             });       
                    
             getDay(4,today).success(function(data4){
-                $scope.days.thursday.push(data4);     
+                $scope.thursday.push(data4);     
+                console.log($scope.thursday);
             });   
             
             getDay(5,today).success(function(data5){
-                $scope.days.friday.push(data5);          
+                $scope.friday.push(data5);         
+                console.log($scope.friday); 
             });              
-            ///////END GET BY DAY/////
             
-            
-            /*
-            $http.get('./utilities/get.php?type=events&calendar='+encodeURIComponent($scope.calendarId)).success(function(data){          
-                $scope.events = data.events;
-                $($scope.events).each(function(i){
-                    var this_event = [];
-                    var my_id = $scope.events[i].id;
-                    if($scope.events[i].description == null){
-                        $http.get('./utilities/get.php?type=segments&id='+encodeURIComponent(my_id)+'&calendar='+encodeURIComponent($scope.calendarId)).success(function(data1){
-                            var len1 = 0;
-                            var len2 = 0;
-                            
-                            if(typeof $scope.oldSegments[i] !== 'undefined'){
-                                len1 = Object.keys($($scope.oldSegments[i].segments)[0]).length;
-                                len2 = Object.keys($(data1.segments)[0]).length;   
-
-                                //console.log($scope.oldSegments + "\n\n" + data1.segments);
-                            }
-                                //console.log(data);
-                            console.log("len1: "+len1+" len2: "+len2+"\n");
-                            
-                            if((len1 != len2) && (!$scope.firstLoad)){
-                                console.log("You may be out of sync! "+ len1 +" != "+ len2);
-                                this_event.segments = data1.segments;
-                                this_event.id = data1.id;
-                                $scope.segments.push(this_event);
-                                
-                                $scope.days.dates.segments.push(this_event);
-                                //$scope.firstLoad = false;
-                            }else if($scope.firstLoad){
-                                this_event.segments = data1.segments;
-                                this_event.id = data1.id;
-                                $scope.segments.push(this_event);
-                               
-                                $scope.days.dates.segments.push(this_event);
-                            }else{
-                                $scope.segments = $scope.oldSegments;
-                                console.log("All Good");
-                            }
-                            console.log($scope.days);
-                        });
-                    }
-                });
-            });*/
         }
         
         // 1 = Monday
@@ -133,17 +93,21 @@
         }
         
         function init(){
-            $scope.segments = [];
-            $scope.days = [];
-            $scope.days.monday = [];
-            $scope.days.tuesday = [];
-            $scope.days.wednesday = [];
-            $scope.days.thursday = [];
-            $scope.days.friday = [];
+            return new Promise(function(resolve,reject){
+                $scope.segments = [];
+                $scope.days = [];
+                $scope.monday = [];
+                $scope.tuesday = [];
+                $scope.wednesday = [];
+                $scope.thursday = [];
+                $scope.friday = [];
+                resolve("Promise Complete");
+            });
         }
         
-        $("form[name='SignUpStudent']").submit(function(f){
-            f.preventDefault();
+        
+        $(document).on('click','#signupButton',function(){
+            console.log($(".ui-selected")[0].id);
             $.blockUI();
             $.ajax({
                 type:"POST",
@@ -151,16 +115,26 @@
                 data:{
                     fullname: $("#SignUpName").val(),
                     email: $("#SignUpEmail").val(),
-                    timeslot_id : $("input:radio[name=timeslot_id]:checked").val(),
+                    timeslot_id : $(".ui-selected")[0].id,
                     cal_id : $('#cal').val()
                 },
                 success: function(data){
-                    console.log("SUCCESS:"+data);
-                    getTimes();
-                    //$("#SignUpSubmit").attr('disabled','disabled');
+                    if(data.status == 'success'){
+                        console.log("SUCCESS: "+data.msg);
+                        init().then(function(msg){
+                            getTimes($scope.controlDate);
+                            console.log("DONE LOADING");
+                            console.log(msg);
+                        });
+                    }else if(data.status == 'error'){
+                        $('#errorMsg').html(data.msg);
+                        console.log("FAIL: "+data.msg);
+                    }else{
+                        console.log(data);
+                    }
                 },
-                fail: function(data){
-                    console.log("FAIL:"+data);
+                error: function(data){
+                    console.log(data);
                 },
                 complete: function(){
                     $.unblockUI();
@@ -169,23 +143,29 @@
         });
         
         $(document).on('click','.weekButton',function(){
-            init();
-            
-            if($(this).attr('id')=='next'){
-                $scope.controlDate.setDate($scope.controlDate.getDate() + 7); 
-                $scope.endDate.setDate($scope.endDate.getDate() + 7);
-            }else if($(this).attr('id')=='last'){
-                $scope.controlDate.setDate($scope.controlDate.getDate() - 7); 
-                $scope.endDate.setDate($scope.endDate.getDate() - 7);
-            }else{
-            
-            }
-            getTimes($scope.controlDate);
+            var ref_this = this;
+            init().then(function(){
+                if($(ref_this).attr('id')=='next'){
+                    $scope.controlDate.setDate($scope.controlDate.getDate() + 7); 
+                    $scope.endDate.setDate($scope.endDate.getDate() + 7);
+                }else if($(ref_this).attr('id')=='last'){
+                    $scope.controlDate.setDate($scope.controlDate.getDate() - 7); 
+                    $scope.endDate.setDate($scope.endDate.getDate() - 7);
+                }else{
+                
+                }
+                getTimes($scope.controlDate);
+            });
         });
         
       $(function() {
         $( "#selectable" ).selectable({
-            filter: 'div div:not(.closed)'
+            filter: 'div div div div:not(.closed)',
+            selecting: function(event, ui){
+            if( $(".ui-selected, .ui-selecting").length > 1){
+                  $(ui.selecting).removeClass("ui-selecting");
+            }
+        }
         });
       });
       
