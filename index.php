@@ -19,9 +19,12 @@
     <title>ScheduleIt Home</title>
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/blockui-master/jquery.blockUI.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/date.js"></script>
     <script src="js/app.js"></script>
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     
     <!---- START BOOTSTRAP CDNS ------------>
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -33,6 +36,16 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <!----- END BOOTSTRAP CDNS -------------> 
+    <link rel="stylesheet" href="css/additional.css">
+
+<!-- EXTRACT THIS -->
+  <style>
+      #feedback { font-size: 1.4em; }
+      #selectable .ui-selecting { background: #FECA40; }
+      #selectable .ui-selected { background: #F39814; color: white; }
+      #selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+      #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+  </style>
 </head>
 <body>
 	<div class="container">
@@ -54,40 +67,34 @@
 	</div>
 	</br></br>
     <div id="calController" ng-controller="ScheduleController as schedule">
-        <form name="SignUpStudent">
-        <div style="display:inline-block">
+        <div id="selectable" style="display:inline-block">
             <div style="text-align:center;">Week of: {{controlDate | date : 'M/d'}} &ndash; {{endDate | date : 'M/d'}}</div>
             <div ng-repeat="day in days.monday" />
-                <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
+                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>
             <hr/>
             <div ng-repeat="day in days.tuesday" />
-                <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
+                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>
             <hr/>
             <div ng-repeat="day in days.wednesday" />
-                <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
+                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>
             <hr/>
             <div ng-repeat="day in days.thursday" />
-                <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
+                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>
             <hr/>
             <div ng-repeat="day in days.friday" />
-                <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
+                <div ng-attr-id="{{start}}:{{day.id}}" ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>
@@ -98,7 +105,6 @@
             <input id="SignUpSubmit" type="submit" value="Sign Up!" />
             <input id="cal" type="hidden" value="<?=$g_calid?>"/>
             <hr/>
-        </form>
     </div>
 <!--
     <div id="appController" ng-controller="ScheduleController as schedule">

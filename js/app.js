@@ -182,6 +182,13 @@
             }
             getTimes($scope.controlDate);
         });
+        
+      $(function() {
+        $( "#selectable" ).selectable({
+            filter: 'div div:not(.closed)'
+        });
+      });
+      
     } ]);
 })();
 
