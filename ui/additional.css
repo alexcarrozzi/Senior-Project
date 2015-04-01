@@ -1,0 +1,13 @@
+.closed{
+	padding:30px !important;
+	text-align:center;
+}
+
+th{
+	text-align:center;
+}
+
+.open{
+	padding:10px !important;
+	text-align:center;
+}
