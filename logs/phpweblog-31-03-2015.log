@@ -13,3 +13,5 @@
 2015-03-31T23:01:47-04:00 -- Code: 101:[]
 2015-03-31T23:01:47-04:00 -- Code: 101:[]
 2015-03-31T23:01:47-04:00 -- Code: 101:{"id":"n9v77ac3jj9ie8ojp47bfnk6lg","date":"2015-04-02T14:00:00-04:00","segments":[1427997600,1427999400,1428001200,1428003000,1428004800]}
+2015-03-31T23:42:54-04:00 -- Code: 101:STATUS: Email successfully sent to: ack444@wildcats.unh.edu with message: This is a test email from ScheduleIt
+2015-03-31T23:45:12-04:00 -- Code: 101:STATUS: Email successfully sent to: ack444@wildcats.unh.edu with message: This is a test email from ScheduleIt

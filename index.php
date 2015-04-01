@@ -56,38 +56,38 @@
     <div id="calController" ng-controller="ScheduleController as schedule">
         <form name="SignUpStudent">
         <div style="display:inline-block">
-            <div style="text-align:center;">{{day.date | date : 'M/d'}}</div>
+            <div style="text-align:center;">Week of: {{controlDate | date : 'M/d'}} &ndash; {{endDate | date : 'M/d'}}</div>
             <div ng-repeat="day in days.monday" />
                 <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start*1000}}:{{day.id}}" />
+                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>
             <hr/>
             <div ng-repeat="day in days.tuesday" />
                 <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start*1000}}:{{day.id}}" />
+                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>
             <hr/>
             <div ng-repeat="day in days.wednesday" />
                 <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start*1000}}:{{day.id}}" />
+                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>
             <hr/>
             <div ng-repeat="day in days.thursday" />
                 <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start*1000}}:{{day.id}}" />
+                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>
             <hr/>
             <div ng-repeat="day in days.friday" />
                 <div ng-repeat="start in day.segments" style="display:block" style="text-align:center;">
-                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start*1000}}:{{day.id}}" />
+                    <input type="radio" id="timeslot_id" name="timeslot_id" ng-attr-value="{{start}}:{{day.id}}" />
                     {{start*1000 | date : 'h:mm a'}}
                 </div>
             </div>

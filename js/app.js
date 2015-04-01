@@ -23,9 +23,8 @@
     });*/
     
     app.controller('ScheduleController', ['$scope','$http', function($scope,$http){
-        $scope.events = [];
-        $scope.segments = [];
-        $scope.oldSegments = [];
+       // $scope.events = [];
+       // $scope.oldSegments = [];
         /*
         var temp_date = today.toISOString();
         var myDataPromise = myService.serviceTimes($scope.calendarId,temp_date);
@@ -34,48 +33,45 @@
            console.log("data.name"+$scope.data.name);
         });*/
         
-        $scope.days = [];
-        $scope.days.monday = [];
-        $scope.days.tuesday = [];
-        $scope.days.wednesday = [];
-        $scope.days.thursday = [];
-        $scope.days.friday = [];
-        
         
         $scope.firstLoad = true;
         $scope.calendarId = $('#cal').val();
-        
+        $scope.controlDate = Date.now().last().monday();
+        $scope.endDate = Date.now().last().monday();
+        $scope.endDate.setDate($scope.controlDate.getDate()+4);
+        init();
+        getTimes($scope.controlDate);
         
         //Construct a week calendar based on current day
         //Make a function to retrieve different weeks
         
         //setInterval( getTimes, 10000 );
-        getTimes();
-        
+         
         $(document).on('click','#refresh',function(){
-            getTimes();
+            //only update day changed
+            getTimes($scope.controlDate);
         });
-        function getTimes(){
+        function getTimes(today){
             //$scope.oldSegments = $scope.segments;
-            //$scope.segments = [];  
+            //$scope.segments = []; 
             //////GET BY DAY/////////            
-            getDay(1).success(function(data1){
+            getDay(1,today).success(function(data1){
                 $scope.days.monday.push(data1);
             }); 
             
-            getDay(2).success(function(data2){
+            getDay(2,today).success(function(data2){
                 $scope.days.tuesday.push(data2);
             });   
             
-            getDay(3).success(function(data3){
+            getDay(3,today).success(function(data3){
                 $scope.days.wednesday.push(data3);  
             });       
                    
-            getDay(4).success(function(data4){
+            getDay(4,today).success(function(data4){
                 $scope.days.thursday.push(data4);     
             });   
             
-            getDay(5).success(function(data5){
+            getDay(5,today).success(function(data5){
                 $scope.days.friday.push(data5);          
             });              
             ///////END GET BY DAY/////
@@ -128,13 +124,22 @@
         
         // 1 = Monday
         // 2 = Tuesday etc..
-        function getDay(ind){
-            var today = Date.now();
+        function getDay(ind,today){
             var temp_date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay()+ind);
             temp_date = temp_date.toISOString();
             $scope.days.push(temp_date);
             console.log(encodeURI('./utilities/get.php?type=newSegments&calendar='+$scope.calendarId+'&date='+temp_date));
             return $http.get(encodeURI('./utilities/get.php?type=newSegments&calendar='+$scope.calendarId+'&date='+temp_date));
+        }
+        
+        function init(){
+            $scope.segments = [];
+            $scope.days = [];
+            $scope.days.monday = [];
+            $scope.days.tuesday = [];
+            $scope.days.wednesday = [];
+            $scope.days.thursday = [];
+            $scope.days.friday = [];
         }
         
         $("form[name='SignUpStudent']").submit(function(f){
@@ -164,13 +169,18 @@
         });
         
         $(document).on('click','.weekButton',function(){
+            init();
+            
             if($(this).attr('id')=='next'){
-                window.location.href = window.location.href + "?next";
-                console.log("next");
+                $scope.controlDate.setDate($scope.controlDate.getDate() + 7); 
+                $scope.endDate.setDate($scope.endDate.getDate() + 7);
+            }else if($(this).attr('id')=='last'){
+                $scope.controlDate.setDate($scope.controlDate.getDate() - 7); 
+                $scope.endDate.setDate($scope.endDate.getDate() - 7);
             }else{
-                window.location.href = window.location.href + "?last";
-                console.log("last");
+            
             }
+            getTimes($scope.controlDate);
         });
     } ]);
 })();
