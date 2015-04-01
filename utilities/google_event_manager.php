@@ -99,7 +99,7 @@
             $start->setDateTime(date(\DateTime::ATOM, $reserved_event[0]));
             $event->setStart($start);
             $end = new Google_Service_Calendar_EventDateTime();
-            $event->setDescription("Name: $name\nEmail:$email");
+            $event->setDescription("Name: $name\nEmail:$email".'@wildcats.unh.edu');
             $end->setDateTime(date(\DateTime::ATOM, $reserved_event[1]));
             $event->setEnd($end);
             $attendee1 = new Google_Service_Calendar_EventAttendee();

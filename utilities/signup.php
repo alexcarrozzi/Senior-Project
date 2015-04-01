@@ -52,11 +52,18 @@
               if(isset($new_events)){
                 setcookie('ofn3793filnf49842kc3ji972inr');
               }
+              
+            $link_s = $new_events[0];
+            $link = "http://schedultit.cs.unh.edu:8000?action='cancel'&s={$link_s}";
            
             //Construct Email information
             $student_email = "{$email}@wildcats.unh.edu";
             $subject = "ScheduleIt Appointment Confirmation";
-            $message = "This is a test email from ScheduleIt";
+            $message = "Dear {$name},\r\n\r\n";
+            $message .= "Your advising meetings has been scheduled ";
+            $message .= "for ".date('l, F j, Y \a\t g:i',$new_events[0]).".\r\n\r\n";
+            $message .= "If you did not sign up for this meeting please follow this link: ";
+            $message .= $link;
             
             try{
                 $_email = new Email('professor.jones567@gmail.com');
