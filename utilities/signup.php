@@ -11,7 +11,7 @@
     
     $prod = 0;
      $sp = $prod==0?"Senior-Project/":"";
-     //require_once 'email.php';
+     require_once 'email.php';
 
     //My Libraries
     require_once 'common.php';
@@ -67,9 +67,7 @@
             
             try{
                 $_email = new Email('professor.jones567@gmail.com');
-                if(!$_email->send($student_email,$subject,$message)){
-                    $ret_msg['msg'] = 'error';
-                }
+                $_email->send($student_email,$subject,$message));
                 Logger::write("STATUS: Email successfully sent to: $student_email with message: $message");
             }catch(Exception $e){
                 Logger::write("Email::send failed - ".$e->getMessage());
