@@ -84,6 +84,7 @@ if(isset($_REQUEST['calendar'])){
 <html>
 <head>
 <link rel='stylesheet' href='style.css' />
+<script src="../js/jquery-1.11.2.min.js"></script>
 <script src="../js/admin.js"></script>
 </head>
 <body>
