@@ -60,7 +60,7 @@ if ($client->getAccessToken()) {
   $authUrl = $client->createAuthUrl();
 }
 
-if(isset($_REQUEST['setCalendar']){
+if(isset($_REQUEST['setCalendar'])){
     //share calendar with service account
     
     //generate link
