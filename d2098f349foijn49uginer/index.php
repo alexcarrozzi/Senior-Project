@@ -75,6 +75,7 @@ if(isset($_REQUEST['calendar'])){
     
     //revoke access by default
     unset($_SESSION['access_token']); 
+    
 }
 ?>
 <!doctype html>
