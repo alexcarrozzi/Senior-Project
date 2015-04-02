@@ -17,6 +17,7 @@
 require_once '../../google-api-php-client/src/Google/Client.php';
 require_once '../../google-api-php-client/src/Google/Service/Plus.php';
 session_start();
+unset($_SESSION);
 $client = new Google_Client();
 $client->setAccessType('online'); // default: offline
 $client->setApplicationName('ScheduleIt');
@@ -31,10 +32,10 @@ $plus = new Google_Service_Plus($client);
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
 }
-if (isset($_GET['code'])) {
+if (isset($_REQUEST['code'])) {
   $client->authenticate();
   $_SESSION['access_token'] = $client->getAccessToken();
-    echo "access token: ".$_SESSION['access_token'];
+    echo "something2";
   header('Location: http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
 }
 if (isset($_SESSION['access_token'])) {
