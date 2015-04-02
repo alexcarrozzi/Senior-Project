@@ -87,7 +87,7 @@ if(isset($_REQUEST['calendar'])){
 </head>
 <body>
         <?php if(isset($authUrl)): ?>
-             <a class='login' href="<?php=$authUrl?>">Connect Me!</a>
+             <a class='login' href="<?= $authUrl; ?>">Connect Me!</a>
         <?php else: ?>
             <select>
                 <?php foreach($cals as $cal):?>
