@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 require_once '../../google-api-php-client/src/Google/Client.php';
-require_once '../../google-api-php-client/src/Google/Service/Calendar.php";
+require_once '../../google-api-php-client/src/Google/Service/Calendar.php';
 session_start();
 $client = new Google_Client();
 $client->setAccessType('online'); // default: offline
