@@ -23,7 +23,7 @@ $client->setApplicationName('ScheduleIt');
 $client->setClientId('191668664245-k6apjlo3hojik7rphq9aet58hiu4pc26.apps.googleusercontent.com');
 $client->setClientSecret('t86-1-Msaw9C7wuPKZ-dvLYK');
 $client->setRedirectUri('http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
-$client->setDeveloperKey('AIzaSyDzsF1TFKgiX1YVx7oBdmorGrkwIiFah88'); // API key
+//$client->setDeveloperKey('AIzaSyDzsF1TFKgiX1YVx7oBdmorGrkwIiFah88'); // API key
 $client->setScopes('https://www.googleapis.com/auth/calendar'); 
 $plus = new Google_Service_Plus($client);
     echo "something1";
@@ -33,15 +33,12 @@ if (isset($_REQUEST['logout'])) {
 if (isset($_REQUEST['code'])) {
   $client->authenticate($_REQUEST['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
-    echo "something2";
   header('Location: http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
 }
 if (isset($_SESSION['access_token'])) {
   $client->setAccessToken($_SESSION['access_token']);
-    echo "something3";
 }
 if ($client->getAccessToken()) {
-    echo "something4";
     $service = new Google_Service_Calendar($client);
     
     $calendarList = $service->calendarList->listCalendarList();
