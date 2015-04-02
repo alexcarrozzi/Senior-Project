@@ -29,8 +29,8 @@ $plus = new Google_Service_Plus($client);
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
 }
-if (isset($GET['code'])) {
-  $client->authenticate($GET['code']);
+if (isset($_GET['code'])) {
+  $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   //$_SESSION['refresh_token'] = $client()->getRefreshToken();
   header('Location: http://scheduleit.cs.unh.edu:8080/d2098f349foijn49uginer');
