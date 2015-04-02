@@ -17,7 +17,6 @@
 require_once '../../google-api-php-client/src/Google/Client.php';
 require_once '../../google-api-php-client/src/Google/Service/Plus.php';
 session_start();
-unset($_SESSION);
 $client = new Google_Client();
 $client->setAccessType('online'); // default: offline
 $client->setApplicationName('ScheduleIt');
@@ -25,16 +24,15 @@ $client->setClientId('191668664245-k6apjlo3hojik7rphq9aet58hiu4pc26.apps.googleu
 $client->setClientSecret('t86-1-Msaw9C7wuPKZ-dvLYK');
 $client->setRedirectUri('http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
 $client->setDeveloperKey('AIzaSyDzsF1TFKgiX1YVx7oBdmorGrkwIiFah88'); // API key
-$client->setScopes('https://www.googleapis.com/auth/userinfo.profile'); 
-$client->setScopes(array('https://www.googleapis.com/auth/plus.me'));
+$client->setScopes('https://www.googleapis.com/auth/calendar'); 
 $plus = new Google_Service_Plus($client);
     echo "something1";
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
 }
 if (isset($_REQUEST['code'])) {
-  $client->authenticate();
-  $_SESSION['access_token'] = $client->getAccessToken();
+  $client->authenticate($_REQUEST['code']);
+  $_SESSION['access_token'] = $client->getAccessToken($_REQUEST['code']);
     echo "something2";
   header('Location: http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
 }
