@@ -46,9 +46,10 @@ if ($client->getAccessToken()) {
     
     $calendarList = $service->calendarList->listCalendarList();
     $cals = [];
+    $i=-1;
       foreach ($calendarList->getItems() as $calendarListEntry) {
-        $cals[]['sum'] =  $calendarListEntry->getSummary();
-        $cals[]['id']  = $calendarListEntry->getId();
+        $cals[++$i]['sum'] =  $calendarListEntry->getSummary();
+        $cals[$i]['id']  = $calendarListEntry->getId();
       }
       
         $acl = $service->acl->listAcl('d62u8j2ik3dhlu5slu4hka3dfk@group.calendar.google.com');
