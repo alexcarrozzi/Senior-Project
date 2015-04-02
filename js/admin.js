@@ -1,13 +1,12 @@
 $(document).ready(function(){
     $(document).on('click','#getLink',function(){
         $.ajax({
-            url:'../utilities/get_link.php',
+            url:'.',
             method:'POST',
             data:{
                 calendar:$("option:selected").val()
             },
             success:function(data){
-                $('#yourLink').html(data.link);
                 console.log(data.link);
             },
             error:function(data){

@@ -57,6 +57,25 @@ if ($client->getAccessToken()) {
 } else {
   $authUrl = $client->createAuthUrl();
 }
+
+if(isset($_REQUEST['calendar'])){
+    $calId = $_REQUEST['calendar'];
+    //share calendar with service account
+    $rule = new Google_Service_Calendar_AclRule();
+    $scope = new Google_Service_Calendar_AclRuleScope();
+
+    $scope->setType("user");
+    $scope->setValue("191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk@developer.gserviceaccount.com");
+    $rule->setScope($scope);
+    $rule->setRole("owner");
+
+    $createdRule = $service->acl->insert($calId, $rule);
+    //generate link
+    $link = "http://scheduleit.cs.unh.edu:8080/?cid=".base64_encode($calId);
+    
+    //revoke access by default
+    unset($_SESSION['access_token']); 
+}
 ?>
 <!doctype html>
 <html>
@@ -66,8 +85,6 @@ if ($client->getAccessToken()) {
 <script src="../js/admin.js"></script>
 </head>
 <body>
-
-
         <?php if(isset($authUrl)): ?>
             print "<a class='login' href='$authUrl'>Connect Me!</a>";
         <?php else: ?>
