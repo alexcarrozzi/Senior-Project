@@ -8,10 +8,10 @@ $(document).ready(function(){
             },
             success:function(data){
                 $('#yourLink').html(data.link)
-                console.log(data);
+                console.log(data.link);
             },
             error:function(data){
-                console.log(data);
+                console.log(data.link);
             }
         });
     });
