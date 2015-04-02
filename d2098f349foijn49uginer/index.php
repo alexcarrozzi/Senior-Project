@@ -82,7 +82,10 @@ if(isset($_REQUEST['calendar'])){
 ?>
 <!doctype html>
 <html>
-<head><link rel='stylesheet' href='style.css' /></head>
+<head>
+<link rel='stylesheet' href='style.css' />
+<script src="../js/admin.js"></script>
+</head>
 <body>
     <select>
         <?php foreach($cals as $cal):?>
