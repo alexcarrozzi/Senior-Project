@@ -57,7 +57,7 @@ if ($client->getAccessToken()) {
 } else {
   $authUrl = $client->createAuthUrl();
 }
-
+?>
 <!doctype html>
 <html>
 <head>
