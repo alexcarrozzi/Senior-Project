@@ -22,7 +22,7 @@ $client->setAccessType('online'); // default: offline
 $client->setApplicationName('ScheduleIt');
 $client->setClientId('191668664245-k6apjlo3hojik7rphq9aet58hiu4pc26.apps.googleusercontent.com');
 $client->setClientSecret('t86-1-Msaw9C7wuPKZ-dvLYK');
-$client->setRedirectUri('http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
+$client->setRedirectUri('http://scheduleit.cs.unh.edu:8080/d2098f349foijn49uginer');
 $client->setScopes('https://www.googleapis.com/auth/calendar'); 
 $plus = new Google_Service_Plus($client);
 if (isset($_REQUEST['logout'])) {
@@ -31,7 +31,7 @@ if (isset($_REQUEST['logout'])) {
 if (isset($_REQUEST['code'])) {
   $client->authenticate($_REQUEST['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
-  header('Location: http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
+  header('Location: http://scheduleit.cs.unh.edu:8080/d2098f349foijn49uginer');
 }
 if (isset($_SESSION['access_token'])) {
   $client->setAccessToken($_SESSION['access_token']);
@@ -46,12 +46,24 @@ if ($client->getAccessToken()) {
         echo $calendarListEntry->getId()."<br/>";
       }
       
+        $acl = $service->acl->listAcl('d62u8j2ik3dhlu5slu4hka3dfk@group.calendar.google.com');
+
+        foreach ($acl->getItems() as $rule) {
+          echo $rule->getId() . ': ' . $rule->getRole();
+        }
+              
       //share this calendar with the service account
  
   // The access token may have been updated lazily.
   $_SESSION['access_token'] = $client->getAccessToken();
 } else {
   $authUrl = $client->createAuthUrl();
+}
+
+if(isset($_REQUEST['setCalendar']){
+    //share calendar with service account
+    
+    //generate link
 }
 ?>
 <!doctype html>
