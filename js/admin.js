@@ -7,6 +7,7 @@
                 calendar:$("option:selected").val()
             },
             success:function(data){
+                $('#yourLink').html(data.link)
                 console.log(data);
             },
             error:function(data){

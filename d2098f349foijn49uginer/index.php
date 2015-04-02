@@ -47,8 +47,8 @@ if ($client->getAccessToken()) {
     $calendarList = $service->calendarList->listCalendarList();
     $cals = [];
       foreach ($calendarList->getItems() as $calendarListEntry) {
-        $cals['sum'] =  $calendarListEntry->getSummary();
-        $cals['id']  = $calendarListEntry->getId();
+        $cals[]['sum'] =  $calendarListEntry->getSummary();
+        $cals[]['id']  = $calendarListEntry->getId();
       }
       
         $acl = $service->acl->listAcl('d62u8j2ik3dhlu5slu4hka3dfk@group.calendar.google.com');
@@ -75,7 +75,6 @@ if(isset($_REQUEST['calendar'])){
     $rule->setRole("owner");
 
     $createdRule = $service->acl->insert($calId, $rule);
-    echo $createdRule->getId();
     //generate link
     
     //revoke access by default
@@ -86,14 +85,16 @@ if(isset($_REQUEST['calendar'])){
 <html>
 <head><link rel='stylesheet' href='style.css' /></head>
 <body>
-<div class="box">
-    
     <select>
         <?php foreach($cals as $cal):?>
         <option value="<?= $cal['id'] ?>"><?=$cal['sum']?></option>
         <?php endforeach; ?>
     </select>
     <button id="getLink">Generate Link</button>
+    
+    <div id="yourLink"></div>
+
+<div class="box">
 
 <?php
   if(isset($authUrl)) {
