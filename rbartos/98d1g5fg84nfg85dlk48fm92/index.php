@@ -32,7 +32,7 @@ if (isset($_REQUEST['logout'])) {
 }
 if (isset($_REQUEST['code'])) {
   $client->authenticate($_REQUEST['code']);
-  $_SESSION['access_token'] = $client->getAccessToken($_REQUEST['code']);
+  $_SESSION['access_token'] = $client->getAccessToken();
     echo "something2";
   header('Location: http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
 }
