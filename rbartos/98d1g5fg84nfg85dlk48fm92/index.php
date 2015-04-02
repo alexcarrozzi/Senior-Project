@@ -17,6 +17,7 @@
 require_once '../../google-api-php-client/src/Google/Client.php';
 require_once '../../google-api-php-client/src/Google/Service/Plus.php';
 session_start();
+unset($_SESSION);
 $client = new Google_Client();
 $client->setAccessType('online'); // default: offline
 $client->setApplicationName('ScheduleIt');
@@ -42,24 +43,7 @@ if (isset($_SESSION['access_token'])) {
 }
 if ($client->getAccessToken()) {
     echo "something4";
-  $me = $plus->people->get('me');
-  // These fields are currently filtered through the PHP sanitize filters.
-  // See http://www.php.net/manual/en/filter.filters.sanitize.php
-  $url = filter_var($me['url'], FILTER_VALIDATE_URL);
-  $img = filter_var($me['image']['url'], FILTER_VALIDATE_URL);
-  $name = filter_var($me['displayName'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-  $personMarkup = "<a rel='me' href='$url'>$name</a><div><img src='$img'></div>";
-  $optParams = array('maxResults' => 100);
-  $activities = $plus->activities->listActivities('me', 'public', $optParams);
-  $activityMarkup = '';
-  foreach($activities['items'] as $activity) {
-    // These fields are currently filtered through the PHP sanitize filters.
-    // See http://www.php.net/manual/en/filter.filters.sanitize.php
-    $url = filter_var($activity['url'], FILTER_VALIDATE_URL);
-    $title = filter_var($activity['title'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-    $content = filter_var($activity['object']['content'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-    $activityMarkup .= "<div class='activity'><a href='$url'>$title</a><div>$content</div></div>";
-  }
+ 
   // The access token may have been updated lazily.
   $_SESSION['access_token'] = $client->getAccessToken();
 } else {
@@ -70,32 +54,8 @@ if ($client->getAccessToken()) {
 <html>
 <head><link rel='stylesheet' href='style.css' /></head>
 <body>
-<header><h1>Google+ Sample App</h1></header>
 <div class="box">
 
-<?php if(isset($personMarkup)): ?>
-<div class="me"><?php print $personMarkup ?></div>
-<?php
-$me = $plus->people->get('me');
-print "ID: {$me['id']}\n";
-print "Display Name: {$me['displayName']}\n";
-print "Image Url: {$me['image']['url']}\n";
-print "Url: {$me['url']}\n";
-
-?>
-<?php endif ?>
-
-<?php if(isset($activityMarkup)): ?>
-<div class="activities">Your Activities: <?php print $activityMarkup ?></div>
-<?php endif ?>
-
-<?php
-  if(isset($authUrl)) {
-    print "<a class='login' href='$authUrl'>Connect Me!</a>";
-  } else {
-   print "<a class='logout' href='?logout'>Logout</a>";
-  }
-?>
 </div>
 </body>
 </html>
