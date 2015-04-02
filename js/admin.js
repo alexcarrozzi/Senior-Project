@@ -1,18 +1,3 @@
 $(document).ready(function(){
-    $(document).on('click','#getLink',function(){
-        $.ajax({
-            url:'.',
-            method:'POST',
-            data:{
-                calendar:$("option:selected").val()
-            },
-            success:function(data){
-                $('#yourLink').html(data);
-                console.log(data.link);
-            },
-            error:function(data){
-                console.log(data.link);
-            }
-        });
-    });
+    
 });

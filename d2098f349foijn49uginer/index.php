@@ -83,20 +83,19 @@ if(isset($_REQUEST['calendar'])){
 <html>
 <head>
 <link rel='stylesheet' href='style.css' />
-<script src="../js/jquery-1.11.2.min.js"></script>
-<script src="../js/admin.js"></script>
 </head>
 <body>
         <?php if(isset($authUrl)): ?>
              <a class='login' href="<?= $authUrl; ?>">Connect Me!</a>
         <?php else: ?>
-            <select>
+        <form method="POST" action=".">
+            <select name="calendar">
                 <?php foreach($cals as $cal):?>
                 <option value="<?= $cal['id'] ?>"><?=$cal['sum']?></option>
                 <?php endforeach; ?>
             </select>
-            <button id="getLink">Generate Link</button>
-            
+            <input type="submit" value="Generate Link"/>
+        </form>    
             <div id="yourLink"><a href="<?=$link?>"><?=$link?></a></div>
         <?php endif; ?>
 </body>
