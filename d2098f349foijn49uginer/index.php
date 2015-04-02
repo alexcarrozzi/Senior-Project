@@ -83,7 +83,7 @@ if(isset($_REQUEST['calendar'])){
 <link rel='stylesheet' href='style.css' />
 </head>
 <body>
-        <?php if(isset($_SESSION['access_token'])): ?>
+        <?php if(isset($authUrl)): ?>
              <a class='login' href="<?= $authUrl; ?>">Connect Me!</a>
         <?php else: ?>
         <form method="POST" action=".">
