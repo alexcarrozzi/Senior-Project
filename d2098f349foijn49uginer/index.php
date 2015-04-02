@@ -64,7 +64,7 @@ if(isset($_REQUEST['calendar'])){
     $rule = new Google_Service_Calendar_AclRule();
     $scope = new Google_Service_Calendar_AclRuleScope();
 
-    $scope->setType("default");
+    $scope->setType("user");
     $scope->setValue("191668664245-h1t5dbipvmglh09mc27bo3ckdfjjojqk@developer.gserviceaccount.com");
     $rule->setScope($scope);
     $rule->setRole("owner");
