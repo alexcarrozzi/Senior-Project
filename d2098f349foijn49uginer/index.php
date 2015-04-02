@@ -92,7 +92,7 @@ if(isset($_REQUEST['calendar'])){
     </select>
     <button id="getLink">Generate Link</button>
     
-    <div id="yourLink"><?=$link?></div>
+    <div id="yourLink"><a href="<?=$link?>"><?=$link?></a></div>
 
 
     <?php

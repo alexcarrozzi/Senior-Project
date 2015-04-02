@@ -7,11 +7,11 @@ $(document).ready(function(){
                 calendar:$("option:selected").val()
             },
             success:function(data){
-                $('#yourLink').html(data.link);
-                console.log(data.link);
+                $('#yourLink').html(data);
+                console.log(data);
             },
             error:function(data){
-                console.log(data.link);
+                console.log(data);
             }
         });
     });
