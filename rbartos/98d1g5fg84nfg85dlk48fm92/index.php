@@ -42,24 +42,16 @@ if (isset($_SESSION['access_token'])) {
 }
 if ($client->getAccessToken()) {
     echo "something4";
-  $me = $plus->people->get('me');
-  // These fields are currently filtered through the PHP sanitize filters.
-  // See http://www.php.net/manual/en/filter.filters.sanitize.php
-  $url = filter_var($me['url'], FILTER_VALIDATE_URL);
-  $img = filter_var($me['image']['url'], FILTER_VALIDATE_URL);
-  $name = filter_var($me['displayName'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-  $personMarkup = "<a rel='me' href='$url'>$name</a><div><img src='$img'></div>";
-  $optParams = array('maxResults' => 100);
-  $activities = $plus->activities->listActivities('me', 'public', $optParams);
-  $activityMarkup = '';
-  foreach($activities['items'] as $activity) {
-    // These fields are currently filtered through the PHP sanitize filters.
-    // See http://www.php.net/manual/en/filter.filters.sanitize.php
-    $url = filter_var($activity['url'], FILTER_VALIDATE_URL);
-    $title = filter_var($activity['title'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-    $content = filter_var($activity['object']['content'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-    $activityMarkup .= "<div class='activity'><a href='$url'>$title</a><div>$content</div></div>";
-  }
+    $me = $plus->people->get('me');
+    
+    $calendarList = $service->calendarList->listCalendarList();
+
+    while(true) {
+      foreach ($calendarList->getItems() as $calendarListEntry) {
+        echo $calendarListEntry->getSummary();
+      }
+    }
+ 
   // The access token may have been updated lazily.
   $_SESSION['access_token'] = $client->getAccessToken();
 } else {
