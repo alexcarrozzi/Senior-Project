@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 require_once '../../google-api-php-client/src/Google/Client.php';
-require_once '../../google-api-php-client/src/Google/Service/Plus.php';
+require_once '../../google-api-php-client/src/Google/Service/Calendar.php";
 session_start();
 $client = new Google_Client();
 $client->setAccessType('online'); // default: offline
@@ -42,7 +42,7 @@ if (isset($_SESSION['access_token'])) {
 }
 if ($client->getAccessToken()) {
     echo "something4";
-    $me = $plus->people->get('me');
+    $service = new Google_Service_Calendar($client);
     
     $calendarList = $service->calendarList->listCalendarList();
 
