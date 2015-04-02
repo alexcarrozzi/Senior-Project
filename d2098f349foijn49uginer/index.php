@@ -51,12 +51,6 @@ if ($client->getAccessToken()) {
         $cals[++$i]['sum'] =  $calendarListEntry->getSummary();
         $cals[$i]['id']  = $calendarListEntry->getId();
       }
-      
-        $acl = $service->acl->listAcl('d62u8j2ik3dhlu5slu4hka3dfk@group.calendar.google.com');
-
-        foreach ($acl->getItems() as $rule) {
-          echo $rule->getId() . ': ' . $rule->getRole();
-        }
  
   // The access token may have been updated lazily.
   $_SESSION['access_token'] = $client->getAccessToken();
@@ -77,9 +71,13 @@ if(isset($_REQUEST['calendar'])){
 
     $createdRule = $service->acl->insert($calId, $rule);
     //generate link
+    $link = ["link"=>"http://scheduleit.cs.unh.edu:8080/?cid=".base64_encode($calId)];
     
     //revoke access by default
     unset($_SESSION['access_token']);
+    
+    header("Content-Type:application/json");
+    echo json_encode($link);
 }
 ?>
 <!doctype html>
