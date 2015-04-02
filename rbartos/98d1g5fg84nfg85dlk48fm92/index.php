@@ -43,11 +43,9 @@ if ($client->getAccessToken()) {
     
     $calendarList = $service->calendarList->listCalendarList();
 
-    while(true) {
       foreach ($calendarList->getItems() as $calendarListEntry) {
-        echo $calendarListEntry->getSummary();
+        echo $calendarListEntry->getSummary()."<br/>";
       }
-    }
  
   // The access token may have been updated lazily.
   $_SESSION['access_token'] = $client->getAccessToken();
