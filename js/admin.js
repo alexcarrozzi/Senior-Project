@@ -1,16 +1,17 @@
 $(document).ready(function(){
     $(document).on('click','#getLink',function(){
         $.ajax({
-            url:'http://scheduleit.cs.unh.edu:8080/d2098f349foijn49uginer/',
+            url:'../utilities/get_link.php',
             method:'POST',
             data:{
                 calendar:$("option:selected").val()
             },
             success:function(data){
-                console.log(data);
+                $('#yourLink').html(data.link);
+                console.log(data.link);
             },
             error:function(data){
-                console.log(data);
+                console.log(data.link);
             }
         });
     });
