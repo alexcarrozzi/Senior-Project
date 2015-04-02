@@ -118,7 +118,7 @@
             $end = new Google_Service_Calendar_EventDateTime();
             $end->setDateTime(date(\DateTime::ATOM, $reserved_event[1]));
             $event->setEnd($end);
-            $event->setDescription("Name: $name\nEmail:$email".'@wildcats.unh.edu');
+            $event->setDescription("$name");
             $attendee1 = new Google_Service_Calendar_EventAttendee();
             $attendee1->setEmail($email.'@wildcats.unh.edu');
             //new attendee for instructor

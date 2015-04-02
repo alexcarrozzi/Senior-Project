@@ -22,6 +22,7 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/date.js"></script>
+    <script src="js/spin.min.js"></script>
     <script src="js/app.js"></script>
     
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -50,104 +51,85 @@
 <body>
 	<div class="container">
 	
-	<h1 class="text-center">SCHEDULE IT</h1>
-	
-	<div class="row">
-		
-		<div class="col-md-12">
-			<a href="" id="last" class="pull-left weekButton">
-				<span class="glyphicon glyphicon-arrow-left"></span>
-				<span>Previous</span>
-			</a>
-			<a href="" id="next" class="pull-right weekButton">
-				<span>Next</span>
-				<span class="glyphicon glyphicon-arrow-right"></span>
-			</a>
-		</div>
-	</div>
-	</br></br>
-    <div id="calController" ng-controller="ScheduleController as schedule">
-        <div id="selectable" style="display:inline-block">
-            <div style="text-align:center;">Week of: {{controlDate | date : 'M/d'}} &ndash; {{endDate | date : 'M/d'}}</div>
-            <div ng-repeat="all in monday">
-                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
-                    <div ng-repeat="start in data.segments">
-                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
-                            {{data.desc || start*1000 | date : 'h:mm a' }}
-                        </div>
-                    </div>
-                </div>
+        <h1 class="text-center">SCHEDULE IT</h1>
+        
+        <div class="row">
+            
+            <div class="col-md-12">
+                <a href="" id="last" class="pull-left weekButton">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    <span>Previous</span>
+                </a>
+                <a href="" id="next" class="pull-right weekButton">
+                    <span>Next</span>
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </a>
             </div>
-            <hr/>
-            <div ng-repeat="all in tuesday">
-                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
-                    <div ng-repeat="start in data.segments">
-                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
-                            {{data.desc || start*1000 | date : 'h:mm a' }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-            <div ng-repeat="all in wednesday">
-                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
-                    <div ng-repeat="start in data.segments">
-                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
-                            {{data.desc || start*1000 | date : 'h:mm a' }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-            <div ng-repeat="all in thursday">
-                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
-                    <div ng-repeat="start in data.segments">
-                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
-                            {{data.desc || start*1000 | date : 'h:mm a' }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-            <div ng-repeat="all in friday">
-                <div ng-repeat="data in all" style="display:block" style="text-align:center;">
-                    <div ng-repeat="start in data.segments">
-                        <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
-                            {{data.desc || start*1000 | date : 'h:mm a' }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr/>
         </div>
-            <br/>
-                <!-- Style this to be very errory -->
-                <div id="errorMsg"></div>
-            Name: <input id="SignUpName" type="text" name="fullname" /><br/>
-            Email: <input id="SignUpEmail" type="text" name="email" /><br/>
-            <button id="signupButton"/>Sign Up!</button>
-            <input id="cal" type="hidden" value="<?=$g_calid?>"/>
-            <hr/>
-    </div>
-<!--
-    <div id="appController" ng-controller="ScheduleController as schedule">
-        <form name="SignUpStudent">
-            <input id="cal" type="hidden" value="<?=$g_calid?>"/>
-            <div ng-repeat="event in segments">
-                 Event ID: <strong>{{event.id}}</strong>
-                <div ng-repeat="segment in event.segments" >
-                    <input type="radio" name="timeslot_id" ng-attr-value="{{segment.start}}:{{event.id}}" />
-                    {{segment.start*1000 | date : 'MMMM d h:mm a'}} &ndash; {{segment.end*1000 | date : 'h:mm a'}}
+        </br></br>
+        <div id="calController" ng-controller="ScheduleController as schedule">
+            <div>Week of: {{controlDate | date : 'M/d'}} &ndash; {{endDate | date : 'M/d'}}</div>
+            <div class="row" id="selectable">
+                <div class="day" ng-repeat="all in monday">
+                Monday
+                    <div ng-repeat="data in all" style="display:block" style="text-align:center;">
+                        <div ng-repeat="start in data.segments">
+                            <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                                {{data.desc || start*1000 | date : 'h:mm a' }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <br/><br/>
+                <div class="day"  ng-repeat="all in tuesday">
+                Tuesday
+                    <div ng-repeat="data in all">
+                        <div ng-repeat="start in data.segments">
+                            <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                                {{data.desc || start*1000 | date : 'h:mm a' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="day"  ng-repeat="all in wednesday">
+                Wednesday
+                    <div ng-repeat="data in all">
+                        <div ng-repeat="start in data.segments">
+                            <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                                {{data.desc || start*1000 | date : 'h:mm a' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="day"  ng-repeat="all in thursday">
+                Thursday
+                    <div ng-repeat="data in all">
+                        <div ng-repeat="start in data.segments">
+                            <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                                {{data.desc || start*1000 | date : 'h:mm a' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="day"  ng-repeat="all in friday">
+                Friday
+                    <div ng-repeat="data in all">
+                        <div ng-repeat="start in data.segments">
+                            <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
+                                {{data.desc || start*1000 | date : 'h:mm a' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            Name: <input id="SignUpName" type="text" name="fullname" /><br/>
-            Email: <input id="SignUpEmail" type="text" name="email" /><br/>
-            <input id="SignUpSubmit" type="submit" value="Sign Up!" />
-        </form>
-    </div>
-  <input type="button" id="refresh" value="Refresh"/>
-    -->
+                <form name="signupForm">
+                    <!-- Style this to be very errory -->
+                    <div id="errorMsg"></div>
+                Name: <input required id="SignUpName" type="text" name="fullname" /><br/>
+                Email: <input required id="SignUpEmail" type="text" name="email" /><br/>
+                <button ng-disabled="signupForm.$invalid" id="signupButton"/>Sign Up!</button>
+                <input id="cal" type="hidden" value="<?=$g_calid?>"/>
+                <form>
+        </div>
     </div>
 </body>
 </html>

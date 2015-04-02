@@ -14,3 +14,14 @@ th{
     background-color:#494949;
     color:#FFFFFF;
 }
+
+.day{
+    display:inline-block;
+    text-align:center;  
+    vertical-align:top;
+}
+
+
+#calController{
+    width:1300px
+}

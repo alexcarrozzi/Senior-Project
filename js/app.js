@@ -8,6 +8,26 @@
  * 
  */
     (function(){
+        $.xhrPool = []; // array of uncompleted requests
+        $.xhrPool.abortAll = function() { // our abort function
+            $(this).each(function(idx, jqXHR) { 
+                jqXHR.abort();
+            });
+            $.xhrPool.length = 0
+        };
+         
+        $.ajaxSetup({
+            beforeSend: function(jqXHR) { // before jQuery send the request we will push it to our array
+                $.xhrPool.push(jqXHR);
+            },
+            complete: function(jqXHR) { // when some of the requests completed it will splice from the array
+                var index = $.xhrPool.indexOf(jqXHR);
+                if (index > -1) {
+                    $.xhrPool.splice(index, 1);
+                }
+            }
+        });
+    
     var app = angular.module('ScheduleIt', []);
     
     //I need to add a model for segments
@@ -58,7 +78,7 @@
             getDay(1,today).success(function(data1){
                 $scope.monday.push(data1);
                 console.log($scope.monday);
-            }); 
+            });
             
             getDay(2,today).success(function(data2){
                 $scope.tuesday.push(data2);
@@ -101,6 +121,7 @@
                 $scope.wednesday = [];
                 $scope.thursday = [];
                 $scope.friday = [];
+                $scope.xhrs = [];
                 resolve("Promise Complete");
             });
         }
@@ -143,6 +164,7 @@
         });
         
         $(document).on('click','.weekButton',function(){
+            $.xhrPool.abortAll();
             var ref_this = this;
             init().then(function(){
                 if($(ref_this).attr('id')=='next'){
