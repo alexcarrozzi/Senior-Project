@@ -76,7 +76,7 @@ if(isset($_REQUEST['calendar'])){
     //revoke access by default
     unset($_SESSION['access_token']); 
     header("Content-Type:application/json");
-    each json_encode($link);
+    echo json_encode($link);
 }
 ?>
 <!doctype html>
