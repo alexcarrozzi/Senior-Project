@@ -45,10 +45,10 @@ if ($client->getAccessToken()) {
     $service = new Google_Service_Calendar($client);
     
     $calendarList = $service->calendarList->listCalendarList();
-
+    $cals = [];
       foreach ($calendarList->getItems() as $calendarListEntry) {
-        echo $calendarListEntry->getSummary()." id=";
-        echo $calendarListEntry->getId()."<br/>";
+        $cals['sum'] =  $calendarListEntry->getSummary();
+        $cals['id']  = $calendarListEntry->getId();
       }
       
         $acl = $service->acl->listAcl('d62u8j2ik3dhlu5slu4hka3dfk@group.calendar.google.com');
@@ -56,8 +56,6 @@ if ($client->getAccessToken()) {
         foreach ($acl->getItems() as $rule) {
           echo $rule->getId() . ': ' . $rule->getRole();
         }
-              
-      //share this calendar with the service account
  
   // The access token may have been updated lazily.
   $_SESSION['access_token'] = $client->getAccessToken();
@@ -65,8 +63,8 @@ if ($client->getAccessToken()) {
   $authUrl = $client->createAuthUrl();
 }
 
-if(isset($_REQUEST['setCalendar'])){
-    $calId = base64_decode($_REQUEST['setCalendar']);
+if(isset($_REQUEST['calendar'])){
+    $calId = $_REQUEST['calendar'];
     //share calendar with service account
     $rule = new Google_Service_Calendar_AclRule();
     $scope = new Google_Service_Calendar_AclRuleScope();
@@ -89,6 +87,13 @@ if(isset($_REQUEST['setCalendar'])){
 <head><link rel='stylesheet' href='style.css' /></head>
 <body>
 <div class="box">
+    
+    <select>
+        <?php foreach($cals as $cal):?>
+        <option value="<?= $cal['id'] ?>"><?=$cal['sum']?></option>
+        <?php endforeach; ?>
+    </select>
+    <button id="getLink">Generate Link</button>
 
 <?php
   if(isset($authUrl)) {
