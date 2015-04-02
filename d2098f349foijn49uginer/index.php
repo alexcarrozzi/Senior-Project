@@ -75,9 +75,6 @@ if(isset($_REQUEST['calendar'])){
     
     //revoke access by default
     unset($_SESSION['access_token']);
-    
-    header("Content-Type:application/json");
-    echo json_encode($link);
 }
 ?>
 <!doctype html>
@@ -95,7 +92,7 @@ if(isset($_REQUEST['calendar'])){
     </select>
     <button id="getLink">Generate Link</button>
     
-    <div id="yourLink"></div>
+    <div id="yourLink"><?=$link?></div>
 
 
     <?php
