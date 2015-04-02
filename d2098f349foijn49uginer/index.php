@@ -71,12 +71,10 @@ if(isset($_REQUEST['calendar'])){
 
     $createdRule = $service->acl->insert($calId, $rule);
     //generate link
-    $link = array("link"=>"http://scheduleit.cs.unh.edu:8080/?cid=".base64_encode($calId));
+    $link = "http://scheduleit.cs.unh.edu:8080/?cid=".base64_encode($calId);
     
     //revoke access by default
     unset($_SESSION['access_token']); 
-    header("Content-Type:application/json");
-    echo json_encode($link);
 }
 ?>
 <!doctype html>
