@@ -18,7 +18,8 @@ require_once '../google-api-php-client/src/Google/Client.php';
 require_once '../google-api-php-client/src/Google/Service/Calendar.php';
 session_start();
 $client = new Google_Client();
-$client->setAccessType('online'); // default: offline
+$client->setAccessType('offline'); 
+$client->setApprovalPrompt('force');
 $client->setApplicationName('ScheduleIt');
 $client->setClientId('191668664245-k6apjlo3hojik7rphq9aet58hiu4pc26.apps.googleusercontent.com');
 $client->setClientSecret('t86-1-Msaw9C7wuPKZ-dvLYK');
@@ -28,14 +29,18 @@ $plus = new Google_Service_Plus($client);
 if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
 }
-if (isset($_REQUEST['code'])) {
-  $client->authenticate($_REQUEST['code']);
+if (isset($GET['code'])) {
+  $client->authenticate($GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
+  //$_SESSION['refresh_token'] = $client()->getRefreshToken();
   header('Location: http://scheduleit.cs.unh.edu:8080/d2098f349foijn49uginer');
 }
 if (isset($_SESSION['access_token'])) {
   $client->setAccessToken($_SESSION['access_token']);
 }
+
+//$client->refreshToken($theRefreshTokenYouHadStored);
+
 if ($client->getAccessToken()) {
     $service = new Google_Service_Calendar($client);
     
@@ -74,6 +79,9 @@ if(isset($_REQUEST['setCalendar'])){
     $createdRule = $service->acl->insert($calId, $rule);
     echo $createdRule->getId();
     //generate link
+    
+    //revoke access by default
+    unset($_SESSION['access_token']);
 }
 ?>
 <!doctype html>
