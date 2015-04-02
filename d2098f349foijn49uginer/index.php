@@ -74,7 +74,7 @@ if(isset($_REQUEST['calendar'])){
     $link = "http://scheduleit.cs.unh.edu:8080/?cid=".base64_encode($calId);
     
     //revoke access by default
-    unset($_SESSION['access_token']);
+    unset($_SESSION['access_token']); 
 }
 ?>
 <!doctype html>
@@ -98,9 +98,7 @@ if(isset($_REQUEST['calendar'])){
     <?php
         if(isset($authUrl)) {
             print "<a class='login' href='$authUrl'>Connect Me!</a>";
-        } else {
-            print "<a class='logout' href='?logout'>Logout</a>";
-        }
+        } 
     ?>
 </body>
 </html>
