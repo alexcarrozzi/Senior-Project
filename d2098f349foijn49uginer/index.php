@@ -93,15 +93,13 @@ if(isset($_REQUEST['calendar'])){
     
     <div id="yourLink"></div>
 
-<div class="box">
 
-<?php
-  if(isset($authUrl)) {
-    print "<a class='login' href='$authUrl'>Connect Me!</a>";
-  } else {
-   print "<a class='logout' href='?logout'>Logout</a>";
-  }
-?>
-</div>
+    <?php
+        if(isset($authUrl)) {
+            print "<a class='login' href='$authUrl'>Connect Me!</a>";
+        } else {
+            print "<a class='logout' href='?logout'>Logout</a>";
+        }
+    ?>
 </body>
 </html>

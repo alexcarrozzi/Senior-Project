@@ -1,7 +1,7 @@
 (document).ready(function(){
     $(document).on('click','#getLink',function(){
         $.ajax({
-            url:'.',
+            url:'http://scheduleit.cs.unh.edu:8080/d2098f349foijn49uginer/',
             method:'POST',
             data:{
                 calendar:$("option:selected").val()
