@@ -18,7 +18,7 @@
     
     if(isset($_REQUEST['cid'])){
         $cal_id = $_REQUEST['cid'];
-        $GLOBALS['g_calid'] = $cal_id;
+        $GLOBALS['g_calid'] = base64_decode($cal_id);
     }else{
         die("no calendar specified!");
     }

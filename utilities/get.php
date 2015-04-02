@@ -9,7 +9,7 @@
  * 
  */
     
-     $prod = 1;
+     $prod = 0;
      $sp = $prod==0?"Senior-Project/":""; 
         
     require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/common.php";

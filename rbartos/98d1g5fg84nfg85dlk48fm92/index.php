@@ -32,10 +32,10 @@ if (isset($_REQUEST['logout'])) {
   unset($_SESSION['access_token']);
 }
 if (isset($_GET['code'])) {
-    echo "something2";
   $client->authenticate();
   $_SESSION['access_token'] = $client->getAccessToken();
-  header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
+    echo "access token: ".$_SESSION['access_token'];
+  header('Location: http://scheduleit.cs.unh.edu:8080/rbartos/98d1g5fg84nfg85dlk48fm92/');
 }
 if (isset($_SESSION['access_token'])) {
   $client->setAccessToken($_SESSION['access_token']);
