@@ -8,26 +8,6 @@
  * 
  */
     (function(){
-        $.xhrPool = []; // array of uncompleted requests
-        $.xhrPool.abortAll = function() { // our abort function
-            $(this).each(function(idx, jqXHR) { 
-                jqXHR.abort();
-            });
-            $.xhrPool.length = 0
-        };
-         
-        $.ajaxSetup({
-            beforeSend: function(jqXHR) { // before jQuery send the request we will push it to our array
-                $.xhrPool.push(jqXHR);
-            },
-            complete: function(jqXHR) { // when some of the requests completed it will splice from the array
-                var index = $.xhrPool.indexOf(jqXHR);
-                if (index > -1) {
-                    $.xhrPool.splice(index, 1);
-                }
-            }
-        });
-    
     var app = angular.module('ScheduleIt', []);
     
     //I need to add a model for segments
@@ -54,7 +34,8 @@
         });*/
         
         $scope.calendarId = $('#cal').val();
-        $scope.controlDate = Date.now().last().monday();
+        //check if today is monday and if not, set it to the monday of this week
+        $scope.controlDate = Date.today().is().monday() ? Date.today() : Date.now().last().monday();
         $scope.endDate = Date.now().last().monday();
         $scope.endDate.setDate($scope.controlDate.getDate()+4);
         init().then(function(msg){
@@ -74,32 +55,38 @@
             });
         });
         
-        function getTimes(today){          
-            getDay(1,today).success(function(data1){
-                $scope.monday.push(data1);
-                console.log($scope.monday);
+        function getTimes(today){   
+            $.when( 
+                getDay(1,today).success(function(data1){
+                    $scope.monday.push(data1);
+                    console.log($scope.monday);
+                }),
+                
+                getDay(2,today).success(function(data2){
+                    $scope.tuesday.push(data2);
+                    console.log($scope.tuesday);
+                }),  
+                
+                getDay(3,today).success(function(data3){
+                    $scope.wednesday.push(data3);   
+                    console.log($scope.wednesday);
+                }),      
+                       
+                getDay(4,today).success(function(data4){
+                    $scope.thursday.push(data4);     
+                    console.log($scope.thursday);
+                }), 
+                
+                getDay(5,today).success(function(data5){
+                    $scope.friday.push(data5);         
+                    console.log($scope.friday); 
+                })
+            ).then(function(){
+                $.each($('.weekButton'),function(){
+                    this.style.pointerEvents = 'auto';
+                    console.log('set to active');
+               });
             });
-            
-            getDay(2,today).success(function(data2){
-                $scope.tuesday.push(data2);
-                console.log($scope.tuesday);
-            });   
-            
-            getDay(3,today).success(function(data3){
-                $scope.wednesday.push(data3);   
-                console.log($scope.wednesday);
-            });       
-                   
-            getDay(4,today).success(function(data4){
-                $scope.thursday.push(data4);     
-                console.log($scope.thursday);
-            });   
-            
-            getDay(5,today).success(function(data5){
-                $scope.friday.push(data5);         
-                console.log($scope.friday); 
-            });              
-            
         }
         
         // 1 = Monday
@@ -114,6 +101,11 @@
         
         function init(){
             return new Promise(function(resolve,reject){
+                //Disable the navigation buttons
+               $.each($('.weekButton'),function(){
+                    this.style.pointerEvents = 'none';
+                    console.log('reset to inactive');
+               });
                 $scope.segments = [];
                 $scope.days = [];
                 $scope.monday = [];
@@ -164,7 +156,6 @@
         });
         
         $(document).on('click','.weekButton',function(){
-            $.xhrPool.abortAll();
             var ref_this = this;
             init().then(function(){
                 if($(ref_this).attr('id')=='next'){

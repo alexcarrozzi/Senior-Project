@@ -9,7 +9,7 @@
  * 
  */
     
-     $prod = 1;
+     $prod = 0;
      $sp = $prod==0?"Senior-Project/":"";
      require_once $prod==1?'email.php':'common.php';
 
@@ -19,8 +19,6 @@
     
     $ret_msg['status'] = 'success';
     $ret_msg['msg'] = '';
-
-    //I dont know how.. can you?
     
     //Handle Form Submissions
     if(isset($_REQUEST['fullname'])){
@@ -34,18 +32,16 @@
         require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
             
         if($name == ''){
-            //TODO: Handle Errors
             $ret_msg['status'] = 'error';
             $ret_msg['msg'] = 'Enter your full name';
         }elseif($email==''){
-            //TODO: Handle Errors
             $ret_msg['status'] = 'error';
             $ret_msg['msg'] = 'Enter your UNH ID';
         }else{
               $info = $manager->getSegmentById($timeslot_id);
               $target_segment = $info['segment'];
               $delete_event = $info['delete_event'];
-              $new_events = $manager->insert_segment($g_calid,$delete_event,$target_segment,$name,$email);
+              $new_id = $manager->insert_segment($g_calid,$delete_event,$target_segment,$name,$email);
               
               //Set a random string cookie to deter spammers
               //This cookie should be deleted upon cancellation
@@ -53,21 +49,34 @@
                 setcookie('ofn3793filnf49842kc3ji972inr');
               }
               
-            $link_s = $new_events[0];
-            $link = "http://schedultit.cs.unh.edu:8000?action='cancel'&s={$link_s}";
+            //Unix timestamp of meeting start time
+            $link_s = $new_id;
+            
+            //Basic Obfuscation (Easily cracked)
+            
+            //Before flag sequence
+            $before = "9JflMdf3s";
+            
+            //After flag sequence
+            $after = "5jk49sDFd";
+            
+            $obfuscated_url = substr($g_calid,0,7).$before.$link_s.$after.substr($g_calid,7);
+            $obfuscated_url = base64_encode($obfuscated_url);
+            
+            $link = "http://scheduleit.cs.unh.edu:8080?action='cancel'&s={$obfuscated_url}";
            
             //Construct Email information
             $student_email = "{$email}@wildcats.unh.edu";
-            $subject = "ScheduleIt Appointment Confirmation";
-            $message = "Dear {$name},\r\n\r\n";
+            $subject  = "ScheduleIt Appointment Confirmation";
+            $message  = "Dear {$name},\r\n\r\n";
             $message .= "Your advising meetings has been scheduled ";
             $message .= "for ".date('l, F j, Y \a\t g:i',$new_events[0]).".\r\n\r\n";
             $message .= "If you did not sign up for this meeting please follow this link: ";
             $message .= $link;
             
             try{
-                //$_email = new Email('professor.jones567@gmail.com');
-                //$_email->send($student_email,$subject,$message);
+                $_email = new Email('professor.jones567@gmail.com');
+                $_email->send($student_email,$subject,$message);
                 Logger::write("STATUS: Email successfully sent to: $student_email with message: $message");
             }catch(Exception $e){
                 Logger::write("Email::send failed - ".$e->getMessage());

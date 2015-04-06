@@ -9,6 +9,17 @@
  * 
  */
     
+    //Makeshift router
+    if(isset($_REQUEST['action'])){
+        switch($_REQUEST['action']){
+            case 'cancel':
+                require_once 'utilities/cancel.php';
+                die;
+            default:
+                //display 404
+        }   
+    }
+    
     require_once './utilities/load_calendar.php';
     require_once './utilities/google_api_init.php';
     require_once './utilities/signup.php';
