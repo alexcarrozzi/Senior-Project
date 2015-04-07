@@ -39,24 +39,27 @@
         $scope.endDate = Date.now().last().monday();
         $scope.endDate.setDate($scope.controlDate.getDate()+4);
         init().then(function(msg){
-            getTimes($scope.controlDate);
+            getAll($scope.controlDate);
             console.log(msg);
         });
         
         //Construct a week calendar based on current day
         //Make a function to retrieve different weeks
         
-        //setInterval( getTimes, 10000 );
+        //setInterval( getAll, 10000 );
          
         $(document).on('click','#refresh',function(){
             init().then(function(msg){
-                getTimes($scope.controlDate);
+                getAll($scope.controlDate);
                 console.log(msg);
             });
         });
         
-        function getTimes(today){   
-            $.when( 
+        function getAll(today){   
+            //All ensures that navigation buttons are not activated until all data 
+            //has been received. 
+            //Timeouts and retrys should be applied to each call
+            Promise.all( [true,
                 getDay(1,today).success(function(data1){
                     $scope.monday.push(data1);
                     console.log($scope.monday);
@@ -80,12 +83,9 @@
                 getDay(5,today).success(function(data5){
                     $scope.friday.push(data5);         
                     console.log($scope.friday); 
-                })
+                })]
             ).then(function(){
-                $.each($('.weekButton'),function(){
-                    this.style.pointerEvents = 'auto';
-                    console.log('set to active');
-               });
+                 $('#nav').css('visibility','visible');
             });
         }
         
@@ -102,10 +102,7 @@
         function init(){
             return new Promise(function(resolve,reject){
                 //Disable the navigation buttons
-               $.each($('.weekButton'),function(){
-                    this.style.pointerEvents = 'none';
-                    console.log('reset to inactive');
-               });
+                $('#nav').css('visibility','hidden');
                 $scope.segments = [];
                 $scope.days = [];
                 $scope.monday = [];
@@ -113,7 +110,6 @@
                 $scope.wednesday = [];
                 $scope.thursday = [];
                 $scope.friday = [];
-                $scope.xhrs = [];
                 resolve("Promise Complete");
             });
         }
@@ -135,7 +131,7 @@
                     if(data.status == 'success'){
                         console.log("SUCCESS: "+data.msg);
                         init().then(function(msg){
-                            getTimes($scope.controlDate);
+                            getAll($scope.controlDate);
                             console.log("DONE LOADING");
                             console.log(msg);
                         });
@@ -155,7 +151,9 @@
             });
         });
         
-        $(document).on('click','.weekButton',function(){
+        $(document).on('click','.weekButton',weekButtonCallback);
+        
+        function weekButtonCallback(){
             var ref_this = this;
             init().then(function(){
                 if($(ref_this).attr('id')=='next'){
@@ -167,9 +165,9 @@
                 }else{
                 
                 }
-                getTimes($scope.controlDate);
+                getAll($scope.controlDate);
             });
-        });
+        }
         
       $(function() {
         $( "#selectable" ).selectable({
@@ -184,41 +182,3 @@
       
     } ]);
 })();
-
-
-
-//Various Functions
-
-function ObjectDump(obj, name) {
-  this.result = "[ " + name + " ]\n";
-  this.indent = 0;
- 
-  this.dumpLayer = function(obj) {
-    this.indent += 2;
- 
-    for (var i in obj) {
-      if(typeof(obj[i]) == "object") {
-        this.result += "\n" + 
-          "              ".substring(0,this.indent) + i + 
-          ": " + "\n";
-        this.dumpLayer(obj[i]);
-      } else {
-        this.result += 
-          "              ".substring(0,this.indent) + i + 
-          ": " + obj[i] + "\n";
-      }
-    }
- 
-    this.indent -= 2;
-  }
- 
-  this.showResult = function() {
-    var pre = document.createElement('pre');
-    pre.innerHTML = this.result;
-    document.body.appendChild(pre);
-  }
- 
-  this.dumpLayer(obj);
-  this.showResult();
-}
-

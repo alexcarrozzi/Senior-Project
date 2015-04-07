@@ -66,7 +66,7 @@
         
         <div class="row">
             
-            <div class="col-md-12">
+            <div id="nav" class="col-md-12">
                 <a href="" id="last" class="pull-left weekButton">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                     <span>Previous</span>
