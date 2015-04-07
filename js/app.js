@@ -8,26 +8,6 @@
  * 
  */
     (function(){
-        $.xhrPool = []; // array of uncompleted requests
-        $.xhrPool.abortAll = function() { // our abort function
-            $(this).each(function(idx, jqXHR) { 
-                jqXHR.abort();
-            });
-            $.xhrPool.length = 0
-        };
-         
-        $.ajaxSetup({
-            beforeSend: function(jqXHR) { // before jQuery send the request we will push it to our array
-                $.xhrPool.push(jqXHR);
-            },
-            complete: function(jqXHR) { // when some of the requests completed it will splice from the array
-                var index = $.xhrPool.indexOf(jqXHR);
-                if (index > -1) {
-                    $.xhrPool.splice(index, 1);
-                }
-            }
-        });
-    
     var app = angular.module('ScheduleIt', []);
     
     //I need to add a model for segments
@@ -54,52 +34,59 @@
         });*/
         
         $scope.calendarId = $('#cal').val();
-        $scope.controlDate = Date.now().last().monday();
+        //check if today is monday and if not, set it to the monday of this week
+        $scope.controlDate = Date.today().is().monday() ? Date.today() : Date.now().last().monday();
         $scope.endDate = Date.now().last().monday();
         $scope.endDate.setDate($scope.controlDate.getDate()+4);
         init().then(function(msg){
-            getTimes($scope.controlDate);
+            getAll($scope.controlDate);
             console.log(msg);
         });
         
         //Construct a week calendar based on current day
         //Make a function to retrieve different weeks
         
-        //setInterval( getTimes, 10000 );
+        //setInterval( getAll, 10000 );
          
         $(document).on('click','#refresh',function(){
             init().then(function(msg){
-                getTimes($scope.controlDate);
+                getAll($scope.controlDate);
                 console.log(msg);
             });
         });
         
-        function getTimes(today){          
-            getDay(1,today).success(function(data1){
-                $scope.monday.push(data1);
-                console.log($scope.monday);
+        function getAll(today){   
+            //All ensures that navigation buttons are not activated until all data 
+            //has been received. 
+            //Timeouts and retrys should be applied to each call
+            Promise.all( [true,
+                getDay(1,today).success(function(data1){
+                    $scope.monday.push(data1);
+                    console.log($scope.monday);
+                }),
+                
+                getDay(2,today).success(function(data2){
+                    $scope.tuesday.push(data2);
+                    console.log($scope.tuesday);
+                }),  
+                
+                getDay(3,today).success(function(data3){
+                    $scope.wednesday.push(data3);   
+                    console.log($scope.wednesday);
+                }),      
+                       
+                getDay(4,today).success(function(data4){
+                    $scope.thursday.push(data4);     
+                    console.log($scope.thursday);
+                }), 
+                
+                getDay(5,today).success(function(data5){
+                    $scope.friday.push(data5);         
+                    console.log($scope.friday); 
+                })]
+            ).then(function(){
+                 $('#nav').css('visibility','visible');
             });
-            
-            getDay(2,today).success(function(data2){
-                $scope.tuesday.push(data2);
-                console.log($scope.tuesday);
-            });   
-            
-            getDay(3,today).success(function(data3){
-                $scope.wednesday.push(data3);   
-                console.log($scope.wednesday);
-            });       
-                   
-            getDay(4,today).success(function(data4){
-                $scope.thursday.push(data4);     
-                console.log($scope.thursday);
-            });   
-            
-            getDay(5,today).success(function(data5){
-                $scope.friday.push(data5);         
-                console.log($scope.friday); 
-            });              
-            
         }
         
         // 1 = Monday
@@ -114,6 +101,8 @@
         
         function init(){
             return new Promise(function(resolve,reject){
+                //Disable the navigation buttons
+                $('#nav').css('visibility','hidden');
                 $scope.segments = [];
                 $scope.days = [];
                 $scope.monday = [];
@@ -121,7 +110,6 @@
                 $scope.wednesday = [];
                 $scope.thursday = [];
                 $scope.friday = [];
-                $scope.xhrs = [];
                 resolve("Promise Complete");
             });
         }
@@ -143,7 +131,7 @@
                     if(data.status == 'success'){
                         console.log("SUCCESS: "+data.msg);
                         init().then(function(msg){
-                            getTimes($scope.controlDate);
+                            getAll($scope.controlDate);
                             console.log("DONE LOADING");
                             console.log(msg);
                         });
@@ -163,8 +151,9 @@
             });
         });
         
-        $(document).on('click','.weekButton',function(){
-            $.xhrPool.abortAll();
+        $(document).on('click','.weekButton',weekButtonCallback);
+        
+        function weekButtonCallback(){
             var ref_this = this;
             init().then(function(){
                 if($(ref_this).attr('id')=='next'){
@@ -176,9 +165,9 @@
                 }else{
                 
                 }
-                getTimes($scope.controlDate);
+                getAll($scope.controlDate);
             });
-        });
+        }
         
       $(function() {
         $( "#selectable" ).selectable({
@@ -193,41 +182,3 @@
       
     } ]);
 })();
-
-
-
-//Various Functions
-
-function ObjectDump(obj, name) {
-  this.result = "[ " + name + " ]\n";
-  this.indent = 0;
- 
-  this.dumpLayer = function(obj) {
-    this.indent += 2;
- 
-    for (var i in obj) {
-      if(typeof(obj[i]) == "object") {
-        this.result += "\n" + 
-          "              ".substring(0,this.indent) + i + 
-          ": " + "\n";
-        this.dumpLayer(obj[i]);
-      } else {
-        this.result += 
-          "              ".substring(0,this.indent) + i + 
-          ": " + obj[i] + "\n";
-      }
-    }
- 
-    this.indent -= 2;
-  }
- 
-  this.showResult = function() {
-    var pre = document.createElement('pre');
-    pre.innerHTML = this.result;
-    document.body.appendChild(pre);
-  }
- 
-  this.dumpLayer(obj);
-  this.showResult();
-}
-

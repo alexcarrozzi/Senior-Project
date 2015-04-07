@@ -13,7 +13,7 @@
  * This file will utilize email.php to send confirmation emails after the sign-up
  * process has completed.
  */
-    
+    require_once 'logger.php';
     define('OPEN_MESSAGE','Open Time');
 
     class Google_Event_Manager{
@@ -137,8 +137,18 @@
             }catch(Exception $e){
                 Logger::write("Google Event Already Deleted - Google_Event_Manager::insert_segment() $e->message()");
             }
-            
-            return $reserved_event;
+            return $createdEvent2->getId();
+        }
+        
+        //This function will simply change the title and description of the event to appear open
+        public function delete_event($cal_id,$event_id){
+            $event = $service->events->get($cal_id, $event_id);
+            $event->setSummary('Open Time');
+            $event->setDescription('');
+
+            $updatedEvent = $service->events->update($cal_id, $event->getId(), $event);
+
+            return $updatedEvent->getUpdated();
         }
         
         //$id is a colon delimeted string that seperates block index, segment index, and target block to delete

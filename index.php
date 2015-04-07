@@ -9,6 +9,17 @@
  * 
  */
     
+    //Makeshift router
+    if(isset($_REQUEST['action'])){
+        switch($_REQUEST['action']){
+            case 'cancel':
+                require_once 'utilities/cancel.php';
+                die;
+            default:
+                //display 404
+        }   
+    }
+    
     require_once './utilities/load_calendar.php';
     require_once './utilities/google_api_init.php';
     require_once './utilities/signup.php';
@@ -55,7 +66,7 @@
         
         <div class="row">
             
-            <div class="col-md-12">
+            <div id="nav" class="col-md-12">
                 <a href="" id="last" class="pull-left weekButton">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                     <span>Previous</span>

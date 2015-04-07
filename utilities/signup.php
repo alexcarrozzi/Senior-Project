@@ -64,7 +64,7 @@
             $obfuscated_url = base64_encode($obfuscated_url);
             
             $link = "http://scheduleit.cs.unh.edu:8080?action=cancel&s={$obfuscated_url}";
-           
+
             //Construct Email information
             $student_email = "{$email}@wildcats.unh.edu";
             $subject  = "ScheduleIt Appointment Confirmation";
