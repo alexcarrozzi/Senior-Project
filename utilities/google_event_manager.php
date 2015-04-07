@@ -137,7 +137,7 @@
             }catch(Exception $e){
                 Logger::write("Google Event Already Deleted - Google_Event_Manager::insert_segment() $e->message()");
             }
-            return $createdEvent2->getId();
+            return array($createdEvent2->getId(),$reserved_event[0]);
         }
         
         //This function will simply change the title and description of the event to appear open

@@ -41,11 +41,13 @@
               $info = $manager->getSegmentById($timeslot_id);
               $target_segment = $info['segment'];
               $delete_event = $info['delete_event'];
-              $new_id = $manager->insert_segment($g_calid,$delete_event,$target_segment,$name,$email);
+              $data = $manager->insert_segment($g_calid,$delete_event,$target_segment,$name,$email);
               
+              $new_id = $data[0];
+              $new_event = $data[1];
               //Set a random string cookie to deter spammers
               //This cookie should be deleted upon cancellation
-              if(isset($new_id)){
+              if(isset($new_event)){
                 setcookie('ofn3793filnf49842kc3ji972inr');
               }
               
@@ -70,7 +72,7 @@
             $subject  = "ScheduleIt Appointment Confirmation";
             $message  = "Dear {$name},\r\n\r\n";
             $message .= "Your advising meetings has been scheduled ";
-            $message .= "for ".date('l, F j, Y \a\t g:i',$new_id[0]).".\r\n\r\n";
+            $message .= "for ".date('l, F j, Y \a\t g:i',$new_event[0]).".\r\n\r\n";
             $message .= "If you did not sign up for this meeting please follow this link: ";
             $message .= $link;
             
