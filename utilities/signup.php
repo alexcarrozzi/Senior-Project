@@ -9,7 +9,7 @@
  * 
  */
     
-     $prod = 1;
+     $prod = 0;
      $sp = $prod==0?"Senior-Project/":"";
      require_once $prod==1?'email.php':'common.php';
 
@@ -77,11 +77,11 @@
             $message .= $link;
             
             try{
-                $_email = new Email('professor.jones567@gmail.com');
-                $_email->send($student_email,$subject,$message);
-                Logger::write("STATUS: Email successfully sent to: $student_email with message: $message");
+                //$_email = new Email('professor.jones567@gmail.com');
+                //$_email->send($student_email,$subject,$message);
+                //Logger::write("STATUS: Email successfully sent to: $student_email with message: $message");
             }catch(Exception $e){
-                Logger::write("Email::send failed - ".$e->getMessage());
+               //Logger::write("Email::send failed - ".$e->getMessage());
             }
         }
         header("Content-Type: application/json");

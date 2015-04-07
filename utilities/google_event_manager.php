@@ -142,11 +142,11 @@
         
         //This function will simply change the title and description of the event to appear open
         public function delete_event($cal_id,$event_id){
-            $event = $service->events->get($cal_id, $event_id);
+            $event = $this->_service->events->get($cal_id, $event_id);
             $event->setSummary('Open Time');
             $event->setDescription('');
 
-            $updatedEvent = $service->events->update($cal_id, $event->getId(), $event);
+            $updatedEvent = $this->_service->events->update($cal_id, $event->getId(), $event);
 
             return $updatedEvent->getUpdated();
         }
