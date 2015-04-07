@@ -83,7 +83,6 @@
         $events = $service->events->listEvents($g_calid,$params);
 
         
-        //only gets last event of the day
         foreach($events as $myEvent){
             //if(strlen($myEvent->getDescription())==0){
                 $block = new Block(fmt_gdate($myEvent->getStart()),fmt_gdate($myEvent->getEnd()));
@@ -105,7 +104,7 @@
     header("Content-Type: application/json");
     echo json_encode($return_array);
     
-    //Think about getting events by day only
+    
     function custom_sort_by_start($a, $b) {
         return ($a['start'] < $b['start']);
     }
