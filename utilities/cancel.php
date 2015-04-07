@@ -2,7 +2,7 @@
     require_once 'google_api_init.php';
     require_once 'logger.php';
     
-    $url = json_decode($_REQUEST['s']);
+    $url = base64_decode($_REQUEST['s']);
     $base_length = 7;
     $pattern = "/(\w{".$base_length."})9JflMdf3s(\w+)5jk49sDFd(.*)/i";
     preg_match($pattern,$url, $match);
