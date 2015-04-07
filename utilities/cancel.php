@@ -11,3 +11,5 @@
     
     echo $manager->delete_event($cal_id,$event_id);
 ?>
+
+d62u8j2 9JflMdf3sdgsjdmr3qv4qel4fll4acnihmc 5jk49sDFd ik3dhlu5slu4hka3dfk@group.calendar.google.com

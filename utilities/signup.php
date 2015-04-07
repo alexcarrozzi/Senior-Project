@@ -45,7 +45,7 @@
               
               //Set a random string cookie to deter spammers
               //This cookie should be deleted upon cancellation
-              if(isset($new_events)){
+              if(isset($new_id)){
                 setcookie('ofn3793filnf49842kc3ji972inr');
               }
               
@@ -70,7 +70,7 @@
             $subject  = "ScheduleIt Appointment Confirmation";
             $message  = "Dear {$name},\r\n\r\n";
             $message .= "Your advising meetings has been scheduled ";
-            $message .= "for ".date('l, F j, Y \a\t g:i',$new_events[0]).".\r\n\r\n";
+            $message .= "for ".date('l, F j, Y \a\t g:i',$new_id[0]).".\r\n\r\n";
             $message .= "If you did not sign up for this meeting please follow this link: ";
             $message .= $link;
             
