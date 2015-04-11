@@ -39,6 +39,7 @@
         $scope.endDate = Date.now().last().monday();
         $scope.endDate.setDate($scope.controlDate.getDate()+4);
         init().then(function(msg){
+            $.blockUI({ message: '<h1>Finding Closest Times...</h1>' });
             getAll($scope.controlDate);
             console.log(msg);
         });
@@ -85,8 +86,17 @@
                     console.log($scope.friday); 
                 })]
             ).then(function(){
-                 $('#nav').css('visibility','visible');
-            });
+                if($scope.monday[0].length==0&&
+                    $scope.tuesday[0].length==0&&
+                    $scope.wednesday[0].length==0&&
+                    $scope.thursday[0].length==0&&
+                    $scope.friday[0].length==0){
+                        weekButtonCallback(1,'next');
+                }else{
+                    $('#nav').css('visibility','visible');
+                    $.unblockUI();
+                }   
+            });  
         }
         
         // 1 = Monday
@@ -151,23 +161,24 @@
             });
         });
         
-        $(document).on('click','.weekButton',weekButtonCallback);
+        $(document).on('click','.weekButton', function(){
+            weekButtonCallback( 1, $(this).attr('id'));
+        });
         
-        function weekButtonCallback(){
-            var ref_this = this;
+        function weekButtonCallback(num_weeks,id){
             init().then(function(){
-                if($(ref_this).attr('id')=='next'){
-                    $scope.controlDate.setDate($scope.controlDate.getDate() + 7); 
-                    $scope.endDate.setDate($scope.endDate.getDate() + 7);
-                }else if($(ref_this).attr('id')=='last'){
-                    $scope.controlDate.setDate($scope.controlDate.getDate() - 7); 
-                    $scope.endDate.setDate($scope.endDate.getDate() - 7);
+                if(id=='next'){
+                    $scope.controlDate.setDate($scope.controlDate.getDate() + (num_weeks*7)); 
+                    $scope.endDate.setDate($scope.endDate.getDate() + (num_weeks*7));
+                }else if(id=='last'){
+                    $scope.controlDate.setDate($scope.controlDate.getDate() - (num_weeks*7)); 
+                    $scope.endDate.setDate($scope.endDate.getDate() - (num_weeks*7));
                 }else{
                 
                 }
                 getAll($scope.controlDate);
             });
-        }
+        };
         
       $(function() {
         $( "#selectable" ).selectable({

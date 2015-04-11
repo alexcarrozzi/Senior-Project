@@ -101,6 +101,7 @@ if(isset($_REQUEST['calendar'])){
                     <a href="<?=$link?>"><?=$link?></a>
                 </div>
             <?php endif; ?>
+            <a href="?logout"/>Logout</a>
         <?php endif; ?>
 </body>
 </html>
