@@ -79,7 +79,7 @@
         </div>
         </br></br>
         <div id="calController" ng-controller="ScheduleController as schedule">
-            <div>Week of: {{controlDate | date : 'M/d'}} &ndash; {{endDate | date : 'M/d'}}</div>
+            <div>Week of: {{controlDate | date : 'MMMM d'}} &ndash; {{endDate | date : 'MMMM d'}}</div>
             <div class="row" id="selectable">
                 <div class="day" ng-repeat="all in monday">
                 Monday
