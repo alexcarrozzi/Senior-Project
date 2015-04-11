@@ -9,5 +9,7 @@
     $cal_id = $match[1].$match[3];
     $event_id = $match[2];
     
-    echo $manager->delete_event($cal_id,$event_id);
+    $canceled_time = $manager->delete_event($cal_id,$event_id);
+    
+    include_once 'after_cancel.php';
 ?>
