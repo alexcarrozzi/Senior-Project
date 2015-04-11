@@ -92,7 +92,7 @@
                     $scope.thursday[0].length==0&&
                     $scope.friday[0].length==0&&
                     traverse){
-                        weekButtonCallback(1,'next');
+                        weekButtonCallback(1,'next',true);
                 }else{
                     $('#nav').css('visibility','visible');
                     $.unblockUI();
@@ -142,7 +142,7 @@
                     if(data.status == 'success'){
                         console.log("SUCCESS: "+data.msg);
                         init().then(function(msg){
-                            getAll($scope.controlDate);
+                            getAll($scope.controlDate, true);
                             console.log("DONE LOADING");
                             console.log(msg);
                         });
@@ -163,10 +163,10 @@
         });
         
         $(document).on('click','.weekButton', function(){
-            weekButtonCallback( 1, $(this).attr('id'));
+            weekButtonCallback( 1, $(this).attr('id'), false);
         });
         
-        function weekButtonCallback(num_weeks,id){
+        function weekButtonCallback(num_weeks,id,traverse){
             init().then(function(){
                 if(id=='next'){
                     $scope.controlDate.setDate($scope.controlDate.getDate() + (num_weeks*7)); 
@@ -177,7 +177,7 @@
                 }else{
                 
                 }
-                getAll($scope.controlDate,false);
+                getAll($scope.controlDate,traverse);
             });
         };
         
