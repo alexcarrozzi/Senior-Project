@@ -72,7 +72,7 @@
             $subject  = "ScheduleIt Appointment Confirmation";
             $message  = "Dear {$name},\r\n\r\n";
             $message .= "Your advising meetings has been scheduled ";
-            $message .= "for ".date('l, F j, Y \a\t g:i',$new_event).".\r\n\r\n";
+            $message .= "for ".date('l, F j, Y \a\t g:i a',$new_event).".\r\n\r\n";
             $message .= "If you did not sign up for this meeting please follow this link: ";
             $message .= $link;
             
