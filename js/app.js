@@ -40,7 +40,7 @@
         $scope.endDate.setDate($scope.controlDate.getDate()+4);
         init().then(function(msg){
             $.blockUI({ message: '<h1>Finding Closest Times...</h1>' });
-            getAll($scope.controlDate);
+            getAll($scope.controlDate, true);
             console.log(msg);
         });
         
@@ -51,12 +51,12 @@
          
         $(document).on('click','#refresh',function(){
             init().then(function(msg){
-                getAll($scope.controlDate);
+                getAll($scope.controlDate, true);
                 console.log(msg);
             });
         });
         
-        function getAll(today){   
+        function getAll(today,traverse){   
             //All ensures that navigation buttons are not activated until all data 
             //has been received. 
             //Timeouts and retrys should be applied to each call
@@ -90,7 +90,8 @@
                     $scope.tuesday[0].length==0&&
                     $scope.wednesday[0].length==0&&
                     $scope.thursday[0].length==0&&
-                    $scope.friday[0].length==0){
+                    $scope.friday[0].length==0&&
+                    traverse){
                         weekButtonCallback(1,'next');
                 }else{
                     $('#nav').css('visibility','visible');
@@ -176,7 +177,7 @@
                 }else{
                 
                 }
-                getAll($scope.controlDate);
+                getAll($scope.controlDate,false);
             });
         };
         
