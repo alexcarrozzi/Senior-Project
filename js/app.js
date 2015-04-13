@@ -1,5 +1,5 @@
 /*  
- * All code in the following file was originally designed and implemented 
+ * All code - unless expressly stated otherwise - in the following file was originally designed and implemented 
  * by Alex Connor Carrozzi for a Senior Project for the 2014-2015 academic year
  * The University of New Hampshire Computer Science Department owns and
  * is responsible for all functionality contained in the web application
@@ -7,7 +7,7 @@
  *
  * 
  */
-    (function(){
+(function(){
     var app = angular.module('ScheduleIt', []);
     
     //I need to add a model for segments
@@ -33,6 +33,9 @@
            console.log("data.name"+$scope.data.name);
         });*/
         
+        $scope.isEmptyWeek = true;
+        $scope.maxWeeksCheck = 10;
+        $scope.attempts = 0;
         $scope.calendarId = $('#cal').val();
         //check if today is monday and if not, set it to the monday of this week
         $scope.controlDate = Date.today().is().monday() ? Date.today() : Date.now().last().monday();
@@ -41,19 +44,20 @@
         init().then(function(msg){
             $.blockUI({ message: '<h1>Finding Closest Times...</h1>' });
             getAll($scope.controlDate, true);
-            console.log(msg);
+            console.log(msg);          
         });
-        
-        //Construct a week calendar based on current day
-        //Make a function to retrieve different weeks
-        
-        //setInterval( getAll, 10000 );
-         
-        $(document).on('click','#refresh',function(){
+
+        //Refresh every 5 minutes
+        setInterval( function(){
             init().then(function(msg){
+                $.blockUI({ message: '<h1>Refreshing...</h1>' });
                 getAll($scope.controlDate, true);
                 console.log(msg);
             });
+        }, 300000 );
+         
+        $(document).on('click','#refresh',function(){
+           location.reload();
         });
         
         function getAll(today,traverse){   
@@ -86,16 +90,29 @@
                     console.log($scope.friday); 
                 })]
             ).then(function(){
-                if($scope.monday[0].length==0&&
+                $("#traverseError").remove();
+                
+                var empty = $scope.monday[0].length==0&&
                     $scope.tuesday[0].length==0&&
                     $scope.wednesday[0].length==0&&
                     $scope.thursday[0].length==0&&
-                    $scope.friday[0].length==0&&
-                    traverse){
-                        weekButtonCallback(1,'next',true);
-                }else{
+                    $scope.friday[0].length==0;
+                    
+                if(empty&&traverse&&$scope.attempts < $scope.maxWeeksCheck){
+                        $scope.attempts += 1;
+                        weekButtonCallback(1,'next',traverse);
+                }else if($scope.attempts == $scope.maxWeeksCheck){ //Errors here
+                    $scope.isEmptyWeek = empty;
                     $('#nav').css('visibility','visible');
                     $.unblockUI();
+                    $scope.attempts = 0;
+                    $scope.$apply();
+                }else{
+                    $scope.isEmptyWeek = empty;
+                    $('#nav').css('visibility','visible');
+                    $.unblockUI();
+                    $scope.attempts = 0;
+                    $scope.$apply();
                 }   
             });  
         }
@@ -114,6 +131,7 @@
             return new Promise(function(resolve,reject){
                 //Disable the navigation buttons
                 $('#nav').css('visibility','hidden');
+                $scope.isEmptyWeek = true;
                 $scope.segments = [];
                 $scope.days = [];
                 $scope.monday = [];
@@ -166,6 +184,11 @@
             weekButtonCallback( 1, $(this).attr('id'), false);
         });
         
+        $(document).on('click','#nextavailable',function(){
+            $.blockUI({ message: '<h1>Finding Closest Times...</h1>' });
+            weekButtonCallback( 1, 'next', true);
+        });
+        
         function weekButtonCallback(num_weeks,id,traverse){
             init().then(function(){
                 if(id=='next'){
@@ -177,20 +200,47 @@
                 }else{
                 
                 }
-                getAll($scope.controlDate,traverse);
+                getAll($scope.controlDate, traverse);
             });
         };
         
-      $(function() {
-        $( "#selectable" ).selectable({
-            filter: 'div div div div:not(.closed)',
-            selecting: function(event, ui){
-            if( $(".ui-selected, .ui-selecting").length > 1){
-                  $(ui.selecting).removeClass("ui-selecting");
+          $(function() {
+            $( "#selectable" ).selectable({
+                filter: 'div div div div:not(.closed)',
+                selecting: function(event, ui){
+                if( $(".ui-selected, .ui-selecting").length > 1){
+                      $(ui.selecting).removeClass("ui-selecting");
+                }
             }
-        }
+            });
+          });    
+        
+        //Author gnarf@stackoverflow.com
+        //Question: http://stackoverflow.com/questions/2198741/jquery-ui-datepicker-making-a-link-trigger-datepicker
+        var $dp = $("<input type='text' />").hide().datepicker({
+            onSelect: function(dateText, inst) {
+                init().then(function(){
+                    $scope.controlDate = Date.parse(dateText).last().monday();
+                    $scope.endDate = Date.parse(dateText).last().monday();
+                    $scope.endDate.setDate($scope.controlDate.getDate()+4);
+                    getAll($scope.controlDate, false);
+                });
+            }
+        }).appendTo('#nav');
+
+        $("#datebutton").button().click(function(e) {
+            if ($dp.datepicker('widget').is(':hidden')) {
+                $dp.show().datepicker('show').hide();
+                $dp.datepicker("widget").position({
+                    my: "left bottom",
+                    at: "right top",
+                    of: this
+                });
+            } else {
+                $dp.hide();
+            }
+
+            e.preventDefault();
         });
-      });
-      
     } ]);
 })();

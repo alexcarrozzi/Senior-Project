@@ -8,6 +8,14 @@ th{
 	text-align:center;
 }
 
+#calController{
+    width:100%;
+}
+
+#selectable{
+    display:inline-block;
+}
+
 .closed{
 	padding:10px !important;
 	text-align:center;
@@ -21,7 +29,12 @@ th{
     vertical-align:top;
 }
 
+.nav a{
+    padding:30px;
+}
 
-#calController{
-    width:1300px
+.day-header{
+    padding:10px;
+    margin-top:5px;
+    font-weight:bold;
 }

@@ -1,6 +1,6 @@
 <?php     
 /*  
- * All code in the following file was originally designed and implemented 
+ * All code - unless expressly stated otherwise - in the following file was originally designed and implemented 
  * by Alex Connor Carrozzi for a Senior Project for the 2014-2015 academic year
  * The University of New Hampshire Computer Science Department owns and
  * is responsible for all functionality contained in the web application
@@ -61,28 +61,30 @@
 </head>
 <body>
 	<div class="container">
-	
         <h1 class="text-center">SCHEDULE IT</h1>
-        
-        <div class="row">
-            
-            <div id="nav" class="col-md-12">
-                <a href="" id="last" class="pull-left weekButton">
+        <br/><br/>
+        <nav>
+            <div id="nav" class="row text-center nav nav-justified">
+                <a href="" id="last" class="weekButton">
                     <span class="glyphicon glyphicon-arrow-left"></span>
-                    <span>Previous</span>
+                    <span>Previous Week</span>
                 </a>
-                <a href="" id="next" class="pull-right weekButton">
-                    <span>Next</span>
+                <span><a href="" id="datebutton">Go To Date</a></span>
+                <span><a href="" id="refresh">Refresh</a></span>
+                <span><a href="" id="nextavailable">Find Next Available</a></span>
+                <a href="" id="next" class="weekButton">
+                    <span>Next Week</span>
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 </a>
             </div>
-        </div>
+        </nav>
         </br></br>
-        <div id="calController" ng-controller="ScheduleController as schedule">
-            <div>Week of: {{controlDate | date : 'MMMM d'}} &ndash; {{endDate | date : 'MMMM d'}}</div>
-            <div class="row" id="selectable">
+        <div class="text-center" id="calController" ng-controller="ScheduleController as schedule">
+            <div class="row text-center"><strong>Week of: {{controlDate | date : 'MMMM d'}} &ndash; {{endDate | date : 'MMMM d'}}</strong></div>
+            <span ng-show="isEmptyWeek" class="day-header">No Appointments Found</span>
+            <div ng-hide="isEmptyWeek" class="row" id="selectable">
                 <div class="day" ng-repeat="all in monday">
-                Monday
+                    <span class="day-header">Monday</span>
                     <div ng-repeat="data in all" style="display:block" style="text-align:center;">
                         <div ng-repeat="start in data.segments">
                             <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
@@ -92,7 +94,7 @@
                     </div>
                 </div>
                 <div class="day"  ng-repeat="all in tuesday">
-                Tuesday
+                    <span class="day-header">Tuesday</span>
                     <div ng-repeat="data in all">
                         <div ng-repeat="start in data.segments">
                             <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
@@ -102,7 +104,7 @@
                     </div>
                 </div>
                 <div class="day"  ng-repeat="all in wednesday">
-                Wednesday
+                <span class="day-header">Wednesday</span>
                     <div ng-repeat="data in all">
                         <div ng-repeat="start in data.segments">
                             <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
@@ -112,7 +114,7 @@
                     </div>
                 </div>
                 <div class="day"  ng-repeat="all in thursday">
-                Thursday
+                    <span class="day-header">Thursday</span>
                     <div ng-repeat="data in all">
                         <div ng-repeat="start in data.segments">
                             <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
@@ -122,7 +124,7 @@
                     </div>
                 </div>
                 <div class="day"  ng-repeat="all in friday">
-                Friday
+                    <span class="day-header">Friday</span>
                     <div ng-repeat="data in all">
                         <div ng-repeat="start in data.segments">
                             <div class="{{data.desc ? 'closed' : 'open'}}" ng-attr-id="{{start}}:{{data.id}}">
@@ -131,7 +133,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
                 <form name="signupForm">
                     <!-- Style this to be very errory -->
                     <div id="errorMsg"></div>
@@ -140,6 +141,7 @@
                 <button ng-disabled="signupForm.$invalid" id="signupButton"/>Sign Up!</button>
                 <input id="cal" type="hidden" value="<?=$g_calid?>"/>
                 <form>
+            </div>
         </div>
     </div>
 </body>
