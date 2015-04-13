@@ -51,10 +51,10 @@
         setInterval( function(){
             init().then(function(msg){
                 $.blockUI({ message: '<h1>Refreshing...</h1>' });
-                getAll($scope.controlDate, true);
+                getAll($scope.controlDate, false);
                 console.log(msg);
             });
-        }, 300000 );
+        }, 60000 );
          
         $(document).on('click','#refresh',function(){
            location.reload();
