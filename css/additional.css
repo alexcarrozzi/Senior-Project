@@ -38,3 +38,7 @@ th{
     margin-top:5px;
     font-weight:bold;
 }
+
+.disableClick{
+    pointer-events: none;
+}

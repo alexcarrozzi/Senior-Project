@@ -86,7 +86,7 @@ if(isset($_REQUEST['calendar'])){
 </head>
 <body>
         <?php if(isset($authUrl)): ?>
-             <a class='login' href="<?= $authUrl; ?>">Connect Me!</a>
+             <a class='login' href="<?= $authUrl; ?>">Advisor Authentication</a>
         <?php else: ?>
             <form method="POST" action=".">
                 <select name="calendar">

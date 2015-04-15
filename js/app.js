@@ -10,48 +10,26 @@
 (function(){
     var app = angular.module('ScheduleIt', []);
     
-    //I need to add a model for segments
-    
-    /*
-    app.factory('myService',function($http,calId,date){
-        var serviceTimes = function(){
-            return $http.get(encodeURI('./utilities/get.php?type=newSegments&calendar='+calId+'&date='+date)).then(function(result){
-                return result.data;
-            });
-        };
-        return { serviceTimes: serviceTimes };
-    });*/
-    
     app.controller('ScheduleController', ['$scope','$http', function($scope,$http){
-       // $scope.events = [];
-       // $scope.oldSegments = [];
-        /*
-        var temp_date = today.toISOString();
-        var myDataPromise = myService.serviceTimes($scope.calendarId,temp_date);
-        myDataPromise.then(function(result) {  // this is only run after $http completes
-           $scope.data = result;
-           console.log("data.name"+$scope.data.name);
-        });*/
-        
         $scope.isEmptyWeek = true;
         $scope.maxWeeksCheck = 10;
         $scope.attempts = 0;
         $scope.calendarId = $('#cal').val();
         //check if today is monday and if not, set it to the monday of this week
         $scope.controlDate = Date.today().is().monday() ? Date.today() : Date.now().last().monday();
-        $scope.endDate = Date.now().last().monday();
+        $scope.endDate = Date.today().is().monday() ? Date.today() : Date.now().last().monday();
         $scope.endDate.setDate($scope.controlDate.getDate()+4);
         init().then(function(msg){
             $.blockUI({ message: '<h1>Finding Closest Times...</h1>' });
-            getAll($scope.controlDate, true);
+            getWeek($scope.controlDate, true);
             console.log(msg);          
         });
 
-        //Refresh every 5 minutes
+        //Refresh every minute
         setInterval( function(){
             init().then(function(msg){
                 $.blockUI({ message: '<h1>Refreshing...</h1>' });
-                getAll($scope.controlDate, false);
+                getWeek($scope.controlDate, false);
                 console.log(msg);
             });
         }, 60000 );
@@ -60,7 +38,7 @@
            location.reload();
         });
         
-        function getAll(today,traverse){   
+        function getWeek(today,traverse){   
             //All ensures that navigation buttons are not activated until all data 
             //has been received. 
             //Timeouts and retrys should be applied to each call
@@ -103,13 +81,15 @@
                         weekButtonCallback(1,'next',traverse);
                 }else if($scope.attempts == $scope.maxWeeksCheck){ //Errors here
                     $scope.isEmptyWeek = empty;
-                    $('#nav').css('visibility','visible');
+                    //$('#nav').css('visibility','visible');
+                    $('#nav *').removeClass('disableClick');
                     $.unblockUI();
                     $scope.attempts = 0;
                     $scope.$apply();
                 }else{
                     $scope.isEmptyWeek = empty;
-                    $('#nav').css('visibility','visible');
+                    //$('#nav *').css('visibility','visible');
+                    $('#nav *').removeClass('disableClick');
                     $.unblockUI();
                     $scope.attempts = 0;
                     $scope.$apply();
@@ -130,7 +110,8 @@
         function init(){
             return new Promise(function(resolve,reject){
                 //Disable the navigation buttons
-                $('#nav').css('visibility','hidden');
+                //$('#nav').css('visibility','hidden');
+                $('#nav *').addClass('disableClick');
                 $scope.isEmptyWeek = true;
                 $scope.segments = [];
                 $scope.days = [];
@@ -160,7 +141,7 @@
                     if(data.status == 'success'){
                         console.log("SUCCESS: "+data.msg);
                         init().then(function(msg){
-                            getAll($scope.controlDate, true);
+                            getWeek($scope.controlDate, true);
                             console.log("DONE LOADING");
                             console.log(msg);
                         });
@@ -200,7 +181,7 @@
                 }else{
                 
                 }
-                getAll($scope.controlDate, traverse);
+                getWeek($scope.controlDate, traverse);
             });
         };
         
@@ -223,7 +204,7 @@
                     $scope.controlDate = Date.parse(dateText).last().monday();
                     $scope.endDate = Date.parse(dateText).last().monday();
                     $scope.endDate.setDate($scope.controlDate.getDate()+4);
-                    getAll($scope.controlDate, false);
+                    getWeek($scope.controlDate, false);
                 });
             }
         }).appendTo('#nav');

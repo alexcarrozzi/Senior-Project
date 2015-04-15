@@ -9,7 +9,7 @@
  * 
  */
     
-     $prod = 1;
+     $prod = 0;
      $sp = $prod==0?"Senior-Project/":"";
      require_once $prod==1?'email.php':'common.php';
 
@@ -36,7 +36,7 @@
             $ret_msg['msg'] = 'Enter your full name';
         }elseif($email==''){
             $ret_msg['status'] = 'error';
-            $ret_msg['msg'] = 'Enter your UNH ID';
+            $ret_msg['msg'] = 'Enter your Email';
         }else{
               $info = $manager->getSegmentById($timeslot_id);
               $target_segment = $info['segment'];
@@ -68,7 +68,7 @@
             $link = "http://scheduleit.cs.unh.edu:8080?action=cancel&s=$obfuscated_url";
 
             //Construct Email information
-            $student_email = "{$email}@wildcats.unh.edu";
+            $student_email = $email;
             $subject  = "ScheduleIt Appointment Confirmation";
             $message  = "Dear {$name},\r\n\r\n";
             $message .= "Your advising meetings has been scheduled ";

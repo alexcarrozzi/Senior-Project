@@ -12,7 +12,7 @@
  * log.
  */
     
-     $prod = 1;
+     $prod = 0;
      $sp = $prod==0?"Senior-Project/":"";    
     define('DEFAULT_LOG',$_SERVER['DOCUMENT_ROOT']."/{$sp}logs/phpweblog-".date('d\-m\-Y').'.log');
     
