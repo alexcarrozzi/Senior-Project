@@ -85,6 +85,7 @@ if(isset($_REQUEST['calendar'])){
 <script src="../js/jadmin.js"></script>
 </head>
 <body>
+        <p>Please select your advising calendar</p>
         <?php if(isset($authUrl)): ?>
              <a class='login' href="<?= $authUrl; ?>">Advisor Authentication</a>
         <?php else: ?>
@@ -101,6 +102,7 @@ if(isset($_REQUEST['calendar'])){
                     <a href="<?=$link?>"><?=$link?></a>
                 </div>
             <?php endif; ?>
+            <br/>
             <a href="?logout"/>Logout</a>
         <?php endif; ?>
 </body>
