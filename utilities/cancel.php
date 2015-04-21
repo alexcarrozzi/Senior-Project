@@ -21,7 +21,6 @@
     $canceled_time = $manager->delete_event($cal_id,$event_id);
     
     $canceled_time = strtotime($canceled_time);
-    echo $canceled_time;
     
     include_once 'after_cancel.php';
 ?>
