@@ -65,14 +65,14 @@
         <br/><br/>
         <nav>
             <div id="nav" class="row text-center nav nav-justified">
-                <a href="" id="last" class="weekButton disableClick">
+                <a href="" id="last" class="weekButton">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                     <span>Previous Week</span>
                 </a>
-                <a href="" id="datebutton disableClick">Go To Date</a>
-                <a href="" id="refresh disableClick">Refresh</a>
-                <a href="" id="nextavailable disableClick">Find Next Available</a>
-                <a href="" id="next" class="weekButton disableClick">
+                <a href="" id="datebutton">Go To Date</a>
+                <a href="" id="refresh">Refresh</a>
+                <a href="" id="nextavailable">Find Next Available</a>
+                <a href="" id="next" class="weekButton">
                     <span>Next Week</span>
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 </a>
