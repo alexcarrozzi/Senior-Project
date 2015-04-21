@@ -13,7 +13,7 @@
  * This file will utilize email.php to send confirmation emails after the sign-up
  * process has completed.
  */
-    require_once 'logger.php';
+    //require_once 'logger.php';
     define('OPEN_MESSAGE','Open Time');
 
     class Google_Event_Manager{
@@ -86,7 +86,7 @@
                 try{
                     $createdEvent1 = $this->_service->events->insert($calendar_id, $event);
                 }catch(Exception $e){
-                    Logger::write("Error Inserting Google Event - Google_Event_Manager::insert_segment()");                
+                   //Logger::write("Error Inserting Google Event - Google_Event_Manager::insert_segment()");                
                 }
             }
             
@@ -105,7 +105,7 @@
                 try{
                     $createdEvent3 = $this->_service->events->insert($calendar_id, $event);
                 }catch(Exception $e){
-                    Logger::write("Error Inserting Google Event - Google_Event_Manager::insert_segment()");                
+                    //Logger::write("Error Inserting Google Event - Google_Event_Manager::insert_segment()");                
                 }
             }
             //Insert Actual Event
@@ -127,7 +127,7 @@
             try{
                 $createdEvent2 = $this->_service->events->insert($calendar_id, $event);
             }catch(Exception $e){
-                Logger::write("Error Inserting Google Event - Google_Event_Manager::insert_segment()");                
+                //Logger::write("Error Inserting Google Event - Google_Event_Manager::insert_segment()");                
             }
             
             //Delete old Google event and add these 3
@@ -135,7 +135,7 @@
                 $this->_service->events->delete($calendar_id, $block_id);
              //Nail down this exception type
             }catch(Exception $e){
-                Logger::write("Google Event Already Deleted - Google_Event_Manager::insert_segment() $e->message()");
+                //Logger::write("Google Event Already Deleted - Google_Event_Manager::insert_segment() $e->message()");
             }
             return array($createdEvent2->getId(),$reserved_event[0]);
         }

@@ -9,7 +9,7 @@
  * 
  */
     require_once 'google_api_init.php';
-    require_once 'logger.php';
+    //require_once 'logger.php';
     
     $url = base64_decode($_REQUEST['s']);
     $base_length = 7;
