@@ -98,6 +98,7 @@ if(isset($_REQUEST['calendar'])){
                 <input type="submit" value="Generate Link"/>
             </form>
             <?php if(isset($link)): ?>
+                <p>Send this link to your students</p>
                 <div id="yourLink">
                     <a href="<?=$link?>"><?=$link?></a>
                 </div>
