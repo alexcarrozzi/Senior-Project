@@ -148,7 +148,7 @@
 
             $updatedEvent = $this->_service->events->update($cal_id, $event->getId(), $event);
 
-            return $updatedEvent->getUpdated();
+            return $updatedEvent->getStart()['dateTime'];
         }
         
         //$id is a colon delimeted string that seperates block index, segment index, and target block to delete
