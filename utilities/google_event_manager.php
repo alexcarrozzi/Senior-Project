@@ -145,6 +145,7 @@
             $event = $this->_service->events->get($cal_id, $event_id);
             $event->setSummary('Open Time');
             $event->setDescription('');
+            $event->attendees = array();
 
             $updatedEvent = $this->_service->events->update($cal_id, $event->getId(), $event);
 
