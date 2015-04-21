@@ -143,13 +143,14 @@
         //This function will simply change the title and description of the event to appear open
         public function delete_event($cal_id,$event_id){
             $event = $this->_service->events->get($cal_id, $event_id);
+            $deletedTime = $event->getStart()['dateTime'])*1000;
             $event->setSummary('Open Time');
             $event->setDescription('');
             $event->attendees = array();
 
             $updatedEvent = $this->_service->events->update($cal_id, $event->getId(), $event);
 
-            return ($event->getStart()['dateTime'])*1000;
+            return $deletedTime;
         }
         
         //$id is a colon delimeted string that seperates block index, segment index, and target block to delete
