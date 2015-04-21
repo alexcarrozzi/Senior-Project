@@ -85,10 +85,10 @@ if(isset($_REQUEST['calendar'])){
 <script src="../js/jadmin.js"></script>
 </head>
 <body>
-        <p>Please select your advising calendar</p>
         <?php if(isset($authUrl)): ?>
              <a class='login' href="<?= $authUrl; ?>">Advisor Authentication</a>
         <?php else: ?>
+            <p>Please select your advising calendar</p>
             <form method="POST" action=".">
                 <select name="calendar">
                     <?php foreach($cals as $cal):?>
