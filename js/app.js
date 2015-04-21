@@ -81,15 +81,13 @@
                         weekButtonCallback(1,'next',traverse);
                 }else if($scope.attempts == $scope.maxWeeksCheck){ //Errors here
                     $scope.isEmptyWeek = empty;
-                    //$('#nav').css('visibility','visible');
-                    $('#nav *').removeClass('disableClick');
+                    $('#nav').css('visibility','visible');
                     $.unblockUI();
                     $scope.attempts = 0;
                     $scope.$apply();
                 }else{
                     $scope.isEmptyWeek = empty;
-                    //$('#nav *').css('visibility','visible');
-                    $('#nav *').removeClass('disableClick');
+                    $('#nav *').css('visibility','visible');
                     $.unblockUI();
                     $scope.attempts = 0;
                     $scope.$apply();
@@ -110,8 +108,7 @@
         function init(){
             return new Promise(function(resolve,reject){
                 //Disable the navigation buttons
-                //$('#nav').css('visibility','hidden');
-                $('#nav *').addClass('disableClick');
+                $('#nav').css('visibility','hidden');
                 $scope.isEmptyWeek = true;
                 $scope.segments = [];
                 $scope.days = [];
