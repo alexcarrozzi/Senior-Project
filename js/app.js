@@ -1,9 +1,6 @@
 /*  
  * All code - unless expressly stated otherwise - in the following file was originally designed and implemented 
  * by Alex Connor Carrozzi for a Senior Project for the 2014-2015 academic year
- * The University of New Hampshire Computer Science Department owns and
- * is responsible for all functionality contained in the web application
- * ScheduleIt
  *
  * 
  */
@@ -11,14 +8,19 @@
     var app = angular.module('ScheduleIt', []);
     
     app.controller('ScheduleController', ['$scope','$http', function($scope,$http){
+    
+        //Initialize Globals
         $scope.isEmptyWeek = true;
         $scope.maxWeeksCheck = 10;
         $scope.attempts = 0;
         $scope.calendarId = $('#cal').val();
-        //check if today is monday and if not, set it to the monday of this week
+        
+        //Check if today is monday and if not, set it to the monday of this week
         $scope.controlDate = Date.today().is().monday() ? Date.today() : Date.now().last().monday();
         $scope.endDate = Date.today().is().monday() ? Date.today() : Date.now().last().monday();
         $scope.endDate.setDate($scope.controlDate.getDate()+4);
+        
+        //Do initial week get
         init().then(function(msg){
             $.blockUI({ message: '<h1>Finding Closest Times...</h1>' });
             getWeek($scope.controlDate, true);
@@ -33,10 +35,6 @@
                 console.log(msg);
             });
         }, 60000 );
-         
-        $(document).on('click','#refresh',function(){
-           location.reload();
-        });
         
         function getWeek(today,traverse){   
             //All ensures that navigation buttons are not activated until all data 
@@ -76,16 +74,16 @@
                     $scope.thursday[0].length==0&&
                     $scope.friday[0].length==0;
                     
-                if(empty&&traverse&&$scope.attempts < $scope.maxWeeksCheck){
+                if(empty&&traverse&&$scope.attempts < $scope.maxWeeksCheck){ //Emtpy week while traversing
                         $scope.attempts += 1;
                         weekButtonCallback(1,'next',traverse);
-                }else if($scope.attempts == $scope.maxWeeksCheck){ //Errors here
+                }else if($scope.attempts == $scope.maxWeeksCheck){ //We've hit the number of max traversals, quit and alert user
                     $scope.isEmptyWeek = empty;
                     $('#nav').css('visibility','visible');
                     $.unblockUI();
                     $scope.attempts = 0;
                     $scope.$apply();
-                }else{
+                }else{ //All set, week with appointments found
                     $scope.isEmptyWeek = empty;
                     $('#nav *').css('visibility','visible');
                     $.unblockUI();
@@ -101,8 +99,8 @@
             var temp_date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay()+ind);
             temp_date = temp_date.toISOString();
             $scope.days.push(temp_date);
-            console.log(encodeURI('./utilities/get.php?type=newSegments&calendar='+$scope.calendarId+'&date='+temp_date));
-            return $http.get(encodeURI('./utilities/get.php?type=newSegments&calendar='+$scope.calendarId+'&date='+temp_date));
+            console.log(encodeURI('./utilities/get.php?type=segments&calendar='+$scope.calendarId+'&date='+temp_date));
+            return $http.get(encodeURI('./utilities/get.php?type=segments&calendar='+$scope.calendarId+'&date='+temp_date)); //RESTful call to get.php and return the promise
         }
         
         function init(){
@@ -121,7 +119,8 @@
             });
         }
         
-        
+        //------------------Event Handlers---------------------------------------------
+        //Signup button clicked
         $(document).on('click','#signupButton',function(){
             console.log($(".ui-selected")[0].id);
             $.blockUI();
@@ -158,15 +157,25 @@
             });
         });
         
+        //Week Naviagtion buttons clicked
         $(document).on('click','.weekButton', function(){
             weekButtonCallback( 1, $(this).attr('id'), false);
+        });        
+         
+        //Refresh button clicked
+        //TODO: update view, not refresh entire page
+        $(document).on('click','#refresh',function(){
+           location.reload();
         });
         
+        //Next week available clicked (traversal)
         $(document).on('click','#nextavailable',function(){
             $.blockUI({ message: '<h1>Finding Closest Times...</h1>' });
             weekButtonCallback( 1, 'next', true);
         });
         
+        
+        //------------Callbacks----------------------------------------------------------
         function weekButtonCallback(num_weeks,id,traverse){
             init().then(function(){
                 if(id=='next'){
@@ -182,6 +191,8 @@
             });
         };
         
+        
+        //--------------Various Utility Initializations--------------------------------------
           $(function() {
             $( "#selectable" ).selectable({
                 filter: 'div div div div:not(.closed)',

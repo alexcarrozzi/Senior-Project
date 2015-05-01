@@ -2,16 +2,10 @@
 /*  
  * All code - unless expressly stated otherwise - in the following file was originally designed and implemented 
  * by Alex Connor Carrozzi for a Senior Project for the 2014-2015 academic year
- * The University of New Hampshire Computer Science Department owns and
- * is responsible for all functionality contained in the web application
- * ScheduleIt
  *
  * 
  */
-    
-     $prod = 1;
-     $sp = $prod==0?"Senior-Project/":"";
-     require_once $prod==1?'email.php':'common.php';
+     require_once 'email.php';
 
     //My Libraries
     require_once 'common.php';
@@ -29,7 +23,7 @@
         
         
         $GLOBALS['g_calid'] = $cal_id;
-        require_once $_SERVER['DOCUMENT_ROOT']."/{$sp}utilities/google_api_init.php";
+        require_once $_SERVER['DOCUMENT_ROOT']."/utilities/google_api_init.php";
             
         if($name == ''){
             $ret_msg['status'] = 'error';
